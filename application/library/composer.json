@@ -1,0 +1,9 @@
+{
+    "require": {
+        "phpauth/phpauth": "dev-master",
+        "twig/twig": "^2.0",
+        "kevinlebrun/password.php": "^0.1.3",
+        "php-ai/php-ml": "^0.8.0",
+        "bramus/router": "~1.4"
+    }
+}
