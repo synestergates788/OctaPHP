@@ -1,5 +1,5 @@
-# squeedPHP-2
-A lightweight PHP framework with less than 40MB designed for complex web algorithm, highly customizable and inspired by codeigniter framework. squeedphp-2 uses Twig template engine of [symfony-framework](https://twig.symfony.com/) and 
+# OctaPHP
+A lightweight PHP framework with less than 40MB designed for complex web algorithm, highly customizable and inspired by codeigniter framework. OctaPHP uses Twig template engine of [symfony-framework](https://twig.symfony.com/) and 
 an active record with Object-Relational-Mapping (ORM) ready of [RedBeanPHP](https://redbeanphp.com/index.php).
 
 > Development is underway, with Phase 4 completed in June-27-2019. It is *not* ready for production use - the current version is considered pre-alpha-2.
@@ -12,29 +12,29 @@ an active record with Object-Relational-Mapping (ORM) ready of [RedBeanPHP](http
 ## Powered By
 <img src="docs-img/twig.jpg" width="100" height="100"><img src="docs-img/redbeanphp.png" width="100" height="100">
 
-__When will you use squeedPHP?__
+__When will you use OctaPHP?__
 - If you want a framework with a very small footprint and highly customizable.
 - With a powerful Object-Relational-Mapping (ORM) active record.
 - With a powerful template engine.
 - Concise, Extensible and Testable.
 - Less head scratch when reading the framework-core
 
-# Who is behind squeedPHP?
-squeedPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.com/in/melquecedec-catang-catang), the creator of the [squeedPDO](https://github.com/synestergates788/squeedPDO) and squeedPDO+RedBeanPHP. squeedPHP is released under the MIT license. 
+# Who is behind OctaPHP?
+OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.com/in/melquecedec-catang-catang), the creator of the [squeedPDO](https://github.com/synestergates788/squeedPDO) and squeedPDO+RedBeanPHP. OctaPHP is released under the MIT license. 
 
 ## Getting Started
-installing squeedPHP-2 does not require composer, just clone the project and put it in the directory where your local server allocated.
+installing OctaPHP does not require composer, just clone the project and put it in the directory where your local server allocated.
 
 ### Prerequisites
 ```
 -Php 5.4+
 -mysql (any version that supports php 5.4+)
 ```
-If successfully installed, you should see the default welcome page of squeedPHP shown below: <br />
+If successfully installed, you should see the default welcome page of OctaPHP shown below: <br />
 ![alt text](docs-img/squeedphp.png)
-> After installing squeedPHP we highly recommend you to remove the default controller and view for welcome page as it is no longer needed in your development.
+> After installing OctaPHP we highly recommend you to remove the default controller and view for welcome page as it is no longer needed in your development.
 
-# squeedPHP CORE Documentation
+# OctaPHP CORE Documentation
 ### Setting-Up your database
 Open the database config file located at ```application/config/database.php``` and modify.
 ```
@@ -68,13 +68,13 @@ $default_controller = [
 In the example above, we've set the __DIRECTORY__ and __CONTROLLER__ value where ```login``` is the folder/directory that contains the ```loginController``` class.
 
 ### Working with Controllers Plus Router
-By default if you create a controller, squeedPHP will automatically give a default route. 
+By default if you create a controller, OctaPHP will automatically give a default route. 
 
-So if we create a controller-class ```event.php``` under ```controllers/home``` directory, by default squeedPHP will render it like this below. where __/home/__ is the directory that contains your __event__ controller.
+So if we create a controller-class ```event.php``` under ```controllers/home``` directory, by default OctaPHP will render it like this below. where __/home/__ is the directory that contains your __event__ controller.
 ```
 www.example.com/home/event-actions
 ```
-In the example above you will notice that __-actions__ was added to your controller filename, instead of accessing your controller ```www.example.com/home/event``` you will access this ```www.example.com/home/event-actions```. That's how default route provided by squeedPHP works.
+In the example above you will notice that __-actions__ was added to your controller filename, instead of accessing your controller ```www.example.com/home/event``` you will access this ```www.example.com/home/event-actions```. That's how default route provided by OctaPHP works.
 
 __Overwriting Route__ <br />
 To overwrite default-route open the ```route.php``` under ```application/config/``` directory, and put the below code.
@@ -97,11 +97,11 @@ instead of
 www.example.com/home/event-actions
 ```
 
-> __Note:__ squeedPHP won't allow controller having the same filename or class name in the entire platform (ex: controllers/home/homeController.php And controllers/about/homeController.php). A 'Human Factor' is the point.
+> __Note:__ OctaPHP won't allow controller having the same filename or class name in the entire platform (ex: controllers/home/homeController.php And controllers/about/homeController.php). A 'Human Factor' is the point.
 Not only editing wrong file issue but also working with these classes in the same code would be a total mess, Controllers must be unique.
 
 ### Static Page
-> __Note:__ This tutorial assumes you’ve already downloaded and installed squeedPHP framework in your development environment and a basic knowledge on [Twig](https://twig.symfony.com/doc/2.x/templates.html) template engine.
+> __Note:__ This tutorial assumes you’ve already downloaded and installed OctaPHP framework in your development environment and a basic knowledge on [Twig](https://twig.symfony.com/doc/2.x/templates.html) template engine.
 
 The first thing you’re going to do is set up a controller to handle static pages. A controller is simply a class that helps delegate work. It is the glue of your web application.
 For example, when a call is made to:
@@ -180,7 +180,7 @@ class static_page_model extends Model {
     }
 }
 ```
-Now you’ve created your first model with a method ```get_data``` which contains [john doe, jane doe, smith doe] using the squeedPHP active record, it’s time to make some changes on the ```pages``` controller we created earlier.
+Now you’ve created your first model with a method ```get_data``` which contains [john doe, jane doe, smith doe] using the OctaPHP active record, it’s time to make some changes on the ```pages``` controller we created earlier.
 Add the following code in your ```pages``` class:
 ```
 class Pages extends Controller {
@@ -359,7 +359,7 @@ $this->session->get('email');
 > This will return a string containing the value of __email__ being sessioned.
 
 ### Libraries
-> __Note:__ squeedPHP won't recognize your custom libraries if not loaded.
+> __Note:__ OctaPHP won't recognize your custom libraries if not loaded.
 
 To load your custom libraries, first thing is to make sure that your custom libraries are inside ```application/library/``` directory. <br /><br />
 For now we'll assume that you already created a library "library_1.php","library_2.php" and "library_3.php" under ```application/library/``` directory.
@@ -370,7 +370,7 @@ $autoload['libraries'] = array('library_1','library_2','library_3');
 Once loaded, you can use your custom libraries in your entire platform.
 
 ### Helpers
-> __Note:__ squeedPHP won't recognize your custom helper's if not loaded.
+> __Note:__ OctaPHP won't recognize your custom helper's if not loaded.
 
 Same thing we did on the libraries, you need to put all your custom helpers inside ```application/helpers/``` directory.
 Open ```autoload.php``` under ```application/config/``` and add your custom helpers in the ```$autoload['helpers']``` variable.
@@ -378,16 +378,16 @@ Open ```autoload.php``` under ```application/config/``` and add your custom help
 $autoload['helper'] = array('your_helper_1','your_helper_2','your_helper_3');
 ```
 
-# squeedPHP Template Enheritance Documentation
+# OctaPHP Template Enheritance Documentation
 See [Documentation](https://twig.symfony.com/)
-> squeedPHP is using Twig developed by __Fabien Potencier__.
+> OctaPHP is using Twig developed by __Fabien Potencier__.
 
 Twig template engine won't recognize any extension files like css, javascript, sass, less, templates and etc. unless the directory that contains this files is defined.
 For most cases this files (css, javascript, sass, less, templates...) can be found on assets directory. Read below instructions to define assets directory.
 
 ### Defining Assets Directory
 Assets is where you mostly store your CSS, SASS, LESS, JAVASCRIPT, Templates and etc. files across the entire platform.
-By default, squeedphp generates assets directory inside ```application```
+By default, OctaPHP generates assets directory inside ```application```
 ```
 application/assets/
 application/assets/css
@@ -481,7 +481,7 @@ Take a look at the example below:
 ```
 > **Note:** The child is always responsible for declaring its parent. This is done with a simple include statement at the beginning of the child file. When declaring a parent, it is also possible to use require. However, include is preferred as it does not throw a fatal error if the parent does not exist.
 
-# squeedPHP Active Record Documentation
+# OctaPHP Active Record Documentation
 **$this->squeed->get(); And $this->squeed->result();** <br />
 Runs the selection query and returns an array of result.
 
@@ -570,7 +570,7 @@ $query = $this->squeed->get('mytable');
 
 // Produces: SELECT title, content, date FROM mytable
 ```
-$this->squeed->select() accepts an optional second parameter. If you set it to FALSE, squeedphp will not try to protect your field or table names with backticks. This is useful if you need a compound select statement.
+$this->squeed->select() accepts an optional second parameter. If you set it to FALSE, OctaPHP will not try to protect your field or table names with backticks. This is useful if you need a compound select statement.
 ```
 $this->squeed->select('(SELECT SUM(payments.amount) FROM payments WHERE payments.invoice_id=4') AS amount_paid', FALSE);
 $query = $this->squeed->get('mytable');
@@ -640,7 +640,7 @@ $where = "name='Joe' AND status='boss' OR status='active'";
 $this->squeed->where($where);
 ```
 **$this->squeed->where()** <br />
-accepts an optional third parameter. If you set it to FALSE, squeedphp will not try to protect your field or table names with backticks.
+accepts an optional third parameter. If you set it to FALSE, OctaPHP will not try to protect your field or table names with backticks.
 <br />
 
 **$this->squeed->or_where();** <br />
@@ -934,7 +934,7 @@ $this->squeed->delete_all('mytable');
 ```
 <br />
 
-**Example Of Queries Using squeedPHP Active Record** <br />
+**Example Of Queries Using OctaPHP Active Record** <br />
 ```
 $select = array(
    "*",
