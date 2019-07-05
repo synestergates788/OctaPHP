@@ -20,7 +20,7 @@ __When will you use OctaPHP?__
 - Less head scratch when reading the framework-core
 
 # Who is behind OctaPHP?
-OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.com/in/melquecedec-catang-catang), the creator of the [squeedPDO](https://github.com/synestergates788/squeedPDO) and squeedPDO+RedBeanPHP. OctaPHP is released under the MIT license. 
+OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.com/in/melquecedec-catang-catang), the creator of the [OctaPDO](https://github.com/synestergates788/OctaPDO) and OctaPDO+RedBeanPHP. OctaPHP is released under the MIT license. 
 
 ## Getting Started
 installing OctaPHP does not require composer, just clone the project and put it in the directory where your local server allocated.
@@ -31,7 +31,7 @@ installing OctaPHP does not require composer, just clone the project and put it 
 -mysql (any version that supports php 5.4+)
 ```
 If successfully installed, you should see the default welcome page of OctaPHP shown below: <br />
-![alt text](docs-img/squeedphp.png)
+![alt text](docs-img/OctaPHP.png)
 > After installing OctaPHP we highly recommend you to remove the default controller and view for welcome page as it is no longer needed in your development.
 
 # OctaPHP CORE Documentation
@@ -174,8 +174,8 @@ add value to your ```users``` table (john doe, jane doe, smith doe)
 ```
 class static_page_model extends Model {
     public get_data(){
-        $this->squeed->get('users');
-        $result = $this->squeed->result(); //this will contains an array on result
+        $this->octa->get('users');
+        $result = $this->octa->result(); //this will contains an array on result
         return ($result) ? $result : false;
     }
 }
@@ -482,27 +482,27 @@ Take a look at the example below:
 > **Note:** The child is always responsible for declaring its parent. This is done with a simple include statement at the beginning of the child file. When declaring a parent, it is also possible to use require. However, include is preferred as it does not throw a fatal error if the parent does not exist.
 
 # OctaPHP Active Record Documentation
-**$this->squeed->get(); And $this->squeed->result();** <br />
+**$this->octa->get(); And $this->octa->result();** <br />
 Runs the selection query and returns an array of result.
 
 ```
-$this->squeed->get('mytable');
-$query = $this->squeed->result();
+$this->octa->get('mytable');
+$query = $this->octa->result();
 
 // Produces: SELECT * FROM mytable
 ```
 
-The second and third parameters of ```$this->squeed->get()``` enable you to set a limit and offset clause:
+The second and third parameters of ```$this->octa->get()``` enable you to set a limit and offset clause:
 ```
-$this->squeed->get('mytable', 10, 20); <br />
-$query = $this->squeed->result();
+$this->octa->get('mytable', 10, 20); <br />
+$query = $this->octa->result();
 // Produces: SELECT * FROM mytable LIMIT 20, 10 (in MySQL. Other databases have slightly different syntax)
 ```
 
 You'll notice that the above function is assigned to a variable named $query, which can be used to show the results:
 ```
-$this->squeed->get('mytable');
-$query = $this->squeed->result();
+$this->octa->get('mytable');
+$query = $this->octa->result();
 
 foreach ($query as $row)
 {
@@ -511,80 +511,80 @@ foreach ($query as $row)
 ```
 <br />
 
-**$this->squeed->get(); And $this->squeed->row();** <br />
+**$this->octa->get(); And $this->octa->row();** <br />
 Runs the selection query and returns a row of data.
 
 ```
-$this->squeed->get('mytable');
-$query = $this->squeed->row();
+$this->octa->get('mytable');
+$query = $this->octa->row();
 
 // Produces: SELECT * FROM mytable LIMIT 1
 ```
 
 You'll notice that the above function is assigned to a variable named $query, which can be used to fetch the row:
 ```
-$this->squeed->get('mytable');
-$query = $this->squeed->row();
+$this->octa->get('mytable');
+$query = $this->octa->row();
 echo $query['title']
 ```
 <br />
 
-**$this->squeed->get(); And $this->squeed->num_rows();** <br />
+**$this->octa->get(); And $this->octa->num_rows();** <br />
 Permits you to determine the number of rows in a particular table. 
 
 ```
-$this->squeed->get('mytable');
-$query = $this->squeed->num_rows();
+$this->octa->get('mytable');
+$query = $this->octa->num_rows();
 
 // Produces an integer, like 25
 ```
 
 You'll notice that the above function is assigned to a variable named $query, which can be used to fetch the row:
 ```
-$this->squeed->get('mytable');
-$query = $this->squeed->row();
+$this->octa->get('mytable');
+$query = $this->octa->row();
 echo $query; //return number of rows
 ```
 <br />
 
-**$this->squeed->last_query(); (for sql debugging)** <br />
+**$this->octa->last_query(); (for sql debugging)** <br />
 Permits you to determine the last query which was run
 
 ```
-$this->squeed->get('mytable');
-$query = $this->squeed->result();
-$last_query = $this->squeed->last_query();
+$this->octa->get('mytable');
+$query = $this->octa->result();
+$last_query = $this->octa->last_query();
 echo $last_query;
 
 // will return sql code: "SELECT * FROM mytable"
 ```
 <br />
 
-**$this->squeed->select();** <br />
+**$this->octa->select();** <br />
 Permits you to write the SELECT portion of your query:
 
 ```
-$this->squeed->select('title, content, date');
+$this->octa->select('title, content, date');
 
-$query = $this->squeed->get('mytable');
+$query = $this->octa->get('mytable');
 
 // Produces: SELECT title, content, date FROM mytable
 ```
-$this->squeed->select() accepts an optional second parameter. If you set it to FALSE, OctaPHP will not try to protect your field or table names with backticks. This is useful if you need a compound select statement.
+$this->octa->select() accepts an optional second parameter. If you set it to FALSE, OctaPHP will not try to protect your field or table names with backticks. This is useful if you need a compound select statement.
 ```
-$this->squeed->select('(SELECT SUM(payments.amount) FROM payments WHERE payments.invoice_id=4') AS amount_paid', FALSE);
-$query = $this->squeed->get('mytable');
+$this->octa->select('(SELECT SUM(payments.amount) FROM payments WHERE payments.invoice_id=4') AS amount_paid', FALSE);
+$query = $this->octa->get('mytable');
 ```
 <br />
 
-**$this->squeed->join();** <br />
+**$this->octa->join();** <br />
 Permits you to write the JOIN portion of your query:
 
 ```
-$this->squeed->select('*');
-$this->squeed->join('comments', 'comments.id = blogs.id');
-$this->squeed->get('blogs');
-$query = $this->squeed->result();
+$this->octa->select('*');
+$this->octa->join('comments', 'comments.id = blogs.id');
+$this->octa->get('blogs');
+$query = $this->octa->result();
 
 // Produces:
 // SELECT * FROM blogs
@@ -595,30 +595,30 @@ Multiple function calls can be made if you need several joins in one query. <br 
 If you need a specific type of JOIN you can specify it via the third parameter of the function. Options are: left, right, outer, inner, left outer, and right outer.
 
 ```
- $this->squeed->join('comments', 'comments.id = blogs.id', 'LEFT');
+ $this->octa->join('comments', 'comments.id = blogs.id', 'LEFT');
 
 // Produces: LEFT JOIN comments ON comments.id = blogs.id
 ```
 <br />
 
-**$this->squeed->where();** <br />
+**$this->octa->where();** <br />
 This function enables you to set WHERE clauses using one of four methods:
 
 * Simple key/value method: <br />
 Notice that the equal sign is added for you.
 If you use multiple function calls they will be chained together with AND between them:
 	```
-	$this->squeed->where('name', $name);
-	$this->squeed->where('title', $title);
-	$this->squeed->where('status', $status);
+	$this->octa->where('name', $name);
+	$this->octa->where('title', $title);
+	$this->octa->where('status', $status);
 
 	// WHERE name = 'Joe' AND title = 'boss' AND status = 'active' 
 	```
 * Custom key/value method: <br />
 You can include an operator in the first parameter in order to control the comparison:
 ```
-$this->squeed->where('name !=', $name);
-$this->squeed->where('id <', $id);
+$this->octa->where('name !=', $name);
+$this->octa->where('id <', $id);
 
 // Produces: WHERE name != 'Joe' AND id < 45 
 ```
@@ -627,7 +627,7 @@ You can include your own operators using this method as well:
 ```
 $array = array('name' => $name, 'title' => $title, 'status' => $status);
 
-$this->squeed->where($array);
+$this->octa->where($array);
 
 // Produces: WHERE name = 'Joe' AND title = 'boss' AND status = 'active' 
 ```
@@ -637,166 +637,166 @@ You can write your own clauses manually:
 ```
 $where = "name='Joe' AND status='boss' OR status='active'";
 
-$this->squeed->where($where);
+$this->octa->where($where);
 ```
-**$this->squeed->where()** <br />
+**$this->octa->where()** <br />
 accepts an optional third parameter. If you set it to FALSE, OctaPHP will not try to protect your field or table names with backticks.
 <br />
 
-**$this->squeed->or_where();** <br />
+**$this->octa->or_where();** <br />
 This function is identical to the one above, except that multiple instances are joined by OR:
 ```
- $this->squeed->where('name !=', $name);
-$this->squeed->or_where('id >', $id);
+ $this->octa->where('name !=', $name);
+$this->octa->or_where('id >', $id);
 
 // Produces: WHERE name != 'Joe' OR id > 50
 ```
 <br />
 
-**$this->squeed->where_in();** <br />
+**$this->octa->where_in();** <br />
 Generates a WHERE field IN ('item', 'item') SQL query joined with AND if appropriate
 ```
 $names = array('Frank', 'Todd', 'James');
-$this->squeed->where_in('username', $names);
+$this->octa->where_in('username', $names);
 // Produces: WHERE username IN ('Frank', 'Todd', 'James')
 ```
 <br />
 
-**$this->squeed->or_where_in();** <br />
+**$this->octa->or_where_in();** <br />
 Generates a WHERE field IN ('item', 'item') SQL query joined with OR if appropriate
 ```
 $names = array('Frank', 'Todd', 'James');
-$this->squeed->or_where_in('username', $names);
+$this->octa->or_where_in('username', $names);
 // Produces: OR username IN ('Frank', 'Todd', 'James')
 ```
 <br />
 
-**$this->squeed->where_not_in();** <br />
+**$this->octa->where_not_in();** <br />
 Generates a WHERE field NOT IN ('item', 'item') SQL query joined with AND if appropriate
 ```
  $names = array('Frank', 'Todd', 'James');
-$this->squeed->where_not_in('username', $names);
+$this->octa->where_not_in('username', $names);
 // Produces: WHERE username NOT IN ('Frank', 'Todd', 'James')
 ```
 <br />
 
-**$this->squeed->or_where_not_in();** <br />
+**$this->octa->or_where_not_in();** <br />
 Generates a WHERE field NOT IN ('item', 'item') SQL query joined with OR if appropriate
 ```
 $names = array('Frank', 'Todd', 'James');
-$this->squeed->or_where_not_in('username', $names);
+$this->octa->or_where_not_in('username', $names);
 // Produces: OR username NOT IN ('Frank', 'Todd', 'James')
 ```
 <br />
 
-**$this->squeed->like();** <br />
+**$this->octa->like();** <br />
 This function enables you to generate LIKE clauses, useful for doing searches.
 
 * Simple key/value method: <br />
 ```
-$this->squeed->like('title', 'match');
+$this->octa->like('title', 'match');
 
 // Produces: WHERE title LIKE '%match%' 
 ```
 If you use multiple function calls they will be chained together with AND between them:
 ```
-$this->squeed->like('title', 'match');
-$this->squeed->like('body', 'match');
+$this->octa->like('title', 'match');
+$this->octa->like('body', 'match');
 
 // WHERE title LIKE '%match%' AND body LIKE '%match%
 ```
 If you want to control where the wildcard (%) is placed, you can use an optional third argument. Your options are 'before', 'after' and 'both' (which is the default). 
 ```
-$this->squeed->like('title', 'match', 'before');
+$this->octa->like('title', 'match', 'before');
 // Produces: WHERE title LIKE '%match'
 
-$this->squeed->like('title', 'match', 'after');
+$this->octa->like('title', 'match', 'after');
 // Produces: WHERE title LIKE 'match%'
 
-$this->squeed->like('title', 'match', 'both');
+$this->octa->like('title', 'match', 'both');
 // Produces: WHERE title LIKE '%match%' 
 ```
 If you do not want to use the wildcard (%) you can pass to the optional third argument the option 'none'. 
 ```
-$this->squeed->like('title', 'match', 'none');
+$this->octa->like('title', 'match', 'none');
 // Produces: WHERE title LIKE 'match' 
 ```
 * Associative array method: <br />
 ```
 $array = array('title' => $match, 'page1' => $match, 'page2' => $match);
 
-$this->squeed->like($array);
+$this->octa->like($array);
 
 // WHERE title LIKE '%match%' AND page1 LIKE '%match%' AND page2 LIKE '%match%'
 ```
 <br />
 
-**$this->squeed->or_like();** <br />
+**$this->octa->or_like();** <br />
 This function is identical to the one above, except that multiple instances are joined by OR:
 ```
-$this->squeed->like('title', 'match');
-$this->squeed->or_like('body', $match);
+$this->octa->like('title', 'match');
+$this->octa->or_like('body', $match);
 
 // WHERE title LIKE '%match%' OR body LIKE '%match%'
 ```
 
-**$this->squeed->not_like();** <br />
+**$this->octa->not_like();** <br />
 This function is identical to like(), except that it generates NOT LIKE statements:
 ```
-$this->squeed->not_like('title', 'match');
+$this->octa->not_like('title', 'match');
 
 // WHERE title NOT LIKE '%match%
 ```
 <br />
 
-**$this->squeed->or_not_like();** <br />
+**$this->octa->or_not_like();** <br />
 This function is identical to not_like(), except that multiple instances are joined by OR:
 ```
-$this->squeed->like('title', 'match');
-$this->squeed->or_not_like('body', 'match');
+$this->octa->like('title', 'match');
+$this->octa->or_not_like('body', 'match');
 
 // WHERE title LIKE '%match% OR body NOT LIKE '%match%'
 ```
 <br />
 
-**$this->squeed->group_by();** <br />
+**$this->octa->group_by();** <br />
 Permits you to write the GROUP BY portion of your query:
 ```
-$this->squeed->group_by("title");
+$this->octa->group_by("title");
 
 // Produces: GROUP BY title 
 ```
 You can also pass an array of multiple values as well:
 ```
-$this->squeed->group_by(array("title", "date"));
+$this->octa->group_by(array("title", "date"));
 
 // Produces: GROUP BY title, date
 ```
 <br />
 
-**$this->squeed->order_by();** <br />
+**$this->octa->order_by();** <br />
 Lets you set an ORDER BY clause. The first parameter contains the name of the column you would like to order by. The second parameter lets you set the direction of the result. Options are asc or desc, or random. 
 ```
-$this->squeed->order_by("title", "desc");
+$this->octa->order_by("title", "desc");
 
 // Produces: ORDER BY title DESC 
 ```
 You can also pass your own string in the first parameter:
 ```
-$this->squeed->order_by('title desc, name asc');
+$this->octa->order_by('title desc, name asc');
 
 // Produces: ORDER BY title DESC, name ASC 
 ```
 Or multiple function calls can be made if you need multiple fields.
 ```
-$this->squeed->order_by("title", "desc");
-$this->squeed->order_by("name", "asc");
+$this->octa->order_by("title", "desc");
+$this->octa->order_by("name", "asc");
 
 // Produces: ORDER BY title DESC, name ASC 
 ```
 <br />
 
-**$this->squeed->insert();** <br />
+**$this->octa->insert();** <br />
 Generates an insert string based on the data you supply, and runs the query. You can either pass an array or an object to the function. Here is an example using an array:
 ```
 $data = array(
@@ -805,7 +805,7 @@ $data = array(
    'date' => 'My date'
 );
 
-$this->squeed->insert('mytable', $data);
+$this->octa->insert('mytable', $data);
 
 // Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date')
 ```
@@ -822,7 +822,7 @@ Here is an example using an object:
 
 $object = new Myclass;
 
-$this->squeed->insert('mytable', $object);
+$this->octa->insert('mytable', $object);
 Generates an insert string based on the data you supply, and runs the query. You can either pass an array or an object to the function. Here is an example using an array:
 
 // Produces: INSERT INTO mytable (title, content, date) VALUES ('My Title', 'My Content', 'My Date')
@@ -831,7 +831,7 @@ The first parameter will contain the table name, the second is an object.
 > __Note:__ All values are escaped automatically producing safer queries.
 <br />
 
-**$this->squeed->insert_batch();** <br />
+**$this->octa->insert_batch();** <br />
 Generates an insert string based on the data you supply, and runs the query. You can either pass an array or an object to the function. Here is an example using an array:
 ```
 $data = array(
@@ -846,7 +846,7 @@ $data = array(
         'date' => 'Another date'
     ]
 );
-$this->squeed->insert_batch($data, 'mytable');
+$this->octa->insert_batch($data, 'mytable');
 
 // Produces: INSERT INTO mytable (title, name, date) VALUES ('My title', 'My name', 'My date'), ('Another title', 'Another name', 'Another date')
 ```
@@ -854,7 +854,7 @@ The first parameter is an associative array of values, the second will contain t
 > __Note:__ All values are escaped automatically producing safer queries.
 <br />
 
-**$this->squeed->update();** <br />
+**$this->octa->update();** <br />
 Generates an update string and runs the query based on the data you supply. You can pass an array or an object to the function. Here is an example using an array:
 ```
 $data = array(
@@ -863,7 +863,7 @@ $data = array(
     'name' => $name,
     'date' => $date
 );
-$this->squeed->update('mytable', $data, 'id');
+$this->octa->update('mytable', $data, 'id');
 
 // Produces:
 // UPDATE mytable
@@ -872,7 +872,7 @@ $this->squeed->update('mytable', $data, 'id');
 ```
 <br />
 
-**$this->squeed->update_batch();** <br />
+**$this->octa->update_batch();** <br />
 Generates an update string based on the data you supply, and runs the query. You can either pass an array or an object to the function. Here is an example using an array:
 ```
 $data = array(
@@ -890,7 +890,7 @@ $data = array(
     ]
 );
 
-$this->squeed->update_batch('mytable', $data, 'id'); 
+$this->octa->update_batch('mytable', $data, 'id'); 
 
 // Produces:
 // UPDATE mytable
@@ -905,10 +905,10 @@ The first parameter will contain the table name, the second is an associative ar
 > __Note:__ All values are escaped automatically producing safer queries.
 <br />
 
-**$this->squeed->delete();** <br />
+**$this->octa->delete();** <br />
 Generates a delete SQL string and runs the query.
 ```
-$this->squeed->delete('mytable', array('id' => $id));
+$this->octa->delete('mytable', array('id' => $id));
 
 // Produces:
 // DELETE FROM mytable
@@ -917,17 +917,17 @@ $this->squeed->delete('mytable', array('id' => $id));
 The first parameter is the table name, the second is the where clause.
 If you want to delete multiple data from a table, the second parameter must be an array of ID's
 ```
-$this->squeed->delete($table,[1,2,3]);
+$this->octa->delete($table,[1,2,3]);
 
 // Produces:
 // DELETE FROM mytable
 // WHERE (id) IN (1,2,3)
 ```
 
-**$this->squeed->delete_all();** <br />
+**$this->octa->delete_all();** <br />
 This will wipe all the data of a table
 ```
-$this->squeed->delete_all('mytable');
+$this->octa->delete_all('mytable');
 
 // Produces:
 // TRUNCATE TABLE mytable
@@ -944,37 +944,37 @@ $select = array(
    "ut.type"
 );
 
-$this->squeed->select($select);
-$this->squeed->order_by("u.userID","DESC");
-$this->squeed->group_by("u.user_type");
-$this->squeed->join("user_role AS ur","ur.user_role_id=ut.user_role","LEFT");
-$this->squeed->join("user_type AS ut","ut.user_type_id=u.user_type","LEFT");
-$this->squeed->get('users AS u');
-$result_data = $this->squeed->result(); //this will return an array of result
+$this->octa->select($select);
+$this->octa->order_by("u.userID","DESC");
+$this->octa->group_by("u.user_type");
+$this->octa->join("user_role AS ur","ur.user_role_id=ut.user_role","LEFT");
+$this->octa->join("user_type AS ut","ut.user_type_id=u.user_type","LEFT");
+$this->octa->get('users AS u');
+$result_data = $this->octa->result(); //this will return an array of result
 ```
 <br />
 
 **LIST OF PRE-DEFINED CLASS** <br />
 ```
---$this->squeed->insert_id() //return the last inserted id
---$this->squeed->select()
---$this->squeed->where()
---$this->squeed->or_where()
---$this->squeed->where_in()
---$this->squeed->or_where_in()
---$this->squeed->where_not_in()
---$this->squeed->or_where_not_in()
---$this->squeed->order_by()
---$this->squeed->group_by()
---$this->squeed->join()
---$this->squeed->get()
---$this->squeed->row()
---$this->squeed->num_rows()
---$this->squeed->result()
---$this->squeed->like()
---$this->squeed->or_like()
---$this->squeed->not_like()
---$this->squeed->or_not_like()
+--$this->octa->insert_id() //return the last inserted id
+--$this->octa->select()
+--$this->octa->where()
+--$this->octa->or_where()
+--$this->octa->where_in()
+--$this->octa->or_where_in()
+--$this->octa->where_not_in()
+--$this->octa->or_where_not_in()
+--$this->octa->order_by()
+--$this->octa->group_by()
+--$this->octa->join()
+--$this->octa->get()
+--$this->octa->row()
+--$this->octa->num_rows()
+--$this->octa->result()
+--$this->octa->like()
+--$this->octa->or_like()
+--$this->octa->not_like()
+--$this->octa->or_not_like()
 ```
 
 # For Next Release [pre-beta-1]
@@ -983,10 +983,11 @@ $result_data = $this->squeed->result(); //this will return an array of result
 # License
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 - [MIT](LICENSE.md)
-- Copyright 2019 © squeedPDO.
+- Copyright 2019 © OctaPHP.
 
 # Acknowledgments
 * [Twig Template Engine](https://twig.symfony.com/)
+* [Symfony](https://twig.symfony.com/)
 * [RedBeanPHP](https://redbeanphp.com/index.php)
 * [CodeIgniter](https://www.codeigniter.com/)
 
