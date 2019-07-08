@@ -17,10 +17,6 @@ class ComposerStaticInit913621b8c2909003fdcd21e21696d98b
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
-        'Z' => 
-        array (
-            'ZxcvbnPhp\\' => 10,
-        ),
         'W' => 
         array (
             'Webmozart\\Assert\\' => 17,
@@ -34,16 +30,10 @@ class ComposerStaticInit913621b8c2909003fdcd21e21696d98b
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
-        'R' => 
-        array (
-            'ReCaptcha\\' => 10,
-        ),
         'P' => 
         array (
             'Prophecy\\' => 9,
             'Phpml\\' => 6,
-            'PHPMailer\\PHPMailer\\' => 20,
-            'PHPAuth\\' => 8,
         ),
         'D' => 
         array (
@@ -58,10 +48,6 @@ class ComposerStaticInit913621b8c2909003fdcd21e21696d98b
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-        ),
-        'ZxcvbnPhp\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/bjeavons/zxcvbn-php/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -79,10 +65,6 @@ class ComposerStaticInit913621b8c2909003fdcd21e21696d98b
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'ReCaptcha\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha',
-        ),
         'Prophecy\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpspec/prophecy/src/Prophecy',
@@ -90,14 +72,6 @@ class ComposerStaticInit913621b8c2909003fdcd21e21696d98b
         'Phpml\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-ai/php-ml/src',
-        ),
-        'PHPMailer\\PHPMailer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
-        ),
-        'PHPAuth\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phpauth/phpauth',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
