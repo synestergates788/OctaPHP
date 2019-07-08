@@ -4,7 +4,7 @@ an active record with Object-Relational-Mapping (ORM) ready of [RedBeanPHP](http
 
 > Development is underway, with Phase 4 completed in June-27-2019. It is *not* ready for production use - the current version is considered pre-alpha-2.
 
-[![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger) 
+[![Build Status](https://travis-ci.org/synestergates788/OctaPHP.svg?branch=master)](https://travis-ci.org/synestergates788/OctaPHP)
 [![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger) 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org) 
 [![Badges](http://img.shields.io/:badges-7/10-ff6799.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger)
