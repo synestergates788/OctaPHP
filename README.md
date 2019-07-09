@@ -23,7 +23,10 @@ __When will you use OctaPHP?__
 OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.com/in/melquecedec-catang-catang), the creator of the [OctaPDO](https://github.com/synestergates788/OctaPDO) and OctaPDO+RedBeanPHP. OctaPHP is released under the MIT license. 
 
 ## Getting Started
-installing OctaPHP does not require composer, just clone the project and put it in the directory where your local server allocated.
+installing OctaPHP via composer.
+```
+composer require octa-php/octa-php
+```
 
 ### Prerequisites
 ```
