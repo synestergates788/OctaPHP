@@ -1,2 +1,5 @@
-*docs-img
+docs-img
 *.idea
+.travis.yml
+composer.json
+composer.lock
