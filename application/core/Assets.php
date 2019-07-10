@@ -10,7 +10,7 @@ class Assets{
         if($assets_config){
             foreach($assets_config as $key=>$row){
                 $GLOBALS['asset_row'] = $row;
-                $view->addFunction(new \Twig_SimpleFunction($key, function ($asset) {
+                $view->addFunction(new \Twig\TwigFunction($key, function ($asset) {
                     return sprintf($GLOBALS['asset_row'].DS.'%s', ltrim($asset, '/'));
                 }));
             }
