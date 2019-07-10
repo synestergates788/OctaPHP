@@ -5,11 +5,12 @@ an active record with Object-Relational-Mapping (ORM) ready of [RedBeanPHP](http
 > Development is underway, with Phase 4 completed in June-27-2019. It is *not* ready for production use - the current version is considered pre-alpha-2.
 
 [![Build Status](https://travis-ci.org/synestergates788/OctaPHP.svg?branch=master)](https://travis-ci.org/synestergates788/OctaPHP)
-[![Latest Stable Version](https://poser.pugx.org/octa-php/octa-php/version)](https://packagist.org/packages/octa-php/octa-php)
-[![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger)
-[![Badges](http://img.shields.io/:badges-7/10-ff6799.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/synestergates788/OctaPHP/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/synestergates788/OctaPHP/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/octa-php/octa-php/v/stable)](https://packagist.org/packages/octa-php/octa-php)
 [![Total Downloads](https://poser.pugx.org/octa-php/octa-php/downloads)](https://packagist.org/packages/octa-php/octa-php)
+[![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger)
 [![License](https://poser.pugx.org/octa-php/octa-php/license)](https://packagist.org/packages/octa-php/octa-php)
+[![Badges](http://img.shields.io/:badges-7/10-ff6799.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger)
 
 ## Powered By
 <img src="docs-img/twig.jpg" width="100" height="100">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs-img/redbeanphp.png" width="100" height="100"><img src="docs-img/symfony.png" width="250" height="90">
