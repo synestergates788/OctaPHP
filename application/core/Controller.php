@@ -45,7 +45,7 @@ class Controller{
             if($models_dir){
                 foreach($models_dir as $key_m=>$row_m){
 
-                    if(strpos($row_m, '.php') == false){
+                    if(!strpos($row_m, '.php')){
                         if(file_exists(ROOT.DS.'application'.DS.'models'.DS.$row_m.DS.$modelName.".php")){
 
                             include_once ROOT.DS.'application'.DS.'models'.DS.$row_m.DS.$modelName.".php";
@@ -66,19 +66,16 @@ class Controller{
             $model_checker = [];
             if($models_dir){
                 foreach($models_dir as $key_m=>$row_m){
-                    if(strpos($row_m, '.php') == false){
+                    if(!strpos($row_m, '.php')){
 
-                        if($modelName){
-                            foreach($modelName as $key_arrm=>$row_arrm){
-
-                                if(!in_array($key_arrm,$model_checker)){
-                                    if(file_exists(ROOT.DS.'application'.DS.'models'.DS.$row_m.DS.$key_arrm.".php")){
-                                        include_once ROOT.DS.'application'.DS.'models'.DS.$row_m.DS.$key_arrm.".php";
-                                        $this->hm = new $key_arrm;
-                                    }
-
-                                    $model_checker[] = $key_arrm;
+                        foreach($modelName as $key_arrm=>$row_arrm){
+                            if(!in_array($key_arrm,$model_checker)){
+                                if(file_exists(ROOT.DS.'application'.DS.'models'.DS.$row_m.DS.$key_arrm.".php")){
+                                    include_once ROOT.DS.'application'.DS.'models'.DS.$row_m.DS.$key_arrm.".php";
+                                    $this->hm = new $key_arrm;
                                 }
+
+                                $model_checker[] = $key_arrm;
                             }
                         }
                     }
