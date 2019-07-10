@@ -15,7 +15,6 @@ class Routes{
         $this->router = $router;
         $request = trim($_SERVER['REQUEST_URI'], "/");
         $url = explode('/', $request);
-        $segment_0 = (isset($url[0])) ? $url[0] : '';
         $segment_1 = (isset($url[1])) ? $url[1] : '';
         $segment_2 = (isset($url[2])) ? $url[2] : '';
         $segment_3 = (isset($url[3])) ? $url[3] : '';
@@ -107,12 +106,10 @@ class Routes{
 
                 }else{
                     include_once ROOT.DS.'application'.DS.'views'.DS.'error_page'.DS.'error_methods.php';
-                    exit;
                 }
 
             }else{
                 include_once $GLOBALS['error_404'];
-                exit;
             }
         });
 
