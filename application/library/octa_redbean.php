@@ -34,31 +34,24 @@ class octa_redbean{
         $this->db_field = $DB;
 
         if(!$this->redbean->testConnection()){
-            $this->redbean->setup($this->initiate_database_connection($DB,false));
+            $conn = $this->initiate_database_connection($DB);
+            $this->redbean->setup(/** @scrutinizer ignore-type */ $conn);
             $this->redbean->useFeatureSet( 'novice/latest' );
         }
     }
 
-    public function initiate_database_connection($DB,$close_conn=false){
+    public function initiate_database_connection($DB){
         $DB_HOST = $DB['hostname'];
         $DB_USERNAME = $DB['username'];
         $DB_PASSWORD = $DB['password'];
         $DB_NAME = $DB['database'];
-        $DB_con = null;
 
         $DB_con = new PDO("mysql:host=$DB_HOST", $DB_USERNAME, $DB_PASSWORD);
         $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         $DB_con->exec("CREATE DATABASE IF NOT EXISTS $DB_NAME;");
-
         $DB_con = new PDO("mysql:host={$DB_HOST};dbname={$DB_NAME}",$DB_USERNAME,$DB_PASSWORD);
         $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        if($close_conn == true){
-            $DB_con = null;
-        }else{
-            return $DB_con;
-        }
+        return $DB_con;
     }
 
     public function insert_id(){
@@ -166,18 +159,18 @@ class octa_redbean{
     }
 
     public function delete($table,$id){
-        if(is_array($id)){
-            if($id){
+        if($id){
+            if(is_array($id)){
                 foreach($id as $key=>$row){
                     $this->redbean->trash($table,$row);
                 }
 
                 return true;
-            }
 
-        }else{
-            $result = $this->redbean->trash($table,$id);
-            return ($result) ? true : false;
+            }else{
+                $result = $this->redbean->trash($table,$id);
+                return ($result) ? true : false;
+            }
         }
     }
 
@@ -222,7 +215,7 @@ class octa_redbean{
             }
         }
 
-        $this->where = ($arr_check == false) ? $tmp_where : "WHERE ".$tmp_where;
+        $this->where = ($arr_check) ? "WHERE ".$tmp_where : $tmp_where;
     }
 
     public function or_where($data=null,$match=null){
@@ -249,7 +242,7 @@ class octa_redbean{
             }
         }
 
-        $this->or_where = ($arr_check == false) ? $tmp_or_where : "OR ".$tmp_or_where;
+        $this->or_where = ($arr_check) ? "OR ".$tmp_or_where : $tmp_or_where;
     }
 
     public function where_in($field,$data){
@@ -341,7 +334,7 @@ class octa_redbean{
 
         }
 
-        $this->like = ($arr_check == false) ? $tmp_like : "WHERE ".$tmp_like;
+        $this->like = ($arr_check) ? "WHERE ".$tmp_like : $tmp_like;
     }
 
     public function or_like($data=null,$match=null){
@@ -393,7 +386,7 @@ class octa_redbean{
 
         }
 
-        $this->like = ($arr_check == false) ? $tmp_like : "WHERE ".$tmp_like;
+        $this->like = ($arr_check) ? "WHERE ".$tmp_like : $tmp_like;
     }
 
     public function or_not_like($data=null,$match=null){
@@ -600,20 +593,20 @@ class octa_redbean{
     }
 
     public function inspect($data){
-        if(is_array($data)){
+        if($data){
+            if(is_array($data)){
 
-            $result = array();
-            if($data){
+                $result = array();
                 foreach($data as $key=>$row){
                     $result[$key]=$this->redbean->inspect($row);
                 }
+
+                return ($result) ? $result : false;
+
+            }else{
+                $result = $this->redbean->inspect($data);
+                return ($result) ? $result : false;
             }
-
-            return ($result) ? $result : false;
-
-        }else{
-            $result = $this->redbean->inspect($data);
-            return ($result) ? $result : false;
         }
     }
 
@@ -782,15 +775,12 @@ class octa_redbean{
     public function freeze($data=null){
         if($data){
             if(is_array($data)){
-                if($data){
-
-                    $data = array();
-                    foreach($data as $key=>$row){
-                        $data[$key] = $row;
-                    }
-
-                    $this->redbean->freeze($data);
+                $data = array();
+                foreach($data as $key=>$row){
+                    $data[$key] = $row;
                 }
+
+                $this->redbean->freeze($data);
             }
         }else{
             $this->redbean->freeze(TRUE);
