@@ -761,7 +761,7 @@ class RPDO implements Driver
 				}
 				$this->resultArray = $statement->fetchAll( $fetchStyle );
 				if ( $this->loggingEnabled && $this->logger ) {
-					$this->logger->log( 'resultset: ' . count( $this->resultArray ) . ' rows' );
+					$this->logger->/** @scrutinizer ignore-call */log( 'resultset: ' . count( $this->resultArray ) . ' rows' );
 				}
 			} else {
 				$this->resultArray = array();
