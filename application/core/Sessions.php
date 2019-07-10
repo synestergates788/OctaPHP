@@ -9,14 +9,14 @@ class Sessions{
     }
 
     public function start($data,$val=null){
-        if(is_array($data)){
-            if($data){
+        if($data){
+            if(is_array($data)){
                 foreach($data as $key=>$row){
                     $_SESSION[$key] = $row;
                 }
+            }else {
+                $_SESSION[$data] = $val;
             }
-        }else {
-            $_SESSION[$data] = $val;
         }
     }
 

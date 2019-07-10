@@ -9,7 +9,7 @@ unset($def_controller_dir[0],$def_controller_dir[1]);
 
 if($def_controller_dir){
     foreach($def_controller_dir as $key_del=>$row_def){
-        if(strpos($row_def, '.php') == false){
+        if(!strpos($row_def, '.php')){
             $def_parent_dir = $row_def;
 
             $def_controller_file = scandir(ROOT.DS.'application'.DS.'controllers'.DS.$row_def);
