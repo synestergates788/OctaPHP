@@ -7,7 +7,7 @@ class Libraries{
     }
 
     public function libraries($libraries){
-        $def_lib = ['debug','unit_test','redbean','squeed_redbean'];
+        $def_lib = ['debug','unit_test','redbean','octa_redbean'];
         $libraries = array_merge($libraries,$def_lib);
 
         $helper_dir = scandir(ROOT.DS.'application'.DS.'library');
