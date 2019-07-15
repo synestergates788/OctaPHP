@@ -5,7 +5,7 @@ an active record with Object-Relational-Mapping (ORM) ready of [RedBeanPHP](http
 > Development is underway, with Phase 4 completed in June-27-2019. It is *not* ready for production use - the current version is considered pre-alpha-2.
 
 [![Build Status](https://travis-ci.org/synestergates788/OctaPHP.svg?branch=master)](https://travis-ci.org/synestergates788/OctaPHP)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/synestergates788/OctaPHP/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/synestergates788/OctaPHP/?branch=master)
+<!--[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/synestergates788/OctaPHP/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/synestergates788/OctaPHP/?branch=master)-->
 [![Latest Stable Version](https://poser.pugx.org/octa-php/octa-php/v/stable)](https://packagist.org/packages/octa-php/octa-php)
 [![Total Downloads](https://poser.pugx.org/octa-php/octa-php/downloads)](https://packagist.org/packages/octa-php/octa-php)
 [![Coverage Status](http://img.shields.io/coveralls/badges/badgerbadgerbadger.svg?style=flat-square)](https://coveralls.io/r/badges/badgerbadgerbadger)
@@ -32,8 +32,7 @@ composer require octa-php/octa-php
 ```
 
 ### Prerequisites
-```
--Php 5.4+
+```-Php 5.4+
 -mysql (any version that supports php 5.4+)
 ```
 If successfully installed, you should see the default welcome page of OctaPHP shown below: <br />

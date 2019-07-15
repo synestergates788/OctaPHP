@@ -5,6 +5,6 @@ $database = array(
     'hostname' => 'localhost',
     'username' => 'root',
     'password' => '',
-    'database' => 'your_database_name',
+    'database' => 'sample_squeedphp_crud',
     'encrypt' => FALSE
 );

@@ -5,6 +5,20 @@
         "php-ai/php-ml": "^0.8.0",
         "bramus/router": "~1.4",
         "phpunit/phpunit": "^7.5",
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "symfony/dotenv": "^4.3",
+        "symfony/cache": "^4.3",
+        "symfony/css-selector": "^4.3",
+        "symfony/debug": "^4.3",
+        "symfony/dom-crawler": "^4.3",
+        "symfony/expression-language": "^4.3",
+        "symfony/filesystem": "^4.3",
+        "symfony/finder": "^4.3",
+        "symfony/http-client": "^4.3",
+        "symfony/http-foundation": "^4.3",
+        "symfony/property-access": "^4.3",
+        "symfony/serializer": "^4.3",
+        "symfony/stopwatch": "^4.3",
+        "symfony/validator": "^4.3"
     }
 }
