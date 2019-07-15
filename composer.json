@@ -1,0 +1,13 @@
+{
+    "name": "octa-php/octa-php",
+    "description": "a lightweight php framework with less than 40MB designed for complex web algorith, hingly customizable andand inspired by condeigniter 3 framework",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Melquecedec Catang-catang",
+            "email": "melquecedec.catangcatang@outlook.com"
+        }
+    ],
+    "require": {}
+}
