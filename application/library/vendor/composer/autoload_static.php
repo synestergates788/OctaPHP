@@ -24,6 +24,10 @@ class ComposerStaticInit913621b8c2909003fdcd21e21696d98b
         array (
             'Webmozart\\Assert\\' => 17,
         ),
+        'V' => 
+        array (
+            'Valitron\\' => 9,
+        ),
         'T' => 
         array (
             'Twig\\' => 5,
@@ -57,6 +61,10 @@ class ComposerStaticInit913621b8c2909003fdcd21e21696d98b
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Cache\\' => 24,
         ),
+        'R' => 
+        array (
+            'Respect\\Validation\\' => 19,
+        ),
         'P' => 
         array (
             'Psr\\Log\\' => 8,
@@ -82,6 +90,10 @@ class ComposerStaticInit913621b8c2909003fdcd21e21696d98b
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Valitron\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/valitron/src/Valitron',
         ),
         'Twig\\' => 
         array (
@@ -190,6 +202,10 @@ class ComposerStaticInit913621b8c2909003fdcd21e21696d98b
         'Symfony\\Component\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
+        ),
+        'Respect\\Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/respect/validation/library',
         ),
         'Psr\\Log\\' => 
         array (

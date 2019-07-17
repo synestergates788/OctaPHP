@@ -19,6 +19,9 @@
         "symfony/property-access": "^4.3",
         "symfony/serializer": "^4.3",
         "symfony/stopwatch": "^4.3",
-        "symfony/validator": "^4.3"
+        "symfony/validator": "^4.3",
+        "symfony/polyfill-ctype": "^1.11",
+        "respect/validation": "^1.1",
+        "vlucas/valitron": "^1.4"
     }
 }

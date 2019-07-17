@@ -61,20 +61,16 @@ $encoders = [new XmlEncoder(), new JsonEncoder()];
 $normalizers = [new ObjectNormalizer()];
 $GLOBALS['serializer'] = new Serializer($normalizers, $encoders);
 
-/*validator*/
-/*use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Validation;
+use Respect\Validation\Validator;
+$GLOBALS['validator'] = new Validator();
 
-$GLOBALS['validator'] = Validation::createValidator();
-$GLOBALS['length'] = new Length();
-$GLOBALS['not_blank'] = new NotBlank();*/
+use Symfony\Component\HttpFoundation\Session\Session;
+$GLOBALS['session'] = new Session();
 
 class Controller{
 
     protected $view;
     protected $model;
-    protected $session;
     protected $db;
     protected $hm;
     protected $am;
@@ -97,10 +93,9 @@ class Controller{
     protected $property_accessor;
     protected $serializer;
     protected $stopwatch;
-
-    /*protected $validator;
-    protected $length;
-    protected $not_blank;*/
+    protected $validator;
+    protected $form_validation;
+    protected $session;
 
     public function __construct(){
         $this->assets($GLOBALS['template'],assets_config);
@@ -124,36 +119,9 @@ class Controller{
         $this->property_accessor = $GLOBALS['property_accessor'];
         $this->serializer = $GLOBALS['serializer'];
         $this->stopwatch = $GLOBALS['stopwatch'];
+        $this->validator = $GLOBALS['validator'];
+        $this->session = $GLOBALS['session'];
 
-        /*$this->validator = $GLOBALS['validator'];
-        $this->length = $GLOBALS['length'];
-        $this->not_blank = $GLOBALS['not_blank'];
-
-        $GLOBALS['length']['asdasd'];*/
-        /*$violations = $this->validator->validate('Bernhard', [
-            $this->length(['min' => 10]), //
-            $this->not_blank,
-        ]);*/
-
-        #$this->http_client->create();
-
-        /*$httpClient = HttpClient::create([
-            // HTTP Basic authentication with only the username and not a password
-            'auth_basic' => ['the-username'],
-
-            // HTTP Basic authentication with a username and a password
-            'auth_basic' => ['the-username', 'the-password'],
-
-            // HTTP Bearer authentication (also called token authentication)
-            'auth_bearer' => 'the-bearer-token',
-        ]);
-
-        $response = $this->http_client->request('GET', 'https://...', [
-            // use a different HTTP Basic authentication only for this request
-            'auth_basic' => ['the-username', 'the-password'],
-
-            // ...
-        ]);*/
     }
 
     public function model($modelName,$alias=null){
@@ -214,12 +182,6 @@ class Controller{
         new Libraries($libraries);
     }
 
-    public function session(){
-        if(session == true){
-            $this->session = new Sessions(session);
-        }
-    }
-
     public function view($template_name,$data=[]){
         if($template_name){
             echo $GLOBALS['template']->render($template_name, $data);
@@ -237,5 +199,9 @@ class Controller{
                 }));
             }
         }
+    }
+
+    public function form_validation($data = array()){
+        $this->form_validation = new Valitron\Validator($data);
     }
 }
