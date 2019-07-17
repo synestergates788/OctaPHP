@@ -24,21 +24,8 @@ __When will you use OctaPHP?__
 # Who is behind OctaPHP?
 OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.com/in/melquecedec-catang-catang), the creator of the [OctaPDO](https://github.com/synestergates788/OctaPDO) and OctaPDO+RedBeanPHP. OctaPHP is released under the MIT license. 
 
-## Getting Started
-installing OctaPHP via composer.
-```
-composer require octa-php/octa-php
-```
-
-### Prerequisites
-```-Php 5.4+
--mysql (any version that supports php 5.4+)
-```
-If successfully installed, you should see the default welcome page of OctaPHP shown below: <br />
-![alt text](docs-img/OctaPHP.png)
-> After installing OctaPHP we highly recommend you to remove the default controller and view for welcome page as it is no longer needed in your development.
-
-# OctaPHP CORE Documentation
+# Documentation
+[read documentation here](https://synestergates788.github.io/octaphp.github.io/)
 
 # For Next Release [pre-beta-1]
 * Authentication
@@ -53,6 +40,8 @@ If successfully installed, you should see the default welcome page of OctaPHP sh
 * [Symfony](https://twig.symfony.com/)
 * [RedBeanPHP](https://redbeanphp.com/index.php)
 * [CodeIgniter](https://www.codeigniter.com/)
+* [Respect\Validation](https://respect-validation.readthedocs.io)
+* [vlucas/valitron](https://github.com/vlucas/valitron)
 
 # Support
 Reach me out here [Linkedin.com](https://www.linkedin.com/in/melquecedec-catang-catang)
