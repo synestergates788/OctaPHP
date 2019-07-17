@@ -21,21 +21,21 @@ __When will you use OctaPHP?__
 - Concise, Extensible and Testable.
 - Less head scratch when reading the framework-core
 
-# Who is behind OctaPHP?
+## Who is behind OctaPHP?
 OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.com/in/melquecedec-catang-catang), the creator of the [OctaPDO](https://github.com/synestergates788/OctaPDO) and OctaPDO+RedBeanPHP. OctaPHP is released under the MIT license. 
 
-# Documentation
-[read documentation here](https://synestergates788.github.io/octaphp.github.io/)
+## Documentation
+[Read Documentation Here](https://synestergates788.github.io/octaphp.github.io/)
 
-# For Next Release [pre-beta-1]
+## For Next Release [pre-beta-1]
 * Authentication
 
-# License
+## License
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 - [MIT](LICENSE.md)
 - Copyright 2019 © OctaPHP.
 
-# Acknowledgments
+## Acknowledgments
 * [Twig Template Engine](https://twig.symfony.com/)
 * [Symfony](https://twig.symfony.com/)
 * [RedBeanPHP](https://redbeanphp.com/index.php)
@@ -43,5 +43,5 @@ OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.co
 * [Respect\Validation](https://respect-validation.readthedocs.io)
 * [vlucas/valitron](https://github.com/vlucas/valitron)
 
-# Support
+## Support
 Reach me out here [Linkedin.com](https://www.linkedin.com/in/melquecedec-catang-catang)
