@@ -12,7 +12,7 @@ an active record with Object-Relational-Mapping (ORM) ready of [RedBeanPHP](http
 [![Badges](http://img.shields.io/:badges-7/10-ff6799.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger)
 
 ## Powered By
-<img src="docs-img/twig.jpg" width="100" height="100">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs-img/redbeanphp.png" width="100" height="100"><img src="docs-img/symfony.png" width="250" height="90">
+<img src="docs-img/twig.jpg" width="100" height="100">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs-img/redbeanphp.png" width="100" height="100"><img src="docs-img/symfony.png" width="250" height="90"><img src="docs-img/zend.png" width="250" height="90">
 
 __Why OctaPHP?__
 - If you want a framework with a very small footprint and highly customizable.
