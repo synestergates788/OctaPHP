@@ -15,6 +15,7 @@ include_once ROOT.DS.'application'.DS.'config'.DS.'assets.php';
 include_once ROOT.DS.'application'.DS.'core'.DS.'Parse_Routes.php';
 include_once ROOT.DS.'application'.DS.'core'.DS.'Directory.php';
 include_once ROOT.DS.'application'.DS.'config'.DS.'autoload.php';
+include_once ROOT.DS.'application'.DS.'config'.DS.'adapters.php';
 
 define('routes', $default_routes);
 define('assets_config', $assets_config['assets']);
@@ -23,6 +24,8 @@ define('error_404', ($squeed_config['error_404']) ? $squeed_config['error_404'] 
 define('helpers', $autoload['helper']);
 define('libraries', $autoload['libraries']);
 define('session', $squeed_config['session']);
+define('local_adapter_status', $adapter['local']);
+define('local_adapter', $adapter['local_dir']);
 
 $modules = [];
 if($directory){

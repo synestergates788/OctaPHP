@@ -14,10 +14,13 @@ an active record with Object-Relational-Mapping (ORM) ready of [RedBeanPHP](http
 ## Powered By
 <img src="docs-img/twig.jpg" width="100" height="100">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs-img/redbeanphp.png" width="100" height="100"><img src="docs-img/symfony.png" width="250" height="90">
 
-__When will you use OctaPHP?__
+__Why OctaPHP?__
 - If you want a framework with a very small footprint and highly customizable.
 - With a powerful Object-Relational-Mapping (ORM) active record.
 - With a powerful template engine.
+- Clear documentation.
+- Exceptional performance.
+- Nearly zero configuration.
 - Concise, Extensible and Testable.
 - Less head scratch when reading the framework-core
 
@@ -42,6 +45,7 @@ OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.co
 * [CodeIgniter](https://www.codeigniter.com/)
 * [Respect\Validation](https://respect-validation.readthedocs.io)
 * [vlucas/valitron](https://github.com/vlucas/valitron)
+* [Gaufrette](https://knplabs.github.io/Gaufrette/)
 
 ## Support
 Reach me out here [Linkedin.com](https://www.linkedin.com/in/melquecedec-catang-catang)

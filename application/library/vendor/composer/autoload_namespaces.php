@@ -8,5 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Password' => array($vendorDir . '/kevinlebrun/password.php/src'),
+    'Gaufrette' => array($vendorDir . '/knplabs/gaufrette/src'),
     'Bramus' => array($vendorDir . '/bramus/router/src'),
 );
