@@ -1,0 +1,44 @@
+{
+    "name": "microsoft/windowsazure",
+    "description": "This project provides a set of PHP client libraries that make it easy to access Windows Azure tables, blobs, queues, service runtime and service management APIs.",
+    "keywords": [ "php", "azure", "sdk" ],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Azure PHP SDK",
+            "email": "azurephpsdk@microsoft.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "pear/http_request2": "^2.3",
+        "pear/net_url2": "^2.2",
+        "pear/mail_mime": "^1.10",
+        "pear/mail_mime-decode": "^1.5",
+        "firebase/php-jwt": "^4.0",
+        "microsoft/azure-storage": "^0.10"
+    },
+    "require-dev": {
+        "mikey179/vfsStream": "^1.6",
+        "phpunit/phpunit": "^4.8",
+        "phpdocumentor/phpdocumentor": "^2.8",
+        "sebastian/phpcpd": "^2.0",
+        "phploc/phploc": "^2.1",
+        "pdepend/pdepend": "^2.2",
+        "phpmd/phpmd": "^2.4",
+        "squizlabs/php_codesniffer": "^2.6",
+        "mayflower/php-codebrowser": "^1.1",
+        "friendsofphp/php-cs-fixer": "^1.11"
+    },
+    "autoload": {
+        "psr-4": { "WindowsAzure\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Tests\\": "tests/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4-dev"
+        }
+    }
+}
