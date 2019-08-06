@@ -29,5 +29,5 @@ before_script:
   - phpenv config-rm xdebug.ini
 
 script:
-  - php ./application/library/vendor/bin/phpunit --UnitTest
-  - php ./application/library/vendor/bin/phpunit --debug
+  - php ./application/core/system/libraries/vendor/bin/phpunit --UnitTest
+  - php ./application/core/system/libraries/vendor/bin/phpunit --debug
