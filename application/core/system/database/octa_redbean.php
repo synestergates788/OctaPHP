@@ -34,24 +34,77 @@ class octa_redbean{
         $this->db_field = $DB;
 
         if(!$this->redbean->testConnection()){
-            $conn = $this->initiate_database_connection($DB);
-            $this->redbean->setup(/** @scrutinizer ignore-type */ $conn);
+            if($DB['database_adapter'] == "MariaDB"){
+                $this->mariadb_connection($DB);
+
+            }else if($DB['database_adapter'] == "MySQL"){
+                $this->mariadb_connection($DB);
+
+            }else if($DB['database_adapter'] == "PDO"){
+                $conn = $this->pdo_connection($DB);
+                $this->redbean->setup(/** @scrutinizer ignore-type */ $conn);
+
+            }else if($DB['database_adapter'] == "PostgreSQL"){
+                $this->postgre_sql_connection($DB);
+
+            }else if($DB['database_adapter'] == "SQLite"){
+                $this->sqlite_connection($DB);
+
+            }else if($DB['database_adapter'] == "CUBRID"){
+                $this->cubrid_connection($DB);
+
+            }
             $this->redbean->useFeatureSet( 'novice/latest' );
         }
     }
 
-    public function initiate_database_connection($DB){
-        $DB_HOST = $DB['hostname'];
-        $DB_USERNAME = $DB['username'];
-        $DB_PASSWORD = $DB['password'];
-        $DB_NAME = $DB['database'];
+    public function mariadb_connection($DB){
+        $db_host = $DB['hostname'];
+        $db_username = $DB['username'];
+        $db_password = $DB['password'];
+        $db_name = $DB['database_name'];
 
-        $DB_con = new PDO("mysql:host=$DB_HOST", $DB_USERNAME, $DB_PASSWORD);
-        $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $DB_con->exec("CREATE DATABASE IF NOT EXISTS $DB_NAME;");
-        $DB_con = new PDO("mysql:host={$DB_HOST};dbname={$DB_NAME}",$DB_USERNAME,$DB_PASSWORD);
-        $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $DB_con;
+        $this->redbean->setup('mysql:host='.$db_host.';dbname='.$db_name, $db_username, $db_password);
+    }
+
+    public function postgre_sql_connection($DB){
+        $db_host = $DB['hostname'];
+        $db_username = $DB['username'];
+        $db_password = $DB['password'];
+        $db_name = $DB['database_name'];
+
+        $this->redbean->setup( 'pgsql:host='.$db_host.';dbname='.$db_name, $db_username, $db_password);
+    }
+
+    public function cubrid_connection($DB){
+        $db_host = $DB['hostname'];
+        $db_username = $DB['username'];
+        $db_password = $DB['password'];
+        $db_name = $DB['database_name'];
+        $db_port = $DB['port'];
+
+        $this->redbean->setup('cubrid:host='.$db_host.';port='.$db_port.';dbname='.$db_name, $db_username, $db_password);
+    }
+
+    public function sqlite_connection($DB){
+        $sqlite_database_directory = $DB['sqlite_database_directory'];
+        $this->redbean->setup('sqlite:'.$sqlite_database_directory);
+    }
+
+    public function pdo_connection($DB){
+        $db_host = $DB['hostname'];
+        $db_username = $DB['username'];
+        $db_password = $DB['password'];
+        $db_name = $DB['database_name'];
+
+        $db_conn = new PDO("mysql:host={$db_host};dbname={$db_name}",$db_username,$db_password);
+        $db_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db_conn->exec("CREATE DATABASE IF NOT EXISTS $db_name;");
+        return $db_conn;
+    }
+
+    public function close_connection(){
+        $this->redbean->close();
     }
 
     public function insert_id(){

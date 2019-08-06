@@ -184,6 +184,8 @@ class Controller{
     protected $native_http_client;
     protected $curl_http_client;
     protected $form_validation;
+    protected $bean;
+    protected $octa;
 
     public function __construct(){
         /**
@@ -209,6 +211,8 @@ class Controller{
          * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
          */
         $this->initialize_database();
+        $this->bean = $this->bean();
+        $this->octa = $this->octa();
 
         /**
          * initializing input validator.
