@@ -1,109 +1,428 @@
 <?php
+/**
+ * ##########################
+ * ###Twig Template Engine###
+ * ##########################
+ */
 $loader = \Twig\Environment::class;
 use \Twig\Loader\FilesystemLoader;
 $loader = new FilesystemLoader(ROOT.DS.'application'.DS.'views');
 $view = new \Twig\Environment($loader);
 $GLOBALS['template'] = $view;
 
-/*
- * start of dot-env*/
-use Symfony\Component\Dotenv\Dotenv;
+/**
+ * Initialize Dotenv class.
+ * Manages .env files.
+ */
+use Symfony\Component\Dotenv\Dotenv as OctaDotenv;
 
-/*
- * start of css selector*/
-use Symfony\Component\CssSelector\CssSelectorConverter;
+/**
+ * Initialize CssSelectorConverter class.
+ * CssSelectorConverter is the main entry point of the component and can convert CSS
+ * selectors to XPath expressions.
+ */
+use Symfony\Component\CssSelector\CssSelectorConverter as OctaCssSelectorConverter;
 
-/*
- * start of DOM crawler*/
-use Symfony\Component\DomCrawler\Crawler;
+/**
+ * Initialize Crawler class.
+ * Crawler eases navigation of a list of \DOMNode objects.
+ */
+use Symfony\Component\DomCrawler\Crawler as OctaCrawler;
 
-/*
- * start of expression language*/
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+/**
+ * Initialize ExpressionLanguage class.
+ * Allows to compile and evaluate expressions written in your own DSL.
+ */
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage as OctaExpressionLanguage;
 
-/*
- * start of finder*/
-use Symfony\Component\Finder\Finder;
+/**
+ * Initialize Finder class,
+ * Finder allows to build rules to find files and directories.
+ */
+use Symfony\Component\Finder\Finder as OctaFinder;
 
-/*
- * start of request property*/
-use Symfony\Component\HttpFoundation\Request;
+/**
+ * Initialize Request class.
+ * Request represents an HTTP request.
+ * The methods dealing with URL accept / return a raw path (% encoded):
+ *   * getBasePath
+ *   * getBaseUrl
+ *   * getPathInfo
+ *   * getRequestUri
+ *   * getUri
+ *   * getUriForPath
+ */
+use Symfony\Component\HttpFoundation\Request as OctaRequest;
 
-/*
- * start of property access*/
-use Symfony\Component\PropertyAccess\PropertyAccess;
+/**
+ * Initialize PropertyAccess class.
+ * Entry point of the PropertyAccess component.
+ */
+use Symfony\Component\PropertyAccess\PropertyAccess as OctaPropertyAccess;
 
-/*
- * start of stopwatch*/
-use Symfony\Component\Stopwatch\Stopwatch;
+/**
+ * Initialize Stopwatch class.
+ * Stopwatch provides a way to profile code.
+ */
+use Symfony\Component\Stopwatch\Stopwatch as OctaStopwatch;
 
-/*
- * start of httpclient*/
-use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\HttpClient\CurlHttpClient;
-use Symfony\Component\HttpClient\NativeHttpClient;
-use Symfony\Component\HttpClient\CachingHttpClient;
-use Symfony\Component\HttpClient\ScopingHttpClient;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Component\HttpClient\MockHttpClient;
-use Symfony\Component\HttpClient\Response\MockResponse;
+/**
+ * ##########################
+ * ###START OF HTTP CRAWLER##
+ * ##########################
+ *
+ * Initialize HttpClient class.
+ * A factory to instantiate the best possible HTTP client for the runtime.
+ */
+use Symfony\Component\HttpClient\HttpClient as OctaHttpClient;
 
-/*
- * start of kernel*/
-use Symfony\Component\HttpKernel\HttpCache\Store;
+/**
+ * Initialize CurlHttpClient class.
+ * A performant implementation of the HttpClientInterface contracts based on the curl extension.
+ * This provides fully concurrent HTTP requests, with transparent
+ * HTTP/2 push when a curl version that supports it is installed.
+ */
+use Symfony\Component\HttpClient\CurlHttpClient as OctaCurlHttpClient;
 
-/*serializer*/
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Encoder\YamlEncoder;
-use Symfony\Component\Serializer\Encoder\CsvEncoder;
+/**
+ * Initialize NativeHttpClient class.
+ * A portable implementation of the HttpClientInterface contracts based on PHP stream wrappers.
+ *
+ * PHP stream wrappers are able to fetch response bodies concurrently,
+ * but each request is opened synchronously.
+ */
+use Symfony\Component\HttpClient\NativeHttpClient as OctaNativeHttpClient;
 
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
-use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
-use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-use Symfony\Component\Serializer\Normalizer\DataUriNormalizer;
-use Symfony\Component\Serializer\Normalizer\DateIntervalNormalizer;
-use Symfony\Component\Serializer\Normalizer\ConstraintViolationListNormalizer;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+/**
+ * Initialize CachingHttpClient class.
+ * Adds caching on top of an HTTP client.
+ *
+ * The implementation buffers responses in memory and doesn't stream directly from the network.
+ * You can disable/enable this layer by setting option "no_cache" under "extra" to true/false.
+ * By default, caching is enabled unless the "buffer" option is set to false.
+ */
+use Symfony\Component\HttpClient\CachingHttpClient as OctaCachingHttpClient;
 
-use Symfony\Component\Serializer\Serializer;
+/**
+ * Initialize ScopingHttpClient class.
+ * Auto-configure the default options based on the requested URL.
+ */
+use Symfony\Component\HttpClient\ScopingHttpClient as OctaScopingHttpClient;
 
-use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
-use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader;
-use Symfony\Component\Serializer\Mapping\Loader\XmlFileLoader;
-use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
-use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter;
-use Symfony\Component\Serializer\Annotation\DiscriminatorMap;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+/**
+ * Initialize MockHttpClient class.
+ * A test-friendly HttpClient that doesn't make actual HTTP requests.
+ */
+use Symfony\Component\HttpClient\MockHttpClient as OctaMockHttpClient;
 
-/*
- * start of validator*/
+/**
+ * Initialize MockResponse class.
+ * A test-friendly response.
+ */
+use Symfony\Component\HttpClient\Response\MockResponse as OctaMockResponse;
+
+/**
+ * Initialize Store class.
+ * Store implements all the logic for storing cache metadata (Request and Response headers).
+ */
+use Symfony\Component\HttpKernel\HttpCache\Store as OctaStore;
+
+/**
+ * ##########################
+ * ###START OF ENCODER##
+ * ##########################
+ *
+ * Initialize JsonEncoder class.
+ * Encodes JSON data.
+ */
+use Symfony\Component\Serializer\Encoder\JsonEncoder as OctaJsonEncoder;
+
+/**
+ * Initialize XmlEncoder class.
+ * Encodes XML data.
+ */
+use Symfony\Component\Serializer\Encoder\XmlEncoder as OctaXmlEncoder;
+
+/**
+ * Initialize YamlEncoder class,
+ * Encodes YAML data.
+ */
+use Symfony\Component\Serializer\Encoder\YamlEncoder as OctaYamlEncoder;
+
+/**
+ * Initialize CsvEncoder class.
+ * Encodes CSV data.
+ */
+use Symfony\Component\Serializer\Encoder\CsvEncoder as OctaCsvEncoder;
+
+/**
+ * ##########################################
+ * ###START OF HTTP SERIALIZER/DENORMALIZER##
+ * ##########################################
+ *
+ * Initialize ObjectNormalizer class.
+ * Converts between objects and arrays using the PropertyAccess component.
+ */
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer as OctaObjectNormalizer;
+
+/**
+ * Initialize GetSetMethodNormalizer class.
+ * Converts between objects with getter and setter methods and arrays.
+ *
+ * The normalization process looks at all public methods and calls the ones
+ * which have a name starting with get and take no parameters. The result is a
+ * map from property names (method name stripped of the get prefix and converted
+ * to lower case) to property values. Property values are normalized through the
+ * serializer.
+ *
+ * The denormalization first looks at the constructor of the given class to see
+ * if any of the parameters have the same name as one of the properties. The
+ * constructor is then called with all parameters or an exception is thrown if
+ * any required parameters were not present as properties. Then the denormalizer
+ * walks through the given map of property names to property values to see if a
+ * setter method exists for any of the properties. If a setter exists it is
+ * called with the property value. No automatic denormalization of the value
+ * takes place.
+ */
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer as OctaGetSetMethodNormalizer;
+
+/**
+ * Initialize PropertyNormalizer class.
+ * Converts between objects and arrays by mapping properties.
+ *
+ * The normalization process looks for all the object's properties (public and private).
+ * The result is a map from property names to property values. Property values
+ * are normalized through the serializer.
+ *
+ * The denormalization first looks at the constructor of the given class to see
+ * if any of the parameters have the same name as one of the properties. The
+ * constructor is then called with all parameters or an exception is thrown if
+ * any required parameters were not present as properties. Then the denormalizer
+ * walks through the given map of property names to property values to see if a
+ * property with the corresponding name exists. If found, the property gets the value.
+ */
+use Symfony\Component\Serializer\Normalizer\PropertyNormalizer as OctaPropertyNormalizer;
+
+/**
+ * Initialize JsonSerializableNormalizer class.
+ * A normalizer that uses an objects own JsonSerializable implementation.
+ */
+use Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer as OctaJsonSerializableNormalizer;
+
+/**
+ * Initialize DateTimeNormalizer class.
+ * Normalizes an object implementing the {@see \DateTimeInterface} to a date string.
+ * Denormalizes a date string to an instance of {@see \DateTime} or {@see \DateTimeImmutable}.
+ */
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer as OctaDateTimeNormalizer;
+
+/**
+ * Initialize DataUriNormalizer class.
+ * Normalizes an {@see \SplFileInfo} object to a data URI.
+ * Denormalizes a data URI to a {@see \SplFileObject} object.
+ */
+use Symfony\Component\Serializer\Normalizer\DataUriNormalizer as OctaDataUriNormalizer;
+
+/**
+ * Initialize DateIntervalNormalizer class.
+ * Normalizes an instance of {@see \DateInterval} to an interval string.
+ * Denormalizes an interval string to an instance of {@see \DateInterval}.
+ */
+use Symfony\Component\Serializer\Normalizer\DateIntervalNormalizer as OctaDateIntervalNormalizer;
+
+/**
+ * Initialize ConstraintViolationListNormalizer class.
+ * A normalizer that normalizes a ConstraintViolationListInterface instance.
+ *
+ * This Normalizer implements RFC7807 {@link https://tools.ietf.org/html/rfc7807}.
+ */
+use Symfony\Component\Serializer\Normalizer\ConstraintViolationListNormalizer as OctaConstraintViolationListNormalizer;
+
+/**
+ * Initialize ArrayDenormalizer class.
+ * Denormalizes arrays of objects.
+ */
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer as OctaArrayDenormalizer;
+
+/**
+ * Initialize Serializer class.
+ * Serializer serializes and deserializes data.
+ *
+ * objects are turned into arrays by normalizers.
+ * arrays are turned into various output formats by encoders.
+ *
+ *     $serializer->serialize($obj, 'xml')
+ *     $serializer->decode($data, 'xml')
+ *     $serializer->denormalize($data, 'Class', 'xml')
+ */
+use Symfony\Component\Serializer\Serializer as OctaSerializer;
+
+/**
+ * Initialize AnnotationLoader class.
+ * Annotation loader.
+ */
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader as OctaAnnotationLoader;
+
+/**
+ * Initialize AnnotationReader class.
+ * A reader for docblock annotations.
+ */
+use Doctrine\Common\Annotations\AnnotationReader as OctaAnnotationReader;
+
+/**
+ * Initialize ClassMetadataFactory class.
+ * Returns a {@link ClassMetadata}.
+ */
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory as OctaClassMetadataFactory;
+
+/**
+ * Initialize YamlFileLoader class.
+ * YAML File Loader.
+ */
+use Symfony\Component\Serializer\Mapping\Loader\YamlFileLoader as OctaYamlFileLoader;
+
+/**
+ * Initialize XmlFileLoader class.
+ * Loads XML mapping files.
+ */
+use Symfony\Component\Serializer\Mapping\Loader\XmlFileLoader as OctaXmlFileLoader;
+
+/**
+ * Initialize CamelCaseToSnakeCaseNameConverter class.
+ * CamelCase to Underscore name converter.
+ */
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter as OctaCamelCaseToSnakeCaseNameConverter;
+
+/**
+ * Initialize MetadataAwareNameConverter class.
+ */
+use Symfony\Component\Serializer\NameConverter\MetadataAwareNameConverter as OctaMetadataAwareNameConverter;
+
+/**
+ * Initialize DiscriminatorMap class.
+ * Annotation class for @DiscriminatorMap().
+ *
+ * @Annotation
+ * @Target({"CLASS"})
+ */
+use Symfony\Component\Serializer\Annotation\DiscriminatorMap as OctaDiscriminatorMap;
+
+/**
+ * Initialize Groups class.
+ * Annotation class for @Groups().
+ *
+ * @Annotation
+ * @Target({"PROPERTY", "METHOD"})
+ */
+use Symfony\Component\Serializer\Annotation\Groups as OctaGroups;
+
+/**
+ * Initialize MaxDepth class.
+ * Annotation class for @MaxDepth().
+ *
+ * @Annotation
+ * @Target({"PROPERTY", "METHOD"})
+ */
+use Symfony\Component\Serializer\Annotation\MaxDepth as OctaMaxDepth;
+
+/**
+ * Initialize SerializedName class.
+ * Annotation class for @SerializedName().
+ *
+ * @Annotation
+ * @Target({"PROPERTY", "METHOD"})
+ */
+use Symfony\Component\Serializer\Annotation\SerializedName as OctaSerializedName;
+
+/**
+ * Initialize Respect\Validation\Validator class.
+ */
 use Respect\Validation\Validator;
 
-/*
- * start of session*/
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
-use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
+/**
+ * ##########################
+ * ###START OF SESSION#######
+ * ##########################
+ *
+ * Initialize Session class.
+ */
+use Symfony\Component\HttpFoundation\Session\Session as OctaSession;
 
-/*start of filesystem*/
+/**
+ * Initialize AttributeBag class.
+ * This class relates to session attribute storage.
+ */
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag as OctaAttributeBag;
+
+/**
+ * Initialize NativeSessionStorage class.
+ * This provides a base class for session attribute storage.
+ */
+use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage as OctaNativeSessionStorage;
+
+/**
+ * Initialize NamespacedAttributeBag class.
+ * This class provides structured storage of session attributes using
+ * a name spacing character in the key.
+ */
+use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag as OctaNamespacedAttributeBag;
+
+/**
+ * ##########################################
+ * ###START OF FILESYSTEM ABSTRACTION LAYER##
+ * ##########################################
+ *
+ * Initialize StreamMode class.
+ * Represents a stream mode.
+ */
 use Gaufrette\StreamMode as OctaStreamMode;
+
+/**
+ * Initialize StreamWrapper class.
+ * Stream wrapper class for the Gaufrette filesystems.
+ */
 use Gaufrette\StreamWrapper as OctaStreamWrapper;
+
+/**
+ * Initialize FilesystemMap class.
+ * Associates filesystem instances to their names.
+ */
 use Gaufrette\FilesystemMap as OctaFilesystemMap;
+
+/**
+ * Initialize Filesystem class.
+ * A filesystem is used to store and retrieve files.
+ */
 use Gaufrette\Filesystem as OctaFilesystem;
+
+/**
+ * Initialize S3Client class.
+ * Client used to interact with **Amazon Simple Storage Service (Amazon S3)**.
+ */
 use Aws\S3\S3Client as OctaS3Client;
 
+/**
+ * Initialize GoogleCloudStorage class.
+ * Google Cloud Storage adapter using the Google APIs Client Library for PHP.
+ */
 use Gaufrette\Adapter\GoogleCloudStorage as OctaGoogleCloudStorage;
 
+/**
+ * Initialize BlobProxyFactory class.
+ * Basic implementation for a Blob proxy factory.
+ */
 use Gaufrette\Adapter\AzureBlobStorage\BlobProxyFactory as OctaBlobProxyFactory;
+
+/**
+ * Initialize AzureBlobStorage class.
+ * Basic implementation for a Blob proxy factory.
+ */
 use Gaufrette\Adapter\AzureBlobStorage as OctaAzureBlobStorage;
+
+/**
+ * Initialize CreateContainerOptions class.
+ * Optional parameters for createContainer API
+ */
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions as OctaCreateContainerOptions;
 
 /*use Gaufrette\Extras\Resolvable\ResolvableFilesystem as OctaResolvableFilesystem;
@@ -111,67 +430,303 @@ use Gaufrette\Extras\Resolvable\Resolver\AwsS3PresignedUrlResolver as OctaAwsS3P
 use Gaufrette\Extras\Resolvable\Resolver\AwsS3PublicUrlResolver as OctaAwsS3PublicUrlResolver;
 use Gaufrette\Extras\Resolvable\Resolver\StaticUrlResolver as OctaStaticUrlResolver;*/
 
+/**
+ * Initialize Local adapter class.
+ * Adapter for the local filesystem.
+ */
 use Gaufrette\Adapter\Local as OctaLocalAdapter;
+
+/**
+ * Initialize Ftp adapter class.
+ * Ftp adapter.
+ */
 use Gaufrette\Adapter\Ftp as OctaFtpAdapter;
+
+/**
+ * Initialize InMemory adapter class.
+ * In memory adapter.
+ *
+ * Stores some files in memory for test purposes
+ */
 use Gaufrette\Adapter\InMemory as OctaInMemory;
+
+/**
+ * Initialize Zip adapter class.
+ * ZIP Archive adapter.
+ */
 use Gaufrette\Adapter\Zip as OctaZipAdapter;
+
+/**
+ * Initialize AwsS3 adapter class.
+ * Amazon S3 adapter using the AWS SDK for PHP v2.x.
+ */
 use Gaufrette\Adapter\AwsS3 as OctaAwsS3Adapter;
+
+/**
+ * Initialize Cache adapter class.
+ * Cache adapter.
+ */
 use Gaufrette\Adapter\Cache as OctaCacheAdapter;
-/*end of filesystem*/
 
-/*
- * start of mailer/mime*/
+/**
+ * ##########################
+ * ###START OF MAILER########
+ * ##########################
+ *
+ * Initialize mail class
+ */
 use Zend\Mail;
+
+/**
+ * Initialize Message class.
+ */
 use Zend\Mail\Message as OctaMailMessage;
-use Zend\Mail\Transport\Smtp as SmtpTransport;
-use Zend\Mail\Transport\SmtpOptions;
-use Zend\Mail\Transport\Sendmail as SendmailTransport;
-use Zend\Mail\Protocol\Smtp as SmtpProtocol;
-use Zend\Mail\Transport\File as FileTransport;
-use Zend\Mail\Transport\FileOptions;
-use Zend\Mime\Message as MimeMessage;
-use Zend\Mime\Mime;
-use Zend\Mime\Part as MimePart;
-use Zend\Mail\Transport\InMemory as InMemoryTransport;
-use Zend\Mail\Protocol\SmtpPluginManager;
-use Zend\Mail\Protocol\Smtp\Auth\Plain;
-use Zend\Mail\Protocol\Smtp\Auth\Login;
-use Zend\Mail\Protocol\Smtp\Auth\Crammd5;
-use Zend\Mail\Storage\Pop3;
-use Zend\Mail\Storage\Mbox;
-use Zend\Mail\Storage\Maildir;
-use Zend\Mail\Storage\Imap;
-use Zend\Mail\Storage\Folder as MailFolder;
-use Zend\Mail\Storage as MailStorage;
 
-/*
- * start of cryptography*/
-use Zend\Crypt\BlockCipher;
-use Zend\Crypt\Symmetric\Openssl;
-use Zend\Crypt\FileCipher;
-use Zend\Crypt\Hybrid;
-use Zend\Crypt\PublicKey\RsaOptions;
-use Zend\Crypt\Key\Derivation\Pbkdf2;
-use Zend\Crypt\Key\Derivation\SaltedS2k;
-use Zend\Crypt\Key\Derivation\Scrypt;
-use Zend\Math\Rand;
-use Zend\Crypt\Password\Bcrypt;
-use Zend\Crypt\PublicKey\DiffieHellman;
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\NotFoundException;
-use Zend\Crypt\Symmetric\SymmetricInterface;
+/**
+ * Initialize Smtp class.
+ * SMTP connection object
+ *
+ * Loads an instance of Zend\Mail\Protocol\Smtp and forwards smtp transactions
+ */
+use Zend\Mail\Transport\Smtp as OctaSmtpTransport;
 
-/*
- * start of error handler*/
+/**
+ * Initialize SmtpOptions class.
+ */
+use Zend\Mail\Transport\SmtpOptions as OctaSmtpOptions;
+
+/**
+ * Initialize Sendmail class.
+ * Class for sending email via the PHP internal mail() function
+ */
+use Zend\Mail\Transport\Sendmail as OctaSendmailTransport;
+
+/**
+ * Initialize Smtp class.
+ * SMTP implementation of Zend\Mail\Protocol\AbstractProtocol
+ *
+ * Minimum implementation according to RFC2821: EHLO, MAIL FROM, RCPT TO, DATA,
+ * RSET, NOOP, QUIT
+ */
+use Zend\Mail\Protocol\Smtp as OctaSmtpProtocol;
+
+/**
+ * Initialize File class.
+ * File transport
+ *
+ * Class for saving outgoing emails in filesystem
+ */
+use Zend\Mail\Transport\File as OctaFileTransport;
+
+/**
+ * Initialize FileOptions class.
+ */
+use Zend\Mail\Transport\FileOptions as OctaFileOptions;
+
+/**
+ * Initialize Message class.
+ */
+use Zend\Mime\Message as OctaMimeMessage;
+
+/**
+ * Initialize Mime class.
+ * Support class for MultiPart Mime Messages
+ */
+use Zend\Mime\Mime as OctaMime;
+
+/**
+ * Initialize Part class.
+ * Class representing a MIME part.
+ */
+use Zend\Mime\Part as OctaMimePart;
+
+/**
+ * Initialize InMemory class.
+ * InMemory transport
+ *
+ * This transport will just store the message in memory.  It is helpful
+ * when unit testing, or to prevent sending email when in development or
+ * testing.
+ */
+use Zend\Mail\Transport\InMemory as OctaInMemoryTransport;
+
+/**
+ * Initialize SmtpPluginManager class.
+ * Plugin manager implementation for SMTP extensions.
+ *
+ * Enforces that SMTP extensions retrieved are instances of Smtp. Additionally,
+ * it registers a number of default extensions available.
+ */
+use Zend\Mail\Protocol\SmtpPluginManager as OctaSmtpPluginManager;
+
+/**
+ * Initialize Plain class.
+ * Performs PLAIN authentication
+ */
+use Zend\Mail\Protocol\Smtp\Auth\Plain as OctaPlain;
+
+/**
+ * Initialize Login class.
+ * Performs LOGIN authentication
+ */
+use Zend\Mail\Protocol\Smtp\Auth\Login as OctaLogin;
+
+/**
+ * Initialize Crammd5 class.
+ * Performs CRAM-MD5 authentication
+ */
+use Zend\Mail\Protocol\Smtp\Auth\Crammd5 as OctaCrammd5;
+
+/**
+ * Initialize Pop3 class.
+ */
+use Zend\Mail\Storage\Pop3 as OctaPop3;
+
+/**
+ * Initialize Mbox class.
+ */
+use Zend\Mail\Storage\Mbox as OctaMbox;
+
+/**
+ * Initialize Maildir class.
+ */
+use Zend\Mail\Storage\Maildir as OctaMaildir;
+
+/**
+ * Initialize Imap class.
+ */
+use Zend\Mail\Storage\Imap as OctaImap;
+
+/**
+ * Initialize Folder class.
+ */
+use Zend\Mail\Storage\Folder as OctaMailFolder;
+
+/**
+ * Initialize Storage class.
+ */
+use Zend\Mail\Storage as OctaMailStorage;
+
+/**
+ * ##########################
+ * ###START OF CRYPTOGRAPHY##
+ * ##########################
+ *
+ * Initialize BlockCipher class.
+ * Encrypt using a symmetric cipher then authenticate using HMAC (SHA-256)
+ */
+use Zend\Crypt\BlockCipher as OctaBlockCipher;
+
+/**
+ * Initialize Openssl class.
+ * Symmetric encryption using the OpenSSL extension
+ *
+ * NOTE: DO NOT USE only this class to encrypt data.
+ * This class doesn't provide authentication and integrity check over the data.
+ * PLEASE USE Zend\Crypt\BlockCipher instead!
+ */
+use Zend\Crypt\Symmetric\Openssl as OctaOpenssl;
+
+/**
+ * Initialize FileCipher class.
+ * Encrypt/decrypt a file using a symmetric cipher in CBC mode
+ * then authenticate using HMAC
+ */
+use Zend\Crypt\FileCipher as OctaFileCipher;
+
+/**
+ * Initialize Hybrid class.
+ * Hybrid encryption (OpenPGP like)
+ *
+ * The data are encrypted using a BlockCipher with a random session key
+ * that is encrypted using RSA with the public key of the receiver.
+ * The decryption process retrieves the session key using RSA with the private
+ * key of the receiver and decrypts the data using the BlockCipher.
+ */
+use Zend\Crypt\Hybrid as OctaHybrid;
+
+/**
+ * Initialize Rsa class.
+ */
+use Zend\Crypt\PublicKey\Rsa as OctaRsa;
+
+/**
+ * Initialize RsaOptions class.
+ * RSA instance options
+ */
+use Zend\Crypt\PublicKey\RsaOptions as OctaRsaOptions;
+
+/**
+ * Initialize Bcrypt class.
+ * Bcrypt algorithm using crypt() function of PHP
+ */
+use Zend\Crypt\Password\Bcrypt as OctaBcrypt;
+
+/**
+ * Initialize Apache class.
+ * Apache password authentication
+ */
+use Zend\Crypt\Password\Apache as OctaApache;
+
+/**
+ * Initialize DiffieHellman class.
+ * PHP implementation of the Diffie-Hellman public key encryption algorithm.
+ * Allows two unassociated parties to establish a joint shared secret key
+ * to be used in encrypting subsequent communications.
+ */
+use Zend\Crypt\PublicKey\DiffieHellman as OctaDiffieHellman;
+
+/**
+ * Initialize GenericProvider class.
+ * Represents a generic service provider that may be used to interact with any
+ * OAuth 2.0 service provider, using Bearer token authentication.
+ */
+use League\OAuth2\Client\Provider\GenericProvider as OctaGenericProvider;
+
+/**
+ * ###########################
+ * ###START OF DEBUG CONSOLE##
+ * ###########################
+ *
+ * Initialize Debug class.
+ * Enables the debug tools,
+ * This method registers an error handler and an exception handler.
+ */
 use Symfony\Component\Debug\Debug;
 Debug::enable();
+
+/**
+ * Initialize Debug class.
+ * Registers the error handler.
+ */
 use Symfony\Component\Debug\ErrorHandler;
 ErrorHandler::register();
+
+/**
+ * Initialize Debug class.
+ * Registers the exception handler.
+ */
 use Symfony\Component\Debug\ExceptionHandler;
 ExceptionHandler::register();
+
+/**
+ * Initialize Debug class.
+ * Wraps all autoloaders.
+ */
 use Symfony\Component\Debug\DebugClassLoader;
 DebugClassLoader::enable();
 
+/**
+ * Initialize Stopwatch class.
+ * Manages .env files.
+ */
+use system\database\connection\pdo_connection;
+
+/**
+ * Initialize Octa Active Record class.
+ * An advance Active Record using RedbeanPHP ORM.
+ */
+use system\database\active_record\active_record;
 
 class Controller{
 
@@ -186,6 +741,13 @@ class Controller{
     protected $form_validation;
     protected $bean;
     protected $octa;
+
+    /**
+     * diffie-hellman crypt Key formats
+     */
+    const FORMAT_BINARY = OctaDiffieHellman::FORMAT_BINARY;
+    const FORMAT_NUMBER = OctaDiffieHellman::FORMAT_NUMBER;
+    const FORMAT_BTWOC = OctaDiffieHellman::FORMAT_BTWOC;
 
     public function __construct(){
         /**
@@ -212,7 +774,6 @@ class Controller{
          */
         $this->initialize_database();
         $this->bean = $this->bean();
-        $this->octa = $this->octa();
 
         /**
          * initializing input validator.
@@ -238,8 +799,66 @@ class Controller{
          */
         $this->curl_http_client();
 
+        /**
+         * connect to database.
+         * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+         */
+        if(DB['driver'] == "MariaDB" || DB['driver'] == "MySQL"){
+            $db_host = DB['hostname'];
+            $db_username = DB['username'];
+            $db_password = DB['password'];
+            $db_name = DB['database_name'];
 
+            if(!$this->bean->testConnection()) {
+                $this->bean->setup('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_username, $db_password);
+            }
+            $this->octa = new active_record($this->bean);
+        }
 
+        if(DB['driver'] == "PDO"){
+            $this->conn = new pdo_connection();
+            $this->conn = $this->conn->connect();
+            if(!$this->bean->testConnection()){
+                $this->bean->setup($this->conn);
+            }
+            $this->octa = new active_record($this->bean);
+
+        }
+
+        if(DB['driver'] == "PostgreSQL"){
+            $db_host = DB['hostname'];
+            $db_username = DB['username'];
+            $db_password = DB['password'];
+            $db_name = DB['database_name'];
+            if(!$this->bean->testConnection()) {
+                $this->bean->setup('pgsql:host=' . $db_host . ';dbname=' . $db_name, $db_username, $db_password);
+            }
+            $this->octa = new active_record($this->bean);
+        }
+
+        if(DB['driver'] == "CUBRID"){
+            $db_host = DB['hostname'];
+            $db_username = DB['username'];
+            $db_password = DB['password'];
+            $db_name = DB['database_name'];
+            $db_port = DB['port'];
+            if(!$this->bean->testConnection()) {
+                $this->bean->setup('cubrid:host='.$db_host.';port='.$db_port.';dbname='.$db_name, $db_username, $db_password);
+            }
+            $this->octa = new active_record($this->bean);
+        }
+
+        if(DB['driver'] == "SQLite"){
+            $sqlite_database_directory = DB['sqlite_database_directory'];
+            if(!$this->bean->testConnection()) {
+                $this->bean->setup('sqlite:'.$sqlite_database_directory);
+            }
+            $this->octa = new active_record($this->bean);
+        }
+
+        #$this->octa->get('users');
+        #$res = $this->octa->result();
+        #p($res);
         #exit;
     }
 
@@ -248,7 +867,6 @@ class Controller{
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function initialize_database(){
-        include_once ROOT.DS.'application'.DS.'core'.DS.'system'.DS.'database'.DS.'octa_redbean.php';
         include_once ROOT.DS.'application'.DS.'core'.DS.'system'.DS.'database'.DS.'redbean.php';
     }
 
@@ -259,15 +877,6 @@ class Controller{
      */
     public function bean(){
         return new R();
-    }
-
-    /**
-     * autoload octa_redbean+redbean active record.
-     * @return octa_redbean class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
-     */
-    public function octa(){
-        return new octa_redbean(DB,$this->bean());
     }
 
     /**
@@ -392,21 +1001,21 @@ class Controller{
      * integrating session of symfony.
      * @param string $NativeSessionStorage      native session storage
      * @param string $NamespacedAttributeBag      native session storage attribute bag
-     * @return session class
+     * @return OctaSession class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function session($NativeSessionStorage=null,$NamespacedAttributeBag=null){
-        return new Session($NativeSessionStorage,$NamespacedAttributeBag);
+        return new OctaSession($NativeSessionStorage,$NamespacedAttributeBag);
     }
 
     /**
      * integrating session attribute bag of symfony.
      * @param string $storageKey The key used to store attributes in the session
-     * @return AttributeBag class
+     * @return OctaAttributeBag class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function attribute_bag($storageKey = '_sf2_attributes'){
-        return new AttributeBag($storageKey);
+        return new OctaAttributeBag($storageKey);
     }
 
     /**
@@ -416,11 +1025,11 @@ class Controller{
      * @param \SessionHandlerInterface|null $handler
      * @param $metaBag                    MetadataBag
      *
-     * @return NativeSessionStorage class
+     * @return OctaNativeSessionStorage class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function native_session_storage(array $options = [], $handler = null, $metaBag = null){
-        return new NativeSessionStorage($options, $handler, $metaBag);
+        return new OctaNativeSessionStorage($options, $handler, $metaBag);
     }
 
     /**
@@ -428,29 +1037,29 @@ class Controller{
      *
      * @param string $storageKey         Session storage key
      * @param string $namespaceCharacter Namespace character to use in keys
-     * @return NamespacedAttributeBag class
+     * @return OctaNamespacedAttributeBag class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function namespaced_attribute_bag($storageKey = '_sf2_attributes', $namespaceCharacter = '/'){
-        return new NamespacedAttributeBag($storageKey, $namespaceCharacter);
+        return new OctaNamespacedAttributeBag($storageKey, $namespaceCharacter);
     }
 
     /**
      * integrating property access of symfony.
-     * @return PropertyAccess class
+     * @return OctaPropertyAccess::createPropertyAccessor class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function property_accessor(){
-        return PropertyAccess::createPropertyAccessor();
+        return OctaPropertyAccess::createPropertyAccessor();
     }
 
     /**
      * integrating property access builder of symfony.
-     * @return PropertyAccess class
+     * @return OctaPropertyAccess::createPropertyAccessorBuilder class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function property_accessor_builder(){
-        return PropertyAccess::createPropertyAccessorBuilder();
+        return OctaPropertyAccess::createPropertyAccessorBuilder();
     }
 
     /**
@@ -459,31 +1068,31 @@ class Controller{
      * @param mixed  $node     A Node to use as the base for the crawling
      * @param string $uri      The current URI
      * @param string $baseHref The base href value
-     * @return Crawler class
+     * @return OctaCrawler class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function dom_crawler($node = null, $uri = null, $baseHref = null){
-        return new Crawler($node,$uri,$baseHref);
+        return new OctaCrawler($node,$uri,$baseHref);
     }
 
     /**
      * integrating http_client component of symfony.
-     * @return HttpClient class
+     * @return OctaHttpClient class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function http_client(){
-        return new HttpClient();
+        return new OctaHttpClient();
     }
 
     /**
      * integrating native_http_client component of symfony.
      * @param array $defaultOptions      The current URI
      * @param int $maxHostConnections      The current URI
-     * @return NativeHttpClient class
+     * @return OctaNativeHttpClient class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function native_http_client($defaultOptions = [], $maxHostConnections = 6){
-        return new NativeHttpClient($defaultOptions,$maxHostConnections);
+        return new OctaNativeHttpClient($defaultOptions,$maxHostConnections);
     }
 
     /**
@@ -491,11 +1100,11 @@ class Controller{
      * @param array $defaultOptions      options config
      * @param int $maxHostConnections    maximum host connections
      * @param int $maxPendingPushes      maximum pending pushes
-     * @return CurlHttpClient class
+     * @return OctaCurlHttpClient class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function curl_http_client(array $defaultOptions = [], $maxHostConnections = 6, $maxPendingPushes = 50){
-        return new CurlHttpClient($defaultOptions,$maxHostConnections,$maxPendingPushes);
+        return new OctaCurlHttpClient($defaultOptions,$maxHostConnections,$maxPendingPushes);
     }
 
     /**
@@ -510,11 +1119,11 @@ class Controller{
      * @param array $client      client config
      * @param int $store         store
      * @param array $defaultOptions      default options
-     * @return CachingHttpClient class
+     * @return OctaCachingHttpClient class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function caching_http_client(array $client = [], $store = 6, $defaultOptions = []){
-        return new CachingHttpClient($client, $store, $defaultOptions);
+        return new OctaCachingHttpClient($client, $store, $defaultOptions);
     }
 
     /**
@@ -524,11 +1133,11 @@ class Controller{
      * @param array $client      host client config
      * @param array $defaultOptionsByRegexp      regular exp default options
      * @param null $defaultRegexp      default regex
-     * @return ScopingHttpClient class
+     * @return OctaScopingHttpClient class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function scoping_http_client($client = [], $defaultOptionsByRegexp = [], $defaultRegexp = null){
-        return new ScopingHttpClient($client,$defaultOptionsByRegexp,$defaultRegexp);
+        return new OctaScopingHttpClient($client,$defaultOptionsByRegexp,$defaultRegexp);
     }
 
     /**
@@ -537,11 +1146,11 @@ class Controller{
      *
      * @param callable|ResponseInterface|ResponseInterface[]|iterable|null $responseFactory
      * @param null $baseUri
-     * @return MockHttpClient class
+     * @return OctaMockHttpClient class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function mock_http_client($responseFactory = null, $baseUri = null){
-        return new MockHttpClient($responseFactory,$baseUri);
+        return new OctaMockHttpClient($responseFactory,$baseUri);
     }
 
     /**
@@ -550,22 +1159,22 @@ class Controller{
      *                                       yielding an empty string simulates a timeout,
      *                                       exceptions are turned to TransportException
      * @param array $info
-     * @return MockResponse class
+     * @return OctaMockResponse class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function mock_response($body = '', array $info = []){
-        return new MockResponse($body,$info);
+        return new OctaMockResponse($body,$info);
     }
 
     /**
      * integrating kernel of symfony.
      *
      * @param null $root
-     * @return Store class
+     * @return OctaStore class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function store($root=null){
-        return new Store($root);
+        return new OctaStore($root);
     }
 
     /**
@@ -593,33 +1202,33 @@ class Controller{
      * integrating mailer/smtp-transport method component of zend.
      *
      * @param array $options
-     * @return SmtpTransport class
+     * @return OctaSmtpTransport class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function smtp_transport($options = null){
-        return new SmtpTransport($options);
+        return new OctaSmtpTransport($options);
     }
 
     /**
      * integrating mailer/smtp-transport-option method component of zend.
      *
      * @param array $options      smtp options config
-     * @return SmtpOptions class
+     * @return OctaSmtpOptions class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function smtp_options(array $options = []){
-        return new SmtpOptions($options);
+        return new OctaSmtpOptions($options);
     }
 
     /**
      * integrating mailer/send-mail-transport method component of zend.
      *
      * @param string $parameters
-     * @return SendmailTransport class
+     * @return OctaSendmailTransport class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function send_mail_transport($parameters = null){
-        return new SendmailTransport($parameters);
+        return new OctaSendmailTransport($parameters);
     }
 
     /**
@@ -628,85 +1237,85 @@ class Controller{
      * @param string $host      local host ip
      * @param string $port      local host port
      * @param array $config    local config data
-     * @return SmtpProtocol class
+     * @return OctaSmtpProtocol class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function smtp_protocol($host = '127.0.0.1', $port = null, array $config = null){
-        return new SmtpProtocol($host,$port,$config);
+        return new OctaSmtpProtocol($host,$port,$config);
     }
 
     /**
      * integrating mailer/smtp plugin manager method component of zend.
      *
-     * @return SmtpPluginManager class
+     * @return OctaSmtpPluginManager class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function smtp_plugin_manager(){
-        return new SmtpPluginManager();
+        return new OctaSmtpPluginManager();
     }
 
     /**
      * integrating mailer/file-transport method component of zend.
      *
-     * @param FileOptions $options
-     * @return FileTransport class
+     * @param $options
+     * @return OctaFileTransport class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function file_transport(FileOptions $options = null){
-        return new FileTransport($options);
+    public function file_transport($options = null){
+        return new OctaFileTransport($options);
     }
 
     /**
      * integrating mailer/file transport option method component of zend.
      *
      * @param array $options
-     * @return FileOptions class
+     * @return OctaFileOptions class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function file_options(array $options = null){
-        return new FileOptions($options);
+        return new OctaFileOptions($options);
     }
 
     /**
      * integrating mailer/inMemory-transport method component of zend.
      *
-     * @return InMemoryTransport class
+     * @return OctaInMemoryTransport class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function in_memory_transport(){
-        return new InMemoryTransport();
+        return new OctaInMemoryTransport();
     }
 
     /**
      * integrating mailer/mime-message method component of zend.
      *
-     * @return MimeMessage class
+     * @return OctaMimeMessage class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function mime_message(){
-        return new MimeMessage();
+        return new OctaMimeMessage();
     }
 
     /**
      * integrating mailer/mime method component of zend.
      *
      * @param string $boundary
-     * @return Mime class
+     * @return OctaMime class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function mime($boundary = null){
-        return new Mime($boundary);
+        return new OctaMime($boundary);
     }
 
     /**
      * integrating mailer/mime-part method component of zend.
      *
      * @param string $content
-     * @return MimePart class
+     * @return OctaMimePart class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function mime_part($content = ''){
-        return new MimePart($content);
+        return new OctaMimePart($content);
     }
 
     /**
@@ -715,11 +1324,11 @@ class Controller{
      * @param string $host
      * @param null $port
      * @param null $config
-     * @return Plain class
+     * @return OctaPlain class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function plain_auth($host = '127.0.0.1', $port = null, $config = null){
-        return new Plain($host, $port, $config);
+        return new OctaPlain($host, $port, $config);
     }
 
     /**
@@ -728,11 +1337,11 @@ class Controller{
      * @param string $host
      * @param null $port
      * @param null $config
-     * @return Login class
+     * @return OctaLogin class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function login_auth($host = '127.0.0.1', $port = null, $config = null){
-        return new Login($host, $port, $config);
+        return new OctaLogin($host, $port, $config);
     }
 
     /**
@@ -741,112 +1350,112 @@ class Controller{
      * @param string $host
      * @param null $port
      * @param null $config
-     * @return Crammd5 class
+     * @return OctaCrammd5 class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function crammd5_auth($host = '127.0.0.1', $port = null, $config = null){
-        return new Crammd5($host, $port, $config);
+        return new OctaCrammd5($host, $port, $config);
     }
 
     /**
      * integrating pop3 mail storage component of zend.
      * @param  array $params mail reader specific parameters
-     * @return Pop3 class
+     * @return OctaPop3 class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function pop3(array $params=[]){
-        return new Pop3($params);
+        return new OctaPop3($params);
     }
 
     /**
      * integrating mbox mail storage component of zend.
      * @param  array $params mail reader specific parameters
-     * @return Mbox class
+     * @return OctaMbox class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function mbox(array $params=[]){
-        return new Mbox($params);
+        return new OctaMbox($params);
     }
 
     /**
      * integrating maildir mail storage component of zend.
      * @param  array $params mail reader specific parameters
-     * @return Maildir class
+     * @return OctaMaildir class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function maildir(array $params=[]){
-        return new Maildir($params);
+        return new OctaMaildir($params);
     }
 
     /**
      * integrating imap mail storage component of zend.
      * @param  array $params mail reader specific parameters
-     * @return Imap class
+     * @return OctaImap class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function imap(array $params=[]){
-        return new Imap($params);
+        return new OctaImap($params);
     }
 
     /**
      * integrating mail_storage component of zend.
-     * @return MailStorage class
+     * @return OctaMailStorage class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function mail_storage(){
-        return new MailStorage();
+        return new OctaMailStorage();
     }
 
     /**
      * integrating mail_storage component of zend.
      * @param  array $params        mbox folder
-     * @return Mbox class
+     * @return OctaMailFolder\Mbox class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function mbox_folder(array $params = []){
-        return new MailFolder\Mbox($params);
+        return new OctaMailFolder\Mbox($params);
     }
 
     /**
      * integrating mail_storage component of zend.
      * @param  array $params        maildir folder
-     * @return Maildir class
+     * @return OctaMailFolder\Maildir class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function maildir_folder(array $params = []){
-        return new MailFolder\Maildir($params);
+        return new OctaMailFolder\Maildir($params);
     }
 
     /**
      * integrating css selector component of symfony.
      * @param bool $html Whether HTML support should be enabled. Disable it for XML documents
-     * @return CssSelectorConverter class
+     * @return OctaCssSelectorConverter class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function css_selector($html = true){
-        return new CssSelectorConverter($html);
+        return new OctaCssSelectorConverter($html);
     }
 
     /**
      * integrating serializer component of symfony.
      * @param array $normalizers
      * @param array $encoders
-     * @return Serializer class
+     * @return OctaSerializer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function serializer(array $normalizers = [], array $encoders = []){
-        return new Serializer($normalizers, $encoders);
+        return new OctaSerializer($normalizers, $encoders);
     }
 
     /**
      * integrating serializer (json encoder).
      * @param null $encodingImpl
      * @param null $decodingImpl
-     * @return JsonEncoder class
+     * @return OctaJsonEncoder class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function json_encoder($encodingImpl = null, $decodingImpl = null){
-        return new JsonEncoder($encodingImpl, $decodingImpl);
+        return new OctaJsonEncoder($encodingImpl, $decodingImpl);
     }
 
     /**
@@ -855,11 +1464,11 @@ class Controller{
      * @param null $loadOptions
      * @param array $decoderIgnoredNodeTypes
      * @param array $encoderIgnoredNodeTypes
-     * @return XmlEncoder class
+     * @return OctaXmlEncoder class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function xml_encoder($defaultContext = [], $loadOptions = null, array $decoderIgnoredNodeTypes = [XML_PI_NODE, XML_COMMENT_NODE], array $encoderIgnoredNodeTypes = []){
-        return new XmlEncoder($defaultContext, $loadOptions, $decoderIgnoredNodeTypes, $encoderIgnoredNodeTypes);
+        return new OctaXmlEncoder($defaultContext, $loadOptions, $decoderIgnoredNodeTypes, $encoderIgnoredNodeTypes);
     }
 
     /**
@@ -867,11 +1476,11 @@ class Controller{
      * @param null $dumper
      * @param null $parser
      * @param array $defaultContext
-     * @return YamlEncoder class
+     * @return OctaYamlEncoder class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function yaml_encoder($dumper = null, $parser = null, array $defaultContext = []){
-        return new YamlEncoder($dumper, $parser, $defaultContext);
+        return new OctaYamlEncoder($dumper, $parser, $defaultContext);
     }
 
     /**
@@ -881,11 +1490,11 @@ class Controller{
      * @param string $escapeChar
      * @param string $keySeparator
      * @param boolean $escapeFormulas
-     * @return CsvEncoder class
+     * @return OctaCsvEncoder class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function csv_encoder($defaultContext = [], $enclosure = '"', $escapeChar = '\\', $keySeparator = '.', $escapeFormulas = false){
-        return new CsvEncoder($defaultContext, $enclosure, $escapeChar, $keySeparator, $escapeFormulas);
+        return new OctaCsvEncoder($defaultContext, $enclosure, $escapeChar, $keySeparator, $escapeFormulas);
     }
 
     /**
@@ -898,203 +1507,203 @@ class Controller{
      * @param null $classDiscriminatorResolver
      * @param callable $objectClassResolver
      * @param array $defaultContext
-     * @return ObjectNormalizer class
+     * @return OctaObjectNormalizer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function object_normalizer($classMetadataFactory = null, $nameConverter = null, $propertyAccessor = null, $propertyTypeExtractor = null, $classDiscriminatorResolver = null, callable $objectClassResolver = null, array $defaultContext = []){
-        return new ObjectNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor, $classDiscriminatorResolver, $objectClassResolver, $defaultContext);
+        return new OctaObjectNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor, $classDiscriminatorResolver, $objectClassResolver, $defaultContext);
     }
 
     /**
      * integrating serializer (get and set method normalizer).
      *
-     * @return GetSetMethodNormalizer class
+     * @return OctaGetSetMethodNormalizer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function get_set_method_normalizer(){
-        return new GetSetMethodNormalizer();
+        return new OctaGetSetMethodNormalizer();
     }
 
     /**
      * integrating serializer (property normalizer).
      *
-     * @return PropertyNormalizer class
+     * @return OctaPropertyNormalizer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function property_normalizer(){
-        return new PropertyNormalizer();
+        return new OctaPropertyNormalizer();
     }
 
     /**
      * integrating serializer (json serializable normalizer).
      *
-     * @return JsonSerializableNormalizer class
+     * @return OctaJsonSerializableNormalizer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function json_serializable_normalizer(){
-        return new JsonSerializableNormalizer();
+        return new OctaJsonSerializableNormalizer();
     }
 
     /**
      * integrating serializer (datetime normalizer).
      *
-     * @return DateTimeNormalizer class
+     * @return OctaDateTimeNormalizer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function datetime_normalizer(){
-        return new DateTimeNormalizer();
+        return new OctaDateTimeNormalizer();
     }
 
     /**
      * integrating serializer (data uri normalizer).
      *
-     * @return DataUriNormalizer class
+     * @return OctaDataUriNormalizer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function data_uri_normalizer(){
-        return new DataUriNormalizer();
+        return new OctaDataUriNormalizer();
     }
 
     /**
      * integrating serializer (date interval normalizer).
      *
-     * @return DateIntervalNormalizer class
+     * @return OctaDateIntervalNormalizer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function date_interval_normalizer(){
-        return new DateIntervalNormalizer();
+        return new OctaDateIntervalNormalizer();
     }
 
     /**
      * integrating serializer (constraint violationList normalizer).
      *
-     * @return ConstraintViolationListNormalizer class
+     * @return OctaConstraintViolationListNormalizer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function constraint_violation_list_normalizer(){
-        return new ConstraintViolationListNormalizer();
+        return new OctaConstraintViolationListNormalizer();
     }
 
     /**
      * integrating serializer (constraint violationList normalizer).
      *
-     * @return ArrayDenormalizer class
+     * @return OctaArrayDenormalizer class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function array_denormalizer(){
-        return new ArrayDenormalizer();
+        return new OctaArrayDenormalizer();
     }
 
     /**
      * integrating serializer (metadata factory).
      *
-     * @return ClassMetadataFactory class
+     * @return OctaClassMetadataFactory class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function class_metadata_factory($loader){
-        return new ClassMetadataFactory($loader);
+        return new OctaClassMetadataFactory($loader);
     }
 
     /**
      * integrating serializer (annotation loader).
-     * @param string $reader
-     * @return AnnotationLoader class
+     * @param $reader
+     * @return OctaAnnotationLoader class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function annotation_loader($reader=null){
-        return new AnnotationLoader($reader);
+        return new OctaAnnotationLoader($reader);
     }
 
     /**
      * integrating serializer (yaml file loader).
      * @param string $classMetadata
-     * @return YamlFileLoader class
+     * @return OctaYamlFileLoader class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function yaml_file_loader($classMetadata=null){
-        return new YamlFileLoader($classMetadata);
+        return new OctaYamlFileLoader($classMetadata);
     }
 
     /**
      * integrating serializer (xml file loader).
      * @param null $classMetadata
-     * @return XmlFileLoader class
+     * @return OctaXmlFileLoader class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function xml_file_loader($classMetadata=null){
-        return new XmlFileLoader($classMetadata);
+        return new OctaXmlFileLoader($classMetadata);
     }
 
     /**
      * integrating serializer (annotation reader).
      * @param null $parser
-     * @return AnnotationReader class
+     * @return OctaAnnotationReader class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function annotation_reader($parser = null){
-        return new AnnotationReader($parser);
+        return new OctaAnnotationReader($parser);
     }
 
     /**
      * integrating serializer (camelcase converter).
      * @param array $attributes
      * @param boolean $lowerCamelCase
-     * @return CamelCaseToSnakeCaseNameConverter class
+     * @return OctaCamelCaseToSnakeCaseNameConverter class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function camelcase_to_snakecase_name_converter(array $attributes = null, $lowerCamelCase = true){
-        return new CamelCaseToSnakeCaseNameConverter($attributes, $lowerCamelCase);
+        return new OctaCamelCaseToSnakeCaseNameConverter($attributes, $lowerCamelCase);
     }
 
     /**
      * integrating serializer (metadata aware name converter).
      * @param null $metadataFactory
      * @param null $fallbackNameConverter
-     * @return MetadataAwareNameConverter class
+     * @return OctaMetadataAwareNameConverter class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function metadata_aware_name_converter($metadataFactory = null, $fallbackNameConverter = null){
-        return new MetadataAwareNameConverter($metadataFactory, $fallbackNameConverter);
+        return new OctaMetadataAwareNameConverter($metadataFactory, $fallbackNameConverter);
     }
 
     /**
      * integrating serializer (DiscriminatorMap Annotation).
      * @param array $data
-     * @return DiscriminatorMap class
+     * @return OctaDiscriminatorMap class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function discriminator_map(array $data){
-        return new DiscriminatorMap($data);
+        return new OctaDiscriminatorMap($data);
     }
 
     /**
      * integrating serializer (groups Annotation).
      * @param array $data
-     * @return Groups class
+     * @return OctaGroups class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function groups(array $data){
-        return new Groups($data);
+        return new OctaGroups($data);
     }
 
     /**
      * integrating serializer (MaxDepth Annotation).
      * @param array $data
-     * @return MaxDepth class
+     * @return OctaMaxDepth class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function max_depth(array $data){
-        return new MaxDepth($data);
+        return new OctaMaxDepth($data);
     }
 
     /**
      * integrating serializer (serialized_name Annotation).
      * @param array $data
-     * @return SerializedName class
+     * @return OctaSerializedName class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function serialized_name(array $data){
-        return new SerializedName($data);
+        return new OctaSerializedName($data);
     }
 
     /**
@@ -1110,41 +1719,41 @@ class Controller{
     /**
      * integrating stopwatch component of symfony.
      *
-     * @return Stopwatch class
+     * @return OctaStopwatch class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function stopwatch(){
-        return new Stopwatch();
+        return new OctaStopwatch();
     }
 
     /**
      * integrating DotEnv component of symfony.
      *
-     * @return Dotenv class
+     * @return OctaDotenv class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function dot_env(){
-        return new Dotenv();
+        return new OctaDotenv();
     }
 
     /**
      * integrating finder component of symfony.
      *
-     * @return Finder class
+     * @return OctaFinder class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function finder(){
-        return new Finder();
+        return new OctaFinder();
     }
 
     /**
      * integrating expression language component of symfony.
      *
-     * @return ExpressionLanguage class
+     * @return OctaExpressionLanguage class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function expression_language(){
-        return new ExpressionLanguage();
+        return new OctaExpressionLanguage();
     }
 
     /**
@@ -1172,6 +1781,7 @@ class Controller{
      * @param int $ttl
      * @param null $serializeCache
      * @return OctaCacheAdapter class
+     * @deprecated Since the release of symfony-4.
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function cache_adapter($source, $cache, $ttl = 0, $serializeCache = null){
@@ -1212,7 +1822,7 @@ class Controller{
      * @return OctaAwsS3Adapter class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function aws_s3_adapter($service, $bucket, array $options = [], $detectContentType = false){
+    public function aws_s3_adapter($service = null, $bucket, array $options = [], $detectContentType = false){
         return new OctaAwsS3Adapter($service, $bucket, $options, $detectContentType);
     }
 
@@ -1232,7 +1842,7 @@ class Controller{
      * instantiate phpseclib connection
      * @param string $host
      * @param int $port
-     * @return SFTP class
+     * @return phpseclib\Net\SFTP class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function phpseclib_connection($host = 'localhost', $port = 22){
@@ -1248,7 +1858,7 @@ class Controller{
      * @return Gaufrette\Adapter\PhpseclibSftp class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function phpseclib_adapter($sftp, $distantDirectory = null, $createDirectoryIfDoesntExist = false){
+    public function phpseclib_adapter($sftp = null, $distantDirectory = null, $createDirectoryIfDoesntExist = false){
         return new Gaufrette\Adapter\PhpseclibSftp($sftp, $distantDirectory, $createDirectoryIfDoesntExist);
     }
 
@@ -1331,4 +1941,148 @@ class Controller{
         return new \Google_Service_Books($client);
     }
 
+    /**
+     * integrating botdetect component.
+     * @param string $secret
+     * @param null $requestMethod
+     * @return ReCaptcha\ReCaptcha class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function google_captcha($secret, $requestMethod = null){
+        return new \ReCaptcha\ReCaptcha($secret, $requestMethod);
+    }
+
+    /**
+     * @param string $connectionString
+     * @return OctaBlobProxyFactory class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function blob_proxy_factory($connectionString){
+        return new OctaBlobProxyFactory($connectionString);
+    }
+
+    /**
+     * @param $blobProxyFactory
+     * @param string|null                                $containerName
+     * @param bool                                       $create
+     * @param bool                                       $detectContentType
+     * @return OctaAzureBlobStorage class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function azure_blob_storage($blobProxyFactory, $containerName = null, $create = false, $detectContentType = true){
+        return new OctaAzureBlobStorage($blobProxyFactory, $containerName, $create, $detectContentType);
+    }
+
+    /**
+     * Optional parameters for createContainer API
+     * @return OctaCreateContainerOptions class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function create_container_options(){
+        return new OctaCreateContainerOptions();
+    }
+
+    /**
+     * block cipher Factory
+     *
+     * @param  string      $adapter
+     * @param  array       $options
+     * @return OctaBlockCipher class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function block_cipher($adapter, $options = []){
+        return OctaBlockCipher::factory($adapter,$options);
+    }
+
+    /**
+     * integrating block cipher | openssl of zend
+     * @param array $options
+     * @return OctaOpenssl class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function openssl($options = []){
+        return new OctaOpenssl($options);
+    }
+
+    /**
+     * integrating file cipher of zend
+     * @return OctaFileCipher class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function file_cipher(){
+        return new OctaFileCipher();
+    }
+
+    /**
+     * integrating hybrid cipher of zend
+     * @return OctaHybrid class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function hybrid(){
+        return new OctaHybrid();
+    }
+
+    /**
+     * integrating RsaOptions for hybrid cipher component of zend
+     * @param  array|Traversable|null $options
+     * @return OctaRsaOptions class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function rsa_options($options = null){
+        return new OctaRsaOptions($options);
+    }
+
+    /**
+     * integrating Rsa component of zend
+     * @param  array|Traversable|null $options
+     * @return OctaRsa class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function rsa($options = null){
+        return new OctaRsa($options);
+    }
+
+    /**
+     * integrating bcrypt cipher of zend
+     * @param  array|Traversable|null $options
+     * @return OctaBcrypt class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function bcrypt($options = []){
+        return new OctaBcrypt($options);
+    }
+
+    /**
+     * integrating apache cipher of zend
+     * @param  array|Traversable|null $options
+     * @return OctaApache class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function apache($options = []){
+        return new OctaApache($options);
+    }
+
+    /**
+     * integrating diffie hellman cipher of zend
+     * @param  $prime
+     * @param  $generator
+     * @param  $privateKey
+     * @param  $privateKeyFormat
+     * @return OctaDiffieHellman class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function diffie_hellman($prime, $generator, $privateKey = null, $privateKeyFormat = self::FORMAT_NUMBER){
+        return new OctaDiffieHellman($prime, $generator, $privateKey, $privateKeyFormat);
+    }
+
+    /**
+     * oauth2 client-side
+     * @param  array $options
+     * @param  array $collaborators
+     * @return OctaGenericProvider class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function generic_provider(array $options = [], array $collaborators = []){
+        return new OctaGenericProvider($options, $collaborators);
+    }
 }

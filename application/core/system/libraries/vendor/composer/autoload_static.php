@@ -88,6 +88,7 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
         'R' => 
         array (
             'Respect\\Validation\\' => 19,
+            'ReCaptcha\\' => 10,
         ),
         'P' => 
         array (
@@ -104,6 +105,13 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
             'MicrosoftAzure\\Storage\\Common\\' => 30,
             'MicrosoftAzure\\Storage\\Blob\\' => 28,
             'MicrosoftAzure\\Storage\\' => 23,
+        ),
+        'L' => 
+        array (
+            'League\\OAuth2\\Server\\' => 21,
+            'League\\OAuth2\\Client\\' => 21,
+            'League\\Event\\' => 13,
+            'Lcobucci\\JWT\\' => 13,
         ),
         'J' => 
         array (
@@ -137,7 +145,12 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
+            'Defuse\\Crypto\\' => 14,
             'DeepCopy\\' => 9,
+        ),
+        'C' => 
+        array (
+            'Console\\' => 8,
         ),
         'A' => 
         array (
@@ -328,6 +341,10 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
         array (
             0 => __DIR__ . '/..' . '/respect/validation/library',
         ),
+        'ReCaptcha\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
@@ -367,6 +384,22 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
         'MicrosoftAzure\\Storage\\' => 
         array (
             0 => __DIR__ . '/..' . '/microsoft/azure-storage/src',
+        ),
+        'League\\OAuth2\\Server\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/oauth2-server/src',
+        ),
+        'League\\OAuth2\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/oauth2-client/src',
+        ),
+        'League\\Event\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/event/src',
+        ),
+        'Lcobucci\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
         ),
         'JmesPath\\' => 
         array (
@@ -431,9 +464,17 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
             2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
             3 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
         ),
+        'Defuse\\Crypto\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/defuse/php-encryption/src',
+        ),
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Console\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'Aws\\' => 
         array (

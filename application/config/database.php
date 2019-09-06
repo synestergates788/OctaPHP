@@ -10,9 +10,9 @@ $database = array(
     /***
      * Note: It is highly recommended to choose your preffered database adapter
      * ['MariaDB', 'MySQL', 'PDO', 'PostgreSQL', 'SQLite', 'CUBRID'].
-     * Ex: 'database_adapter' => 'PDO'
+     * Ex: 'driver' => 'PDO'
      ***/
-    'database_adapter' => 'PDO',
+    'driver' => 'PDO',
 
     /***
      * Note: PORT is required if you are using CUBRID database adapter otherwise leave it null
