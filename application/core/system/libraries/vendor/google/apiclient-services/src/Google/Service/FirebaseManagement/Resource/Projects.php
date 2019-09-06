@@ -48,8 +48,6 @@ class Google_Service_FirebaseManagement_Resource_Projects extends Google_Service
    * This method does not modify any billing account information on the underlying
    * GCP `Project`.
    *
-   * All fields listed in the [request body](#request-body) are required.
-   *
    * To call `AddFirebase`, a member must be an Editor or Owner for the existing
    * GCP `Project`. Service accounts cannot call `AddFirebase`.
    * (projects.addFirebase)

@@ -18,9 +18,25 @@
 class Google_Service_AccessApproval_AccessApprovalSettings extends Google_Collection
 {
   protected $collection_key = 'notificationEmails';
+  protected $enrolledServicesType = 'Google_Service_AccessApproval_EnrolledService';
+  protected $enrolledServicesDataType = 'array';
   public $name;
   public $notificationEmails;
 
+  /**
+   * @param Google_Service_AccessApproval_EnrolledService
+   */
+  public function setEnrolledServices($enrolledServices)
+  {
+    $this->enrolledServices = $enrolledServices;
+  }
+  /**
+   * @return Google_Service_AccessApproval_EnrolledService
+   */
+  public function getEnrolledServices()
+  {
+    return $this->enrolledServices;
+  }
   public function setName($name)
   {
     $this->name = $name;

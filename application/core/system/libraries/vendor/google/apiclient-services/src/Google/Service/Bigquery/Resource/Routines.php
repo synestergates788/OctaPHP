@@ -81,11 +81,11 @@ class Google_Service_Bigquery_Resource_Routines extends Google_Service_Resource
    * @param string $datasetId Dataset ID of the routines to list
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string pageToken Page token, returned by a previous call, to
+   * request the next page of results
    * @opt_param string maxResults The maximum number of results to return in a
    * single response page. Leverage the page tokens to iterate through the entire
    * collection.
-   * @opt_param string pageToken Page token, returned by a previous call, to
-   * request the next page of results
    * @return Google_Service_Bigquery_ListRoutinesResponse
    */
   public function listRoutines($projectId, $datasetId, $optParams = array())

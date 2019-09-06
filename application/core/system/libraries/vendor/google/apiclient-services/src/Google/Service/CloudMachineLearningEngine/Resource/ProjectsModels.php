@@ -85,8 +85,8 @@ class Google_Service_CloudMachineLearningEngine_Resource_ProjectsModels extends 
    * @param array $optParams Optional parameters.
    *
    * @opt_param int options.requestedPolicyVersion Optional. The policy format
-   * version to be returned. Acceptable values are 0 and 1. If the value is 0, or
-   * the field is omitted, policy format version 1 will be returned.
+   * version to be returned. Acceptable values are 0, 1, and 3. If the value is 0,
+   * or the field is omitted, policy format version 1 will be returned.
    * @return Google_Service_CloudMachineLearningEngine_GoogleIamV1Policy
    */
   public function getIamPolicy($resource, $optParams = array())
@@ -108,8 +108,6 @@ class Google_Service_CloudMachineLearningEngine_Resource_ProjectsModels extends 
    * be listed.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string filter Optional. Specifies the subset of models to
-   * retrieve.
    * @opt_param string pageToken Optional. A page token to request the next page
    * of results.
    *
@@ -120,6 +118,8 @@ class Google_Service_CloudMachineLearningEngine_Resource_ProjectsModels extends 
    * response message will contain a valid value in the `next_page_token` field.
    *
    * The default value is 20, and the maximum page size is 100.
+   * @opt_param string filter Optional. Specifies the subset of models to
+   * retrieve.
    * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ListModelsResponse
    */
   public function listProjectsModels($parent, $optParams = array())

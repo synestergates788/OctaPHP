@@ -46,12 +46,13 @@ class Google_Service_CloudTalentSolution extends Google_Service
   /**
    * Constructs the internal representation of the CloudTalentSolution service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://jobs.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://jobs.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
     $this->version = 'v3';
@@ -71,6 +72,10 @@ class Google_Service_CloudTalentSolution extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'languageCode' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
                 'type' => array(
                   'location' => 'query',
@@ -94,10 +99,6 @@ class Google_Service_CloudTalentSolution extends Google_Service
                   'type' => 'integer',
                 ),
                 'query' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'languageCode' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),

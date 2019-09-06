@@ -35,8 +35,8 @@ class Google_Service_ServiceBroker_Resource_V1 extends Google_Service_Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param int options.requestedPolicyVersion Optional. The policy format
-   * version to be returned. Acceptable values are 0 and 1. If the value is 0, or
-   * the field is omitted, policy format version 1 will be returned.
+   * version to be returned. Acceptable values are 0, 1, and 3. If the value is 0,
+   * or the field is omitted, policy format version 1 will be returned.
    * @return Google_Service_ServiceBroker_GoogleIamV1Policy
    */
   public function getIamPolicy($resource, $optParams = array())

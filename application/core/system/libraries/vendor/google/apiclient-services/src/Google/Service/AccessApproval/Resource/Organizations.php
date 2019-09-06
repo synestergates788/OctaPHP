@@ -41,7 +41,7 @@ class Google_Service_AccessApproval_Resource_Organizations extends Google_Servic
   }
   /**
    * Updates the settings associated with a project, folder, or organization.
-   * Completely replaces the existing settings.
+   * Settings to update are determined by the value of field_mask.
    * (organizations.updateAccessApprovalSettings)
    *
    * @param string $name The resource name of the settings. Format is one of:
@@ -51,6 +51,11 @@ class Google_Service_AccessApproval_Resource_Organizations extends Google_Servic
    * "organizations/{organization_id}/accessApprovalSettings"
    * @param Google_Service_AccessApproval_AccessApprovalSettings $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string updateMask The update mask applies to the settings. For the
+   * `FieldMask` definition, see https://developers.google.com/protocol-
+   * buffers/docs/reference/google.protobuf#fieldmask If this field is left unset,
+   * only the notification_emails field will be updated.
    * @return Google_Service_AccessApproval_AccessApprovalSettings
    */
   public function updateAccessApprovalSettings($name, Google_Service_AccessApproval_AccessApprovalSettings $postBody, $optParams = array())

@@ -18,18 +18,9 @@
 class Google_Service_CloudHealthcare_TextConfig extends Google_Collection
 {
   protected $collection_key = 'transformations';
-  public $experimentalConfig;
   protected $transformationsType = 'Google_Service_CloudHealthcare_InfoTypeTransformation';
   protected $transformationsDataType = 'array';
 
-  public function setExperimentalConfig($experimentalConfig)
-  {
-    $this->experimentalConfig = $experimentalConfig;
-  }
-  public function getExperimentalConfig()
-  {
-    return $this->experimentalConfig;
-  }
   /**
    * @param Google_Service_CloudHealthcare_InfoTypeTransformation
    */

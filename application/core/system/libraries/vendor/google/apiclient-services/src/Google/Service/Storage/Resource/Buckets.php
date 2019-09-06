@@ -77,6 +77,9 @@ class Google_Service_Storage_Resource_Buckets extends Google_Service_Resource
    * @param string $bucket Name of a bucket.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param int optionsRequestedPolicyVersion The IAM policy format version to
+   * be returned. If the optionsRequestedPolicyVersion is for an older version
+   * that doesn't support part of the requested IAM policy, the request fails.
    * @opt_param string provisionalUserProject The project to be billed for this
    * request if the target bucket is requester-pays bucket.
    * @opt_param string userProject The project to be billed for this request.

@@ -25,6 +25,8 @@ class Google_Service_Bigquery_TrainingOptions extends Google_Collection
   public $earlyStop;
   public $initialLearnRate;
   public $inputLabelColumns;
+  public $kmeansInitializationColumn;
+  public $kmeansInitializationMethod;
   public $l1Regularization;
   public $l2Regularization;
   public $labelClassWeights;
@@ -93,6 +95,22 @@ class Google_Service_Bigquery_TrainingOptions extends Google_Collection
   public function getInputLabelColumns()
   {
     return $this->inputLabelColumns;
+  }
+  public function setKmeansInitializationColumn($kmeansInitializationColumn)
+  {
+    $this->kmeansInitializationColumn = $kmeansInitializationColumn;
+  }
+  public function getKmeansInitializationColumn()
+  {
+    return $this->kmeansInitializationColumn;
+  }
+  public function setKmeansInitializationMethod($kmeansInitializationMethod)
+  {
+    $this->kmeansInitializationMethod = $kmeansInitializationMethod;
+  }
+  public function getKmeansInitializationMethod()
+  {
+    return $this->kmeansInitializationMethod;
   }
   public function setL1Regularization($l1Regularization)
   {

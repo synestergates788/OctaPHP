@@ -18,6 +18,10 @@
 class Google_Service_SQLAdmin_BackupRun extends Google_Model
 {
   public $description;
+  protected $diskEncryptionConfigurationType = 'Google_Service_SQLAdmin_DiskEncryptionConfiguration';
+  protected $diskEncryptionConfigurationDataType = '';
+  protected $diskEncryptionStatusType = 'Google_Service_SQLAdmin_DiskEncryptionStatus';
+  protected $diskEncryptionStatusDataType = '';
   public $endTime;
   public $enqueuedTime;
   protected $errorType = 'Google_Service_SQLAdmin_OperationError';
@@ -39,6 +43,34 @@ class Google_Service_SQLAdmin_BackupRun extends Google_Model
   public function getDescription()
   {
     return $this->description;
+  }
+  /**
+   * @param Google_Service_SQLAdmin_DiskEncryptionConfiguration
+   */
+  public function setDiskEncryptionConfiguration(Google_Service_SQLAdmin_DiskEncryptionConfiguration $diskEncryptionConfiguration)
+  {
+    $this->diskEncryptionConfiguration = $diskEncryptionConfiguration;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_DiskEncryptionConfiguration
+   */
+  public function getDiskEncryptionConfiguration()
+  {
+    return $this->diskEncryptionConfiguration;
+  }
+  /**
+   * @param Google_Service_SQLAdmin_DiskEncryptionStatus
+   */
+  public function setDiskEncryptionStatus(Google_Service_SQLAdmin_DiskEncryptionStatus $diskEncryptionStatus)
+  {
+    $this->diskEncryptionStatus = $diskEncryptionStatus;
+  }
+  /**
+   * @return Google_Service_SQLAdmin_DiskEncryptionStatus
+   */
+  public function getDiskEncryptionStatus()
+  {
+    return $this->diskEncryptionStatus;
   }
   public function setEndTime($endTime)
   {

@@ -26,6 +26,32 @@
 class Google_Service_AlertCenter_Resource_Alerts extends Google_Service_Resource
 {
   /**
+   * Performs batch delete operation on alerts. (alerts.batchDelete)
+   *
+   * @param Google_Service_AlertCenter_BatchDeleteAlertsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AlertCenter_BatchDeleteAlertsResponse
+   */
+  public function batchDelete(Google_Service_AlertCenter_BatchDeleteAlertsRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchDelete', array($params), "Google_Service_AlertCenter_BatchDeleteAlertsResponse");
+  }
+  /**
+   * Performs batch undelete operation on alerts. (alerts.batchUndelete)
+   *
+   * @param Google_Service_AlertCenter_BatchUndeleteAlertsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_AlertCenter_BatchUndeleteAlertsResponse
+   */
+  public function batchUndelete(Google_Service_AlertCenter_BatchUndeleteAlertsRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('batchUndelete', array($params), "Google_Service_AlertCenter_BatchUndeleteAlertsResponse");
+  }
+  /**
    * Marks the specified alert for deletion. An alert that has been marked for
    * deletion is removed from Alert Center after 30 days. Marking an alert for
    * deletion has no effect on an alert which has already been marked for
@@ -65,14 +91,29 @@ class Google_Service_AlertCenter_Resource_Alerts extends Google_Service_Resource
     return $this->call('get', array($params), "Google_Service_AlertCenter_Alert");
   }
   /**
+   * Returns the metadata of an alert. Attempting to get metadata for a non-
+   * existent alert returns `NOT_FOUND` error. (alerts.getMetadata)
+   *
+   * @param string $alertId Required. The identifier of the alert this metadata
+   * belongs to.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string customerId Optional. The unique identifier of the G Suite
+   * organization account of the customer the alert metadata is associated with.
+   * Inferred from the caller identity if not provided.
+   * @return Google_Service_AlertCenter_AlertMetadata
+   */
+  public function getMetadata($alertId, $optParams = array())
+  {
+    $params = array('alertId' => $alertId);
+    $params = array_merge($params, $optParams);
+    return $this->call('getMetadata', array($params), "Google_Service_AlertCenter_AlertMetadata");
+  }
+  /**
    * Lists the alerts. (alerts.listAlerts)
    *
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string filter Optional. A query string for filtering alert
-   * results. For more details, see [Query filters](/admin-sdk/alertcenter/guides
-   * /query-filters) and [Supported query filter fields](/admin-
-   * sdk/alertcenter/reference/filter-fields#alerts.list).
    * @opt_param string pageToken Optional. A token identifying a page of results
    * the server should return. If empty, a new iteration is started. To continue
    * an iteration, pass in the value from the previous ListAlertsResponse's
@@ -88,6 +129,10 @@ class Google_Service_AlertCenter_Resource_Alerts extends Google_Service_Resource
    * @opt_param int pageSize Optional. The requested page size. Server may return
    * fewer items than requested. If unspecified, server picks an appropriate
    * default.
+   * @opt_param string filter Optional. A query string for filtering alert
+   * results. For more details, see [Query filters](/admin-sdk/alertcenter/guides
+   * /query-filters) and [Supported query filter fields](/admin-
+   * sdk/alertcenter/reference/filter-fields#alerts.list).
    * @return Google_Service_AlertCenter_ListAlertsResponse
    */
   public function listAlerts($optParams = array())

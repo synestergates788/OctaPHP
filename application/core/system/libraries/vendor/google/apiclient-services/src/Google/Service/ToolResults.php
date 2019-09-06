@@ -48,12 +48,13 @@ class Google_Service_ToolResults extends Google_Service
   /**
    * Constructs the internal representation of the ToolResults service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://www.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
     $this->servicePath = 'toolresults/v1beta3/projects/';
     $this->batchPath = 'batch/toolresults/v1beta3';
     $this->version = 'v1beta3';

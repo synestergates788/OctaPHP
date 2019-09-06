@@ -35,6 +35,7 @@ class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
   public $quantityPending;
   public $quantityReturned;
   public $quantityShipped;
+  public $quantityUndeliverable;
   protected $returnInfoType = 'Google_Service_ShoppingContent_OrderLineItemReturnInfo';
   protected $returnInfoDataType = '';
   protected $returnsType = 'Google_Service_ShoppingContent_OrderReturn';
@@ -169,6 +170,14 @@ class Google_Service_ShoppingContent_OrderLineItem extends Google_Collection
   public function getQuantityShipped()
   {
     return $this->quantityShipped;
+  }
+  public function setQuantityUndeliverable($quantityUndeliverable)
+  {
+    $this->quantityUndeliverable = $quantityUndeliverable;
+  }
+  public function getQuantityUndeliverable()
+  {
+    return $this->quantityUndeliverable;
   }
   /**
    * @param Google_Service_ShoppingContent_OrderLineItemReturnInfo

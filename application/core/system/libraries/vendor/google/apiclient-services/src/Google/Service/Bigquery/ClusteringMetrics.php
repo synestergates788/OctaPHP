@@ -15,11 +15,28 @@
  * the License.
  */
 
-class Google_Service_Bigquery_ClusteringMetrics extends Google_Model
+class Google_Service_Bigquery_ClusteringMetrics extends Google_Collection
 {
+  protected $collection_key = 'clusters';
+  protected $clustersType = 'Google_Service_Bigquery_Cluster';
+  protected $clustersDataType = 'array';
   public $daviesBouldinIndex;
   public $meanSquaredDistance;
 
+  /**
+   * @param Google_Service_Bigquery_Cluster
+   */
+  public function setClusters($clusters)
+  {
+    $this->clusters = $clusters;
+  }
+  /**
+   * @return Google_Service_Bigquery_Cluster
+   */
+  public function getClusters()
+  {
+    return $this->clusters;
+  }
   public function setDaviesBouldinIndex($daviesBouldinIndex)
   {
     $this->daviesBouldinIndex = $daviesBouldinIndex;

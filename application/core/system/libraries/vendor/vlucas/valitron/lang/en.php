@@ -10,6 +10,7 @@ return array(
     'length'         => "must be %d characters long",
     'min'            => "must be at least %s",
     'max'            => "must be no more than %s",
+    'listContains'   => "contains invalid value",
     'in'             => "contains invalid value",
     'notIn'          => "contains invalid value",
     'ip'             => "is not a valid IP address",
@@ -34,6 +35,8 @@ return array(
     'lengthMax'      => "must not exceed %d characters",
     'instanceOf'     => "must be an instance of '%s'",
     'containsUnique' => "must contain unique elements only",
+    'requiredWith'   => "is required",
+    'requiredWithout'=> "is required",
     'subset'         => "contains an item that is not in the list",
     'arrayHasKeys'   => "does not contain all required keys",
 );

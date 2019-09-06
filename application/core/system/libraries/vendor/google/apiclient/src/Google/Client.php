@@ -38,7 +38,7 @@ use Monolog\Handler\SyslogHandler as MonologSyslogHandler;
  */
 class Google_Client
 {
-  const LIBVER = "2.2.3";
+  const LIBVER = "2.2.4";
   const USER_AGENT_SUFFIX = "google-api-php-client/";
   const OAUTH2_REVOKE_URI = 'https://oauth2.googleapis.com/revoke';
   const OAUTH2_TOKEN_URI = 'https://oauth2.googleapis.com/token';
@@ -142,6 +142,10 @@ class Google_Client
           // Service class used in Google_Client::verifyIdToken.
           // Explicitly pass this in to avoid setting JWT::$leeway
           'jwt' => null,
+
+          // Setting api_format_v2 will return more detailed error messages
+          // from certain APIs.
+          'api_format_v2' => false
         ],
         $config
     );
@@ -412,6 +416,17 @@ class Google_Client
   }
 
   /**
+   * Set the access token used for requests.
+   *
+   * Note that at the time requests are sent, tokens are cached. A token will be
+   * cached for each combination of service and authentication scopes. If a
+   * cache pool is not provided, creating a new instance of the client will
+   * allow modification of access tokens. If a persistent cache pool is
+   * provided, in order to change the access token, you must clear the cached
+   * token by calling `$client->getCache()->clear()`. (Use caution in this case,
+   * as calling `clear()` will remove all cache items, including any items not
+   * related to Google API PHP Client.)
+   *
    * @param string|array $token
    * @throws InvalidArgumentException
    */
@@ -796,6 +811,13 @@ class Google_Client
         . $this->getLibraryVersion()
     );
 
+    if ($this->config['api_format_v2']) {
+        $request = $request->withHeader(
+            'X-GOOG-API-FORMAT-VERSION',
+            2
+        );
+    }
+
     // call the authorize method
     // this is where most of the grunt work is done
     $http = $this->authorize();
@@ -1054,6 +1076,18 @@ class Google_Client
     }
 
     return $this->http;
+  }
+
+  /**
+   * Set the API format version.
+   *
+   * `true` will use V2, which may return more useful error messages.
+   *
+   * @param bool $value
+   */
+  public function setApiFormatV2($value)
+  {
+    $this->config['api_format_v2'] = (bool) $value;
   }
 
   protected function createDefaultHttpClient()

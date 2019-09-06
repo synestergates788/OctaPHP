@@ -27,6 +27,7 @@ class Google_Service_Drive_DriveFileCapabilities extends Google_Model
   public $canDownload;
   public $canEdit;
   public $canListChildren;
+  public $canModifyContent;
   public $canMoveChildrenOutOfDrive;
   public $canMoveChildrenOutOfTeamDrive;
   public $canMoveChildrenWithinDrive;
@@ -126,6 +127,14 @@ class Google_Service_Drive_DriveFileCapabilities extends Google_Model
   public function getCanListChildren()
   {
     return $this->canListChildren;
+  }
+  public function setCanModifyContent($canModifyContent)
+  {
+    $this->canModifyContent = $canModifyContent;
+  }
+  public function getCanModifyContent()
+  {
+    return $this->canModifyContent;
   }
   public function setCanMoveChildrenOutOfDrive($canMoveChildrenOutOfDrive)
   {

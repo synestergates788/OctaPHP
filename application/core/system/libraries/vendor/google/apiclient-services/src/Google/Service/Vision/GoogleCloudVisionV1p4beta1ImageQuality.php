@@ -17,4 +17,14 @@
 
 class Google_Service_Vision_GoogleCloudVisionV1p4beta1ImageQuality extends Google_Model
 {
+  public $qualityScore;
+
+  public function setQualityScore($qualityScore)
+  {
+    $this->qualityScore = $qualityScore;
+  }
+  public function getQualityScore()
+  {
+    return $this->qualityScore;
+  }
 }

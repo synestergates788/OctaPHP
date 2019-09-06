@@ -19,6 +19,7 @@ class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Clai
 {
   public $bestRating;
   public $imageUrl;
+  public $ratingExplanation;
   public $ratingValue;
   public $textualRating;
   public $worstRating;
@@ -38,6 +39,14 @@ class Google_Service_FactCheckTools_GoogleFactcheckingFactchecktoolsV1alpha1Clai
   public function getImageUrl()
   {
     return $this->imageUrl;
+  }
+  public function setRatingExplanation($ratingExplanation)
+  {
+    $this->ratingExplanation = $ratingExplanation;
+  }
+  public function getRatingExplanation()
+  {
+    return $this->ratingExplanation;
   }
   public function setRatingValue($ratingValue)
   {

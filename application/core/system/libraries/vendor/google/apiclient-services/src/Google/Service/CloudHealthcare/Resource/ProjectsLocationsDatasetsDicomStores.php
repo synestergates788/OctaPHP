@@ -96,8 +96,8 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsDicomStor
    * @param array $optParams Optional parameters.
    *
    * @opt_param int options.requestedPolicyVersion Optional. The policy format
-   * version to be returned. Acceptable values are 0 and 1. If the value is 0, or
-   * the field is omitted, policy format version 1 will be returned.
+   * version to be returned. Acceptable values are 0, 1, and 3. If the value is 0,
+   * or the field is omitted, policy format version 1 will be returned.
    * @return Google_Service_CloudHealthcare_Policy
    */
   public function getIamPolicy($resource, $optParams = array())
@@ -134,14 +134,14 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsDicomStor
    * @param string $parent Name of the dataset.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string pageToken The next_page_token value returned from the
-   * previous List request, if any.
-   * @opt_param int pageSize Limit on the number of DICOM stores to return in a
-   * single response. If zero the default page size of 100 is used.
    * @opt_param string filter Restricts stores returned to those matching a
    * filter. Syntax:
    * https://cloud.google.com/appengine/docs/standard/python/search/query_strings
    * Only filtering on labels is supported, for example `labels.key=value`.
+   * @opt_param string pageToken The next_page_token value returned from the
+   * previous List request, if any.
+   * @opt_param int pageSize Limit on the number of DICOM stores to return in a
+   * single response. If zero the default page size of 100 is used.
    * @return Google_Service_CloudHealthcare_ListDicomStoresResponse
    */
   public function listProjectsLocationsDatasetsDicomStores($parent, $optParams = array())

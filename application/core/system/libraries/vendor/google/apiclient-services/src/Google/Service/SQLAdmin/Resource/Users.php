@@ -83,7 +83,8 @@ class Google_Service_SQLAdmin_Resource_Users extends Google_Service_Resource
    * @param Google_Service_SQLAdmin_User $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string host Host of the user in the instance.
+   * @opt_param string host Host of the user in the instance. For a MySQL
+   * instance, it's required; For a PostgreSQL instance, it's optional.
    * @return Google_Service_SQLAdmin_Operation
    */
   public function update($project, $instance, $name, Google_Service_SQLAdmin_User $postBody, $optParams = array())

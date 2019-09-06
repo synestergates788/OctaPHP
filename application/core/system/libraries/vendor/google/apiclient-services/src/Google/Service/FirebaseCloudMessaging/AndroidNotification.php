@@ -17,20 +17,33 @@
 
 class Google_Service_FirebaseCloudMessaging_AndroidNotification extends Google_Collection
 {
-  protected $collection_key = 'titleLocArgs';
+  protected $collection_key = 'vibrateTimings';
   public $body;
   public $bodyLocArgs;
   public $bodyLocKey;
   public $channelId;
   public $clickAction;
   public $color;
+  public $defaultLightSettings;
+  public $defaultSound;
+  public $defaultVibrateTimings;
+  public $eventTime;
   public $icon;
   public $image;
+  protected $lightSettingsType = 'Google_Service_FirebaseCloudMessaging_LightSettings';
+  protected $lightSettingsDataType = '';
+  public $localOnly;
+  public $notificationCount;
+  public $notificationPriority;
   public $sound;
+  public $sticky;
   public $tag;
+  public $ticker;
   public $title;
   public $titleLocArgs;
   public $titleLocKey;
+  public $vibrateTimings;
+  public $visibility;
 
   public function setBody($body)
   {
@@ -80,6 +93,38 @@ class Google_Service_FirebaseCloudMessaging_AndroidNotification extends Google_C
   {
     return $this->color;
   }
+  public function setDefaultLightSettings($defaultLightSettings)
+  {
+    $this->defaultLightSettings = $defaultLightSettings;
+  }
+  public function getDefaultLightSettings()
+  {
+    return $this->defaultLightSettings;
+  }
+  public function setDefaultSound($defaultSound)
+  {
+    $this->defaultSound = $defaultSound;
+  }
+  public function getDefaultSound()
+  {
+    return $this->defaultSound;
+  }
+  public function setDefaultVibrateTimings($defaultVibrateTimings)
+  {
+    $this->defaultVibrateTimings = $defaultVibrateTimings;
+  }
+  public function getDefaultVibrateTimings()
+  {
+    return $this->defaultVibrateTimings;
+  }
+  public function setEventTime($eventTime)
+  {
+    $this->eventTime = $eventTime;
+  }
+  public function getEventTime()
+  {
+    return $this->eventTime;
+  }
   public function setIcon($icon)
   {
     $this->icon = $icon;
@@ -96,6 +141,44 @@ class Google_Service_FirebaseCloudMessaging_AndroidNotification extends Google_C
   {
     return $this->image;
   }
+  /**
+   * @param Google_Service_FirebaseCloudMessaging_LightSettings
+   */
+  public function setLightSettings(Google_Service_FirebaseCloudMessaging_LightSettings $lightSettings)
+  {
+    $this->lightSettings = $lightSettings;
+  }
+  /**
+   * @return Google_Service_FirebaseCloudMessaging_LightSettings
+   */
+  public function getLightSettings()
+  {
+    return $this->lightSettings;
+  }
+  public function setLocalOnly($localOnly)
+  {
+    $this->localOnly = $localOnly;
+  }
+  public function getLocalOnly()
+  {
+    return $this->localOnly;
+  }
+  public function setNotificationCount($notificationCount)
+  {
+    $this->notificationCount = $notificationCount;
+  }
+  public function getNotificationCount()
+  {
+    return $this->notificationCount;
+  }
+  public function setNotificationPriority($notificationPriority)
+  {
+    $this->notificationPriority = $notificationPriority;
+  }
+  public function getNotificationPriority()
+  {
+    return $this->notificationPriority;
+  }
   public function setSound($sound)
   {
     $this->sound = $sound;
@@ -104,6 +187,14 @@ class Google_Service_FirebaseCloudMessaging_AndroidNotification extends Google_C
   {
     return $this->sound;
   }
+  public function setSticky($sticky)
+  {
+    $this->sticky = $sticky;
+  }
+  public function getSticky()
+  {
+    return $this->sticky;
+  }
   public function setTag($tag)
   {
     $this->tag = $tag;
@@ -111,6 +202,14 @@ class Google_Service_FirebaseCloudMessaging_AndroidNotification extends Google_C
   public function getTag()
   {
     return $this->tag;
+  }
+  public function setTicker($ticker)
+  {
+    $this->ticker = $ticker;
+  }
+  public function getTicker()
+  {
+    return $this->ticker;
   }
   public function setTitle($title)
   {
@@ -135,5 +234,21 @@ class Google_Service_FirebaseCloudMessaging_AndroidNotification extends Google_C
   public function getTitleLocKey()
   {
     return $this->titleLocKey;
+  }
+  public function setVibrateTimings($vibrateTimings)
+  {
+    $this->vibrateTimings = $vibrateTimings;
+  }
+  public function getVibrateTimings()
+  {
+    return $this->vibrateTimings;
+  }
+  public function setVisibility($visibility)
+  {
+    $this->visibility = $visibility;
+  }
+  public function getVisibility()
+  {
+    return $this->visibility;
   }
 }

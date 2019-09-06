@@ -113,10 +113,6 @@ class Google_Service_CloudSearch_Resource_IndexingDatasourcesItems extends Googl
    * datasources/{source_id}
    * @param array $optParams Optional parameters.
    *
-   * @opt_param bool debugOptions.enableDebugging If you are asked by Google to
-   * help with debugging, set this field. Otherwise, ignore this field.
-   * @opt_param string connectorName Name of connector making this call. Format:
-   * datasources/{source_id}/connectors/{ID}
    * @opt_param bool brief When set to true, the indexing system only populates
    * the following fields: name, version, metadata.hash, structured_data.hash,
    * content.hash. If this value is false, then all the fields are populated in
@@ -126,6 +122,10 @@ class Google_Service_CloudSearch_Resource_IndexingDatasourcesItems extends Googl
    * @opt_param int pageSize Maximum number of items to fetch in a request. The
    * max value is 1000 when brief is true.  The max value is 10 if brief is false.
    * The default value is 10
+   * @opt_param bool debugOptions.enableDebugging If you are asked by Google to
+   * help with debugging, set this field. Otherwise, ignore this field.
+   * @opt_param string connectorName Name of connector making this call. Format:
+   * datasources/{source_id}/connectors/{ID}
    * @return Google_Service_CloudSearch_ListItemsResponse
    */
   public function listIndexingDatasourcesItems($name, $optParams = array())
@@ -202,7 +202,7 @@ class Google_Service_CloudSearch_Resource_IndexingDatasourcesItems extends Googl
   }
   /**
    * Creates an upload session for uploading item content. For items smaller than
-   * 100 KiB, it's easier to embed the content inline within update.
+   * 100 KB, it's easier to embed the content inline within an index request.
    * (items.upload)
    *
    * @param string $name Name of the Item to start a resumable upload. Format:

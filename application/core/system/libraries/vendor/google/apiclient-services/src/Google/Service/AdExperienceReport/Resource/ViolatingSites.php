@@ -26,7 +26,7 @@
 class Google_Service_AdExperienceReport_Resource_ViolatingSites extends Google_Service_Resource
 {
   /**
-   * Lists sites with Ad Experience Report statuses of "Failing" or "Warning".
+   * Lists sites with failing Ad Experience Report statuses.
    * (violatingSites.listViolatingSites)
    *
    * @param array $optParams Optional parameters.

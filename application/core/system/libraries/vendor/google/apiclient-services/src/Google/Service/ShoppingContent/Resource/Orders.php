@@ -187,14 +187,15 @@ class Google_Service_ShoppingContent_Resource_Orders extends Google_Service_Reso
     return $this->call('gettestordertemplate', array($params), "Google_Service_ShoppingContent_OrdersGetTestOrderTemplateResponse");
   }
   /**
-   * Notifies that item return and refund was handled directly by merchant outside
-   * of Google payments processing (e.g. cash refund done in store). Note: We
-   * recommend calling the returnrefundlineitem method to refund in-store returns.
-   * We will issue the refund directly to the customer. This helps to prevent
-   * possible differences arising between merchant and Google transaction records.
-   * We also recommend having the point of sale system communicate with Google to
-   * ensure that customers do not receive a double refund by first refunding via
-   * Google then via an in-store return. (orders.instorerefundlineitem)
+   * Deprecated. Notifies that item return and refund was handled directly by
+   * merchant outside of Google payments processing (e.g. cash refund done in
+   * store). Note: We recommend calling the returnrefundlineitem method to refund
+   * in-store returns. We will issue the refund directly to the customer. This
+   * helps to prevent possible differences arising between merchant and Google
+   * transaction records. We also recommend having the point of sale system
+   * communicate with Google to ensure that customers do not receive a double
+   * refund by first refunding via Google then via an in-store return.
+   * (orders.instorerefundlineitem)
    *
    * @param string $merchantId The ID of the account that manages the order. This
    * cannot be a multi-client account.

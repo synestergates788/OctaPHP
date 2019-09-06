@@ -80,8 +80,8 @@ class Google_Service_CloudPrivateCatalogProducer_Resource_Catalogs extends Googl
    * @param array $optParams Optional parameters.
    *
    * @opt_param int options.requestedPolicyVersion Optional. The policy format
-   * version to be returned. Acceptable values are 0 and 1. If the value is 0, or
-   * the field is omitted, policy format version 1 will be returned.
+   * version to be returned. Acceptable values are 0, 1, and 3. If the value is 0,
+   * or the field is omitted, policy format version 1 will be returned.
    * @return Google_Service_CloudPrivateCatalogProducer_GoogleIamV1Policy
    */
   public function getIamPolicy($resource, $optParams = array())
@@ -96,11 +96,11 @@ class Google_Service_CloudPrivateCatalogProducer_Resource_Catalogs extends Googl
    *
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string parent The resource name of the parent resource.
    * @opt_param string pageToken A pagination token returned from a previous call
    * to ListCatalogs that indicates where this listing should continue from. This
    * field is optional.
    * @opt_param int pageSize The maximum number of catalogs to return.
-   * @opt_param string parent The resource name of the parent resource.
    * @return Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1ListCatalogsResponse
    */
   public function listCatalogs($optParams = array())

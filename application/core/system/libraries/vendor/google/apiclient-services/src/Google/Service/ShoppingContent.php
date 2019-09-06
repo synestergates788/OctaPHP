@@ -49,17 +49,20 @@ class Google_Service_ShoppingContent extends Google_Service
   public $products;
   public $productstatuses;
   public $regionalinventory;
+  public $returnaddress;
+  public $returnpolicy;
   public $shippingsettings;
   
   /**
    * Constructs the internal representation of the ShoppingContent service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://www.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
     $this->servicePath = 'content/v2.1/';
     $this->batchPath = 'batch/content/v2.1';
     $this->version = 'v2.1';
@@ -1407,6 +1410,146 @@ class Google_Service_ShoppingContent extends Google_Service
                   'required' => true,
                 ),
                 'productId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->returnaddress = new Google_Service_ShoppingContent_Resource_Returnaddress(
+        $this,
+        $this->serviceName,
+        'returnaddress',
+        array(
+          'methods' => array(
+            'custombatch' => array(
+              'path' => 'returnaddress/batch',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'delete' => array(
+              'path' => '{merchantId}/returnaddress/{returnAddressId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'returnAddressId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => '{merchantId}/returnaddress/{returnAddressId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'returnAddressId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => '{merchantId}/returnaddress',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => '{merchantId}/returnaddress',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'country' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->returnpolicy = new Google_Service_ShoppingContent_Resource_Returnpolicy(
+        $this,
+        $this->serviceName,
+        'returnpolicy',
+        array(
+          'methods' => array(
+            'custombatch' => array(
+              'path' => 'returnpolicy/batch',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'delete' => array(
+              'path' => '{merchantId}/returnpolicy/{returnPolicyId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'returnPolicyId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => '{merchantId}/returnpolicy/{returnPolicyId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'returnPolicyId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => '{merchantId}/returnpolicy',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => '{merchantId}/returnpolicy',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,

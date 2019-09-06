@@ -87,12 +87,12 @@ class Google_Service_CloudPrivateCatalogProducer_Resource_CatalogsProducts exten
    * @param string $parent The resource name of the parent resource.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string filter A filter expression used to restrict the returned
+   * results based upon properties of the product.
    * @opt_param string pageToken A pagination token returned from a previous call
    * to ListProducts that indicates where this listing should continue from. This
    * field is optional.
    * @opt_param int pageSize The maximum number of products to return.
-   * @opt_param string filter A filter expression used to restrict the returned
-   * results based upon properties of the product.
    * @return Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1ListProductsResponse
    */
   public function listCatalogsProducts($parent, $optParams = array())

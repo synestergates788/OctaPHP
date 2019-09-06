@@ -17,6 +17,8 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig extends Google_Model
 {
+  protected $acceleratorType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig';
+  protected $acceleratorDataType = '';
   public $diskSizeGb;
   public $diskType;
   public $labels;
@@ -24,6 +26,20 @@ class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdmi
   public $minCpuPlatform;
   public $reserved;
 
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
+   */
+  public function setAccelerator(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig $accelerator)
+  {
+    $this->accelerator = $accelerator;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
+   */
+  public function getAccelerator()
+  {
+    return $this->accelerator;
+  }
   public function setDiskSizeGb($diskSizeGb)
   {
     $this->diskSizeGb = $diskSizeGb;

@@ -42,12 +42,13 @@ class Google_Service_ServiceConsumerManagement extends Google_Service
    * Constructs the internal representation of the ServiceConsumerManagement
    * service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://serviceconsumermanagement.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://serviceconsumermanagement.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
     $this->version = 'v1';
@@ -130,6 +131,10 @@ class Google_Service_ServiceConsumerManagement extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'query' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -137,10 +142,6 @@ class Google_Service_ServiceConsumerManagement extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
-                ),
-                'query' => array(
-                  'location' => 'query',
-                  'type' => 'string',
                 ),
               ),
             ),
@@ -222,6 +223,10 @@ class Google_Service_ServiceConsumerManagement extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -229,10 +234,6 @@ class Google_Service_ServiceConsumerManagement extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
-                ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
                 ),
               ),
             ),'removeProject' => array(

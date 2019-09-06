@@ -20,6 +20,8 @@ class Google_Service_Bigquery_Model extends Google_Collection
   protected $collection_key = 'trainingRuns';
   public $creationTime;
   public $description;
+  protected $encryptionConfigurationType = 'Google_Service_Bigquery_EncryptionConfiguration';
+  protected $encryptionConfigurationDataType = '';
   public $etag;
   public $expirationTime;
   protected $featureColumnsType = 'Google_Service_Bigquery_StandardSqlField';
@@ -51,6 +53,20 @@ class Google_Service_Bigquery_Model extends Google_Collection
   public function getDescription()
   {
     return $this->description;
+  }
+  /**
+   * @param Google_Service_Bigquery_EncryptionConfiguration
+   */
+  public function setEncryptionConfiguration(Google_Service_Bigquery_EncryptionConfiguration $encryptionConfiguration)
+  {
+    $this->encryptionConfiguration = $encryptionConfiguration;
+  }
+  /**
+   * @return Google_Service_Bigquery_EncryptionConfiguration
+   */
+  public function getEncryptionConfiguration()
+  {
+    return $this->encryptionConfiguration;
   }
   public function setEtag($etag)
   {

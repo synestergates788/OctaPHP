@@ -26,7 +26,8 @@
 class Google_Service_Dataproc_Resource_ProjectsRegionsClusters extends Google_Service_Resource
 {
   /**
-   * Creates a cluster in a project. (clusters.create)
+   * Creates a cluster in a project. The returned Operation.metadata will be
+   * ClusterOperationMetadata. (clusters.create)
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project that the cluster belongs to.
@@ -52,7 +53,8 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsClusters extends Google_Se
     return $this->call('create', array($params), "Google_Service_Dataproc_Operation");
   }
   /**
-   * Deletes a cluster in a project. (clusters.delete)
+   * Deletes a cluster in a project. The returned Operation.metadata will be
+   * ClusterOperationMetadata. (clusters.delete)
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project that the cluster belongs to.
@@ -61,6 +63,9 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsClusters extends Google_Se
    * @param string $clusterName Required. The cluster name.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string clusterUuid Optional. Specifying the cluster_uuid means the
+   * RPC should fail (with error NOT_FOUND) if cluster with specified UUID does
+   * not exist.
    * @opt_param string requestId Optional. A unique id used to identify the
    * request. If the server receives two DeleteClusterRequest requests with the
    * same id, then the second request will be ignored and the first
@@ -69,9 +74,6 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsClusters extends Google_Se
    * (https://en.wikipedia.org/wiki/Universally_unique_identifier).The id must
    * contain only letters (a-z, A-Z), numbers (0-9), underscores (_), and hyphens
    * (-). The maximum length is 40 characters.
-   * @opt_param string clusterUuid Optional. Specifying the cluster_uuid means the
-   * RPC should fail (with error NOT_FOUND) if cluster with specified UUID does
-   * not exist.
    * @return Google_Service_Dataproc_Operation
    */
   public function delete($projectId, $region, $clusterName, $optParams = array())
@@ -81,9 +83,9 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsClusters extends Google_Se
     return $this->call('delete', array($params), "Google_Service_Dataproc_Operation");
   }
   /**
-   * Gets cluster diagnostic information. After the operation completes, the
-   * Operation.response field contains DiagnoseClusterOutputLocation.
-   * (clusters.diagnose)
+   * Gets cluster diagnostic information. The returned Operation.metadata will be
+   * ClusterOperationMetadata. After the operation completes, Operation.response
+   * contains DiagnoseClusterResults. (clusters.diagnose)
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project that the cluster belongs to.
@@ -144,6 +146,8 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsClusters extends Google_Se
    * the request.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string pageToken Optional. The standard List page token.
+   * @opt_param int pageSize Optional. The standard List page size.
    * @opt_param string filter Optional. A filter constraining the clusters to
    * list. Filters are case-sensitive and have the following syntax:field = value
    * AND field = value ...where field is one of status.state, clusterName, or
@@ -155,8 +159,6 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsClusters extends Google_Se
    * Only the logical AND operator is supported; space-separated items are treated
    * as having an implicit AND operator.Example filter:status.state = ACTIVE AND
    * clusterName = mycluster AND labels.env = staging AND labels.starred = *
-   * @opt_param string pageToken Optional. The standard List page token.
-   * @opt_param int pageSize Optional. The standard List page size.
    * @return Google_Service_Dataproc_ListClustersResponse
    */
   public function listProjectsRegionsClusters($projectId, $region, $optParams = array())
@@ -166,7 +168,8 @@ class Google_Service_Dataproc_Resource_ProjectsRegionsClusters extends Google_Se
     return $this->call('list', array($params), "Google_Service_Dataproc_ListClustersResponse");
   }
   /**
-   * Updates a cluster in a project. (clusters.patch)
+   * Updates a cluster in a project. The returned Operation.metadata will be
+   * ClusterOperationMetadata. (clusters.patch)
    *
    * @param string $projectId Required. The ID of the Google Cloud Platform
    * project the cluster belongs to.

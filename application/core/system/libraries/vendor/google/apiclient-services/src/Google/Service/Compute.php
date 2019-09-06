@@ -114,12 +114,13 @@ class Google_Service_Compute extends Google_Service
   /**
    * Constructs the internal representation of the Compute service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://www.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://compute.googleapis.com/';
     $this->servicePath = 'compute/v1/projects/';
     $this->batchPath = 'batch/compute/v1';
     $this->version = 'v1';

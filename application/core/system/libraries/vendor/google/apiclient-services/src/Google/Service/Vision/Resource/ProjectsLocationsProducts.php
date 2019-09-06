@@ -152,4 +152,43 @@ class Google_Service_Vision_Resource_ProjectsLocationsProducts extends Google_Se
     $params = array_merge($params, $optParams);
     return $this->call('patch', array($params), "Google_Service_Vision_Product");
   }
+  /**
+   * Asynchronous API to delete all Products in a ProductSet or all Products that
+   * are in no ProductSet.
+   *
+   * If a Product is a member of the specified ProductSet in addition to other
+   * ProductSets, the Product will still be deleted.
+   *
+   * It is recommended to not delete the specified ProductSet until after this
+   * operation has completed. It is also recommended to not add any of the
+   * Products involved in the batch delete to a new ProductSet while this
+   * operation is running because those Products may still end up deleted.
+   *
+   * It's not possible to undo the PurgeProducts operation. Therefore, it is
+   * recommended to keep the csv files used in ImportProductSets (if that was how
+   * you originally built the Product Set) before starting PurgeProducts, in case
+   * you need to re-import the data after deletion.
+   *
+   * If the plan is to purge all of the Products from a ProductSet and then re-use
+   * the empty ProductSet to re-import new Products into the empty ProductSet, you
+   * must wait until the PurgeProducts operation has finished for that ProductSet.
+   *
+   * The google.longrunning.Operation API can be used to keep track of the
+   * progress and results of the request. `Operation.metadata` contains
+   * `BatchOperationMetadata`. (progress) (products.purge)
+   *
+   * @param string $parent The project and location in which the Products should
+   * be deleted.
+   *
+   * Format is `projects/PROJECT_ID/locations/LOC_ID`.
+   * @param Google_Service_Vision_PurgeProductsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Vision_Operation
+   */
+  public function purge($parent, Google_Service_Vision_PurgeProductsRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('purge', array($params), "Google_Service_Vision_Operation");
+  }
 }

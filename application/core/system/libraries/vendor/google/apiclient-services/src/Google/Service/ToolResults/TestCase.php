@@ -18,6 +18,8 @@
 class Google_Service_ToolResults_TestCase extends Google_Collection
 {
   protected $collection_key = 'toolOutputs';
+  protected $elapsedTimeType = 'Google_Service_ToolResults_Duration';
+  protected $elapsedTimeDataType = '';
   protected $endTimeType = 'Google_Service_ToolResults_Timestamp';
   protected $endTimeDataType = '';
   public $skippedMessage;
@@ -32,6 +34,20 @@ class Google_Service_ToolResults_TestCase extends Google_Collection
   protected $toolOutputsType = 'Google_Service_ToolResults_ToolOutputReference';
   protected $toolOutputsDataType = 'array';
 
+  /**
+   * @param Google_Service_ToolResults_Duration
+   */
+  public function setElapsedTime(Google_Service_ToolResults_Duration $elapsedTime)
+  {
+    $this->elapsedTime = $elapsedTime;
+  }
+  /**
+   * @return Google_Service_ToolResults_Duration
+   */
+  public function getElapsedTime()
+  {
+    return $this->elapsedTime;
+  }
   /**
    * @param Google_Service_ToolResults_Timestamp
    */

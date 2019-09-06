@@ -115,12 +115,12 @@ class Google_Service_Dataflow_Resource_ProjectsJobs extends Google_Service_Resou
    * @param string $jobId The job to get messages for.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string startTime Return only metric data that has changed since
-   * this time. Default is to return all information about all metrics for the
-   * job.
    * @opt_param string location The [regional endpoint]
    * (https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) that
    * contains the job specified by job_id.
+   * @opt_param string startTime Return only metric data that has changed since
+   * this time. Default is to return all information about all metrics for the
+   * job.
    * @return Google_Service_Dataflow_JobMetrics
    */
   public function getMetrics($projectId, $jobId, $optParams = array())
@@ -160,21 +160,6 @@ class Google_Service_Dataflow_Resource_ProjectsJobs extends Google_Service_Resou
     $params = array('projectId' => $projectId);
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_Dataflow_ListJobsResponse");
-  }
-  /**
-   * Snapshot the state of a streaming job. (jobs.snapshot)
-   *
-   * @param string $projectId The project which owns the job to be snapshotted.
-   * @param string $jobId The job to be snapshotted.
-   * @param Google_Service_Dataflow_SnapshotJobRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Dataflow_Snapshot
-   */
-  public function snapshot($projectId, $jobId, Google_Service_Dataflow_SnapshotJobRequest $postBody, $optParams = array())
-  {
-    $params = array('projectId' => $projectId, 'jobId' => $jobId, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('snapshot', array($params), "Google_Service_Dataflow_Snapshot");
   }
   /**
    * Updates the state of an existing Cloud Dataflow job.

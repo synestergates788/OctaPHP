@@ -20,6 +20,7 @@ class Google_Service_Vision_AsyncBatchAnnotateImagesRequest extends Google_Colle
   protected $collection_key = 'requests';
   protected $outputConfigType = 'Google_Service_Vision_OutputConfig';
   protected $outputConfigDataType = '';
+  public $parent;
   protected $requestsType = 'Google_Service_Vision_AnnotateImageRequest';
   protected $requestsDataType = 'array';
 
@@ -36,6 +37,14 @@ class Google_Service_Vision_AsyncBatchAnnotateImagesRequest extends Google_Colle
   public function getOutputConfig()
   {
     return $this->outputConfig;
+  }
+  public function setParent($parent)
+  {
+    $this->parent = $parent;
+  }
+  public function getParent()
+  {
+    return $this->parent;
   }
   /**
    * @param Google_Service_Vision_AnnotateImageRequest

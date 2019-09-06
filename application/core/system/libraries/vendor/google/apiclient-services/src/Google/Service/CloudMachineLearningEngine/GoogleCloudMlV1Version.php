@@ -36,6 +36,8 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   public $packageUris;
   public $predictionClass;
   public $pythonVersion;
+  protected $requestLoggingConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig';
+  protected $requestLoggingConfigDataType = '';
   public $runtimeVersion;
   public $serviceAccount;
   public $state;
@@ -179,6 +181,20 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   public function getPythonVersion()
   {
     return $this->pythonVersion;
+  }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig
+   */
+  public function setRequestLoggingConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig $requestLoggingConfig)
+  {
+    $this->requestLoggingConfig = $requestLoggingConfig;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig
+   */
+  public function getRequestLoggingConfig()
+  {
+    return $this->requestLoggingConfig;
   }
   public function setRuntimeVersion($runtimeVersion)
   {

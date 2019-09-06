@@ -27,6 +27,7 @@ class Google_Service_AndroidManagement_StatusReportingSettings extends Google_Mo
   public $networkInfoEnabled;
   public $powerManagementEventsEnabled;
   public $softwareInfoEnabled;
+  public $systemPropertiesEnabled;
 
   /**
    * @param Google_Service_AndroidManagement_ApplicationReportingSettings
@@ -105,5 +106,13 @@ class Google_Service_AndroidManagement_StatusReportingSettings extends Google_Mo
   public function getSoftwareInfoEnabled()
   {
     return $this->softwareInfoEnabled;
+  }
+  public function setSystemPropertiesEnabled($systemPropertiesEnabled)
+  {
+    $this->systemPropertiesEnabled = $systemPropertiesEnabled;
+  }
+  public function getSystemPropertiesEnabled()
+  {
+    return $this->systemPropertiesEnabled;
   }
 }

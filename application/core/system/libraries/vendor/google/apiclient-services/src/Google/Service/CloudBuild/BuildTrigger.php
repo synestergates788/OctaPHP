@@ -29,6 +29,7 @@ class Google_Service_CloudBuild_BuildTrigger extends Google_Collection
   public $id;
   public $ignoredFiles;
   public $includedFiles;
+  public $name;
   public $substitutions;
   public $tags;
   protected $triggerTemplateType = 'Google_Service_CloudBuild_RepoSource';
@@ -117,6 +118,14 @@ class Google_Service_CloudBuild_BuildTrigger extends Google_Collection
   public function getIncludedFiles()
   {
     return $this->includedFiles;
+  }
+  public function setName($name)
+  {
+    $this->name = $name;
+  }
+  public function getName()
+  {
+    return $this->name;
   }
   public function setSubstitutions($substitutions)
   {

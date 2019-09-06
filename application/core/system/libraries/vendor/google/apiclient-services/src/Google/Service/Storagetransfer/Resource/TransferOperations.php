@@ -70,23 +70,11 @@ class Google_Service_Storagetransfer_Resource_TransferOperations extends Google_
     return $this->call('get', array($params), "Google_Service_Storagetransfer_Operation");
   }
   /**
-   * Lists operations that match the specified filter in the request. If the
-   * server doesn't support this method, it returns `UNIMPLEMENTED`.
-   *
-   * NOTE: the `name` binding allows API services to override the binding to use
-   * different resource name schemes, such as `users/operations`. To override the
-   * binding, API services can add a binding such as
-   * `"/v1/{name=users}/operations"` to their service configuration. For backwards
-   * compatibility, the default name includes the operations collection id,
-   * however overriding users must ensure the name binding is the parent resource,
-   * without the operations collection id.
-   * (transferOperations.listTransferOperations)
+   * Lists transfer operations. (transferOperations.listTransferOperations)
    *
    * @param string $name Required. The value `transferOperations`.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string pageToken The list page token.
-   * @opt_param int pageSize The list page size. The max allowed value is 256.
    * @opt_param string filter Required. A list of query parameters specified as
    * JSON text in the form of: {"project_id":"my_project_id",
    * "job_names":["jobid1","jobid2",...],
@@ -97,6 +85,8 @@ class Google_Service_Storagetransfer_Resource_TransferOperations extends Google_
    * `operation_names`, and `transfer_statuses` are optional. The valid values for
    * `transfer_statuses` are case-insensitive: `IN_PROGRESS`, `PAUSED`, `SUCCESS`,
    * `FAILED`, and `ABORTED`.
+   * @opt_param string pageToken The list page token.
+   * @opt_param int pageSize The list page size. The max allowed value is 256.
    * @return Google_Service_Storagetransfer_ListOperationsResponse
    */
   public function listTransferOperations($name, $optParams = array())

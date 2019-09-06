@@ -91,9 +91,6 @@ class Google_Service_AccessApproval_Resource_FoldersApprovalRequests extends Goo
    * "organizations/{organization_id}".
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string pageToken A token identifying the page of results to
-   * return.
-   * @opt_param int pageSize Requested page size.
    * @opt_param string filter A filter on the type of approval requests to
    * retrieve. Must be one of the following values:
    *
@@ -101,6 +98,9 @@ class Google_Service_AccessApproval_Resource_FoldersApprovalRequests extends Goo
    * requests.   PENDING: Only pending requests.   ACTIVE: Only active (i.e.
    * currently approved) requests.   DISMISSED: Only dismissed (including expired)
    * requests.
+   * @opt_param string pageToken A token identifying the page of results to
+   * return.
+   * @opt_param int pageSize Requested page size.
    * @return Google_Service_AccessApproval_ListApprovalRequestsResponse
    */
   public function listFoldersApprovalRequests($parent, $optParams = array())

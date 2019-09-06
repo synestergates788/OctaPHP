@@ -49,4 +49,29 @@ class Google_Service_DLP_Resource_ProjectsLocationsContent extends Google_Servic
     $params = array_merge($params, $optParams);
     return $this->call('deidentify', array($params), "Google_Service_DLP_GooglePrivacyDlpV2DeidentifyContentResponse");
   }
+  /**
+   * Finds potentially sensitive info in content. This method has limits on input
+   * size, processing time, and output size.
+   *
+   * When no InfoTypes or CustomInfoTypes are specified in this request, the
+   * system will automatically choose what detectors to run. By default this may
+   * be all types, but may change over time as detectors are updated.
+   *
+   * For how to guides, see https://cloud.google.com/dlp/docs/inspecting-images
+   * and https://cloud.google.com/dlp/docs/inspecting-text, (content.inspect)
+   *
+   * @param string $parent The parent resource name, for example projects/my-
+   * project-id.
+   * @param string $location The geographic location to process content
+   * inspection. Reserved for future extensions.
+   * @param Google_Service_DLP_GooglePrivacyDlpV2InspectContentRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DLP_GooglePrivacyDlpV2InspectContentResponse
+   */
+  public function inspect($parent, $location, Google_Service_DLP_GooglePrivacyDlpV2InspectContentRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'location' => $location, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('inspect', array($params), "Google_Service_DLP_GooglePrivacyDlpV2InspectContentResponse");
+  }
 }

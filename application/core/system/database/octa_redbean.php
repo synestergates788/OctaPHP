@@ -32,9 +32,10 @@ class octa_redbean{
     public function __construct($DB,$redbean){
         $this->redbean = $redbean;
         $this->db_field = $DB;
+        #$this->redbean->close();
 
         if(!$this->redbean->testConnection()){
-            if($DB['database_adapter'] == "MariaDB"){
+            /*if($DB['database_adapter'] == "MariaDB"){
                 $this->mariadb_connection($DB);
 
             }else if($DB['database_adapter'] == "MySQL"){
@@ -42,7 +43,7 @@ class octa_redbean{
 
             }else if($DB['database_adapter'] == "PDO"){
                 $conn = $this->pdo_connection($DB);
-                $this->redbean->setup(/** @scrutinizer ignore-type */ $conn);
+                $this->redbean->setup($conn);
 
             }else if($DB['database_adapter'] == "PostgreSQL"){
                 $this->postgre_sql_connection($DB);
@@ -53,7 +54,11 @@ class octa_redbean{
             }else if($DB['database_adapter'] == "CUBRID"){
                 $this->cubrid_connection($DB);
 
-            }
+            }*/
+
+            $conn = $this->pdo_connection($DB);
+            $this->redbean->setup($conn);
+
             $this->redbean->useFeatureSet( 'novice/latest' );
         }
     }
@@ -71,9 +76,12 @@ class octa_redbean{
         $db_host = $DB['hostname'];
         $db_username = $DB['username'];
         $db_password = $DB['password'];
-        $db_name = $DB['database_name'];
+        $db_name = 'test';#$DB['database_name'];
 
-        $this->redbean->setup( 'pgsql:host='.$db_host.';dbname='.$db_name, $db_username, $db_password);
+        $this->redbean->addDatabase('OctaPostgreSql','pgsql:host=localhost;dbname=test', 'root', ''); #$frozen
+        $this->redbean->selectDatabase('OctaPostgreSql');
+
+        #$this->redbean->setup( 'pgsql:host='.$db_host.';dbname='.$db_name, $db_username, $db_password);
     }
 
     public function cubrid_connection($DB){
