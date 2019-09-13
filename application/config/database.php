@@ -1,11 +1,11 @@
 <?php
 /*
  * set your database connection here*/
-$database = array(
+$config['database'] = array(
     'hostname' => 'localhost',
     'username' => 'root',
     'password' => '',
-    'database_name' => 'sample_squeedphp_crud',
+    'database_name' => 'your_database_name',
 
     /***
      * Note: It is highly recommended to choose your preffered database adapter

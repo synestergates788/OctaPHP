@@ -1,6 +1,6 @@
 <?php
 /*set your assets directory here*/
-
-$assets_config['assets'] = [
-    "assets" => base_url.DS.'application'.DS.'assets',
+$config['assets'] = [
+    "directory_name"=> "assets",
+    "directory_url"=> $config['base_url'].DS.'application'.DS.'assets',
 ];
