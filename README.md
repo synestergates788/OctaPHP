@@ -12,7 +12,7 @@ an active record with Object-Relational-Mapping (ORM) ready of [RedBeanPHP](http
 [![Badges](http://img.shields.io/:badges-7/10-ff6799.svg?style=flat-square)](https://github.com/badges/badgerbadgerbadger)
 
 ## Powered By
-<img src="docs-img/twig.jpg" width="100" height="100">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs-img/redbeanphp.png" width="100" height="100"><img src="docs-img/symfony.png" width="250" height="90">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs-img/zend.png" width="80" height="80">
+<img src="docs-img/twig.jpg" width="100" height="100">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs-img/redbeanphp.png" width="100" height="100"><img src="docs-img/symfony.png" width="250" height="90">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs-img/zend.png" width="80" height="80">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs-img/reactphp.png" width="80" height="80">
 
 __Why OctaPHP?__
 - If you want a framework with a very small footprint and highly customizable.
@@ -30,7 +30,7 @@ OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.co
 ## Documentation
 [Read Documentation Here](https://synestergates788.github.io/octaphp.github.io/)
 
-## For Next Release [pre-beta-1]
+## For Next Release [pre-beta-3]
 * Authentication
 
 ## License
@@ -41,12 +41,14 @@ OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.co
 ## Acknowledgments
 * [Twig Template Engine](https://twig.symfony.com/)
 * [Symfony](https://twig.symfony.com/)
-* [RedBeanPHP](https://redbeanphp.com/index.php)
+* [Zend Framework](https://framework.zend.com/)
 * [CodeIgniter](https://www.codeigniter.com/)
-* [Respect\Validation](https://respect-validation.readthedocs.io)
-* [vlucas/valitron](https://github.com/vlucas/valitron)
-* [ThePhpLeague](https://thephpleague.com/)
+* [RedBeanPHP](https://redbeanphp.com/index.php)
 * [ReactPHP](https://reactphp.org/)
+* [Respect\Validation](https://respect-validation.readthedocs.io)
+* [Valitron](https://github.com/vlucas/valitron)
+* [ThePhpLeague](https://thephpleague.com/)
+* [Bramus/Router](https://github.com/bramus/router)
 
 ## Support
 Reach me out here [Linkedin.com](https://www.linkedin.com/in/melquecedec-catang-catang)
