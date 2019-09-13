@@ -13,13 +13,17 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
+        'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '8a9dc1de0ca7e01f3e08231539562f61' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/functions.php',
+        '972fda704d680a3a53c68e34e193cb22' => __DIR__ . '/..' . '/react/promise-timer/src/functions_include.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        'cea474b4340aa9fa53661e887a21a316' => __DIR__ . '/..' . '/react/promise-stream/src/functions_include.php',
+        'ebf8799635f67b5d7248946fe2154f4a' => __DIR__ . '/..' . '/ringcentral/psr7/src/functions_include.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -39,6 +43,7 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
             'Zend\\Mail\\' => 10,
             'Zend\\Loader\\' => 12,
             'Zend\\Crypt\\' => 11,
+            'Zend\\Config\\' => 12,
             'Zend\\Authentication\\' => 20,
         ),
         'W' => 
@@ -87,7 +92,20 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
         ),
         'R' => 
         array (
+            'RingCentral\\Psr7\\' => 17,
             'Respect\\Validation\\' => 19,
+            'React\\Stream\\' => 13,
+            'React\\Socket\\' => 13,
+            'React\\Promise\\Timer\\' => 20,
+            'React\\Promise\\Stream\\' => 21,
+            'React\\Promise\\' => 14,
+            'React\\Http\\' => 11,
+            'React\\HttpClient\\' => 17,
+            'React\\EventLoop\\' => 16,
+            'React\\Dns\\' => 10,
+            'React\\Datagram\\' => 15,
+            'React\\ChildProcess\\' => 19,
+            'React\\Cache\\' => 12,
             'ReCaptcha\\' => 10,
         ),
         'P' => 
@@ -105,13 +123,6 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
             'MicrosoftAzure\\Storage\\Common\\' => 30,
             'MicrosoftAzure\\Storage\\Blob\\' => 28,
             'MicrosoftAzure\\Storage\\' => 23,
-        ),
-        'L' => 
-        array (
-            'League\\OAuth2\\Server\\' => 21,
-            'League\\OAuth2\\Client\\' => 21,
-            'League\\Event\\' => 13,
-            'Lcobucci\\JWT\\' => 13,
         ),
         'J' => 
         array (
@@ -145,7 +156,6 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
-            'Defuse\\Crypto\\' => 14,
             'DeepCopy\\' => 9,
         ),
         'C' => 
@@ -204,6 +214,10 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
         'Zend\\Crypt\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-crypt/src',
+        ),
+        'Zend\\Config\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-config/src',
         ),
         'Zend\\Authentication\\' => 
         array (
@@ -337,9 +351,61 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
         ),
+        'RingCentral\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ringcentral/psr7/src',
+        ),
         'Respect\\Validation\\' => 
         array (
             0 => __DIR__ . '/..' . '/respect/validation/library',
+        ),
+        'React\\Stream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/stream/src',
+        ),
+        'React\\Socket\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/socket/src',
+        ),
+        'React\\Promise\\Timer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise-timer/src',
+        ),
+        'React\\Promise\\Stream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise-stream/src',
+        ),
+        'React\\Promise\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/promise/src',
+        ),
+        'React\\Http\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/http/src',
+        ),
+        'React\\HttpClient\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/http-client/src',
+        ),
+        'React\\EventLoop\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/event-loop/src',
+        ),
+        'React\\Dns\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/dns/src',
+        ),
+        'React\\Datagram\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/datagram/src',
+        ),
+        'React\\ChildProcess\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/child-process/src',
+        ),
+        'React\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/react/cache/src',
         ),
         'ReCaptcha\\' => 
         array (
@@ -384,22 +450,6 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
         'MicrosoftAzure\\Storage\\' => 
         array (
             0 => __DIR__ . '/..' . '/microsoft/azure-storage/src',
-        ),
-        'League\\OAuth2\\Server\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/oauth2-server/src',
-        ),
-        'League\\OAuth2\\Client\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/oauth2-client/src',
-        ),
-        'League\\Event\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/event/src',
-        ),
-        'Lcobucci\\JWT\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
         ),
         'JmesPath\\' => 
         array (
@@ -463,10 +513,6 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
             1 => __DIR__ . '/..' . '/doctrine/event-manager/lib/Doctrine/Common',
             2 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Common',
             3 => __DIR__ . '/..' . '/doctrine/reflection/lib/Doctrine/Common',
-        ),
-        'Defuse\\Crypto\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/defuse/php-encryption/src',
         ),
         'DeepCopy\\' => 
         array (
@@ -532,6 +578,13 @@ class ComposerStaticInit926a881000797bf8d026d1fcdc169039
             'Gaufrette' => 
             array (
                 0 => __DIR__ . '/..' . '/knplabs/gaufrette/src',
+            ),
+        ),
+        'E' => 
+        array (
+            'Evenement' => 
+            array (
+                0 => __DIR__ . '/..' . '/evenement/evenement/src',
             ),
         ),
         'C' => 

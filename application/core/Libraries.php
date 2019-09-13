@@ -6,8 +6,16 @@ class Libraries{
         $this->libraries($libraries);
     }
 
-    public function libraries($libraries){
+    public function libraries($config_libraries){
         $def_lib = ['debug','unit_test','redbean','octa_redbean'];
+        $libraries = [];
+
+        if($config_libraries){
+            foreach($config_libraries as $row){
+                array_push($libraries, $row);
+            }
+        }
+
         $libraries = array_merge($libraries,$def_lib);
 
         $helper_dir = scandir(ROOT.DS.'application'.DS.'library');

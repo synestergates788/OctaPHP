@@ -26,6 +26,8 @@ class Google_Service_Compute_Subnetwork extends Google_Collection
   public $id;
   public $ipCidrRange;
   public $kind;
+  protected $logConfigType = 'Google_Service_Compute_SubnetworkLogConfig';
+  protected $logConfigDataType = '';
   public $name;
   public $network;
   public $privateIpGoogleAccess;
@@ -97,6 +99,20 @@ class Google_Service_Compute_Subnetwork extends Google_Collection
   public function getKind()
   {
     return $this->kind;
+  }
+  /**
+   * @param Google_Service_Compute_SubnetworkLogConfig
+   */
+  public function setLogConfig(Google_Service_Compute_SubnetworkLogConfig $logConfig)
+  {
+    $this->logConfig = $logConfig;
+  }
+  /**
+   * @return Google_Service_Compute_SubnetworkLogConfig
+   */
+  public function getLogConfig()
+  {
+    return $this->logConfig;
   }
   public function setName($name)
   {

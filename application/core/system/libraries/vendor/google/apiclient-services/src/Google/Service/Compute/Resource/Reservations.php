@@ -106,7 +106,7 @@ class Google_Service_Compute_Resource_Reservations extends Google_Service_Resour
     return $this->call('delete', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * Retrieves all information of the specified reservation. (reservations.get)
+   * Retrieves information about the specified reservation. (reservations.get)
    *
    * @param string $project Project ID for this request.
    * @param string $zone Name of the zone for this request.
@@ -166,7 +166,7 @@ class Google_Service_Compute_Resource_Reservations extends Google_Service_Resour
     return $this->call('insert', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * A list all the reservations that have been configured for the specified
+   * A list of all the reservations that have been configured for the specified
    * project in specified zone. (reservations.listReservations)
    *
    * @param string $project Project ID for this request.
@@ -220,8 +220,8 @@ class Google_Service_Compute_Resource_Reservations extends Google_Service_Resour
     return $this->call('list', array($params), "Google_Service_Compute_ReservationList");
   }
   /**
-   * Resizes the reservation (applicable to standalone reservations only)
-   * (reservations.resize)
+   * Resizes the reservation (applicable to standalone reservations only). For
+   * more information, read Modifying reservations. (reservations.resize)
    *
    * @param string $project Project ID for this request.
    * @param string $zone Name of the zone for this request.

@@ -36,12 +36,12 @@ class Google_Service_CloudKMS_Resource_ProjectsLocationsKeyRingsCryptoKeys exten
    * @param Google_Service_CloudKMS_CryptoKey $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string cryptoKeyId Required. It must be unique within a KeyRing
-   * and match the regular expression `[a-zA-Z0-9_-]{1,63}`
    * @opt_param bool skipInitialVersionCreation If set to true, the request will
    * create a CryptoKey without any CryptoKeyVersions. You must manually call
    * CreateCryptoKeyVersion or ImportCryptoKeyVersion before you can use this
    * CryptoKey.
+   * @opt_param string cryptoKeyId Required. It must be unique within a KeyRing
+   * and match the regular expression `[a-zA-Z0-9_-]{1,63}`
    * @return Google_Service_CloudKMS_CryptoKey
    */
   public function create($parent, Google_Service_CloudKMS_CryptoKey $postBody, $optParams = array())
@@ -108,8 +108,8 @@ class Google_Service_CloudKMS_Resource_ProjectsLocationsKeyRingsCryptoKeys exten
    * @param array $optParams Optional parameters.
    *
    * @opt_param int options.requestedPolicyVersion Optional. The policy format
-   * version to be returned. Acceptable values are 0 and 1. If the value is 0, or
-   * the field is omitted, policy format version 1 will be returned.
+   * version to be returned. Acceptable values are 0, 1, and 3. If the value is 0,
+   * or the field is omitted, policy format version 1 will be returned.
    * @return Google_Service_CloudKMS_Policy
    */
   public function getIamPolicy($resource, $optParams = array())
@@ -125,11 +125,6 @@ class Google_Service_CloudKMS_Resource_ProjectsLocationsKeyRingsCryptoKeys exten
    * the format `projects/locations/keyRings`.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string versionView The fields of the primary version to include in
-   * the response.
-   * @opt_param string filter Optional. Only include resources that match the
-   * filter in the response. For more information, see [Sorting and filtering list
-   * results](https://cloud.google.com/kms/docs/sorting-and-filtering).
    * @opt_param string pageToken Optional pagination token, returned earlier via
    * ListCryptoKeysResponse.next_page_token.
    * @opt_param int pageSize Optional limit on the number of CryptoKeys to include
@@ -139,6 +134,11 @@ class Google_Service_CloudKMS_Resource_ProjectsLocationsKeyRingsCryptoKeys exten
    * @opt_param string orderBy Optional. Specify how the results should be sorted.
    * If not specified, the results will be sorted in the default order. For more
    * information, see [Sorting and filtering list
+   * results](https://cloud.google.com/kms/docs/sorting-and-filtering).
+   * @opt_param string versionView The fields of the primary version to include in
+   * the response.
+   * @opt_param string filter Optional. Only include resources that match the
+   * filter in the response. For more information, see [Sorting and filtering list
    * results](https://cloud.google.com/kms/docs/sorting-and-filtering).
    * @return Google_Service_CloudKMS_ListCryptoKeysResponse
    */

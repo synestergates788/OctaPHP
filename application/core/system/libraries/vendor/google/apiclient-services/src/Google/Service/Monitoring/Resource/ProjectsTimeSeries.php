@@ -51,6 +51,14 @@ class Google_Service_Monitoring_Resource_ProjectsTimeSeries extends Google_Servi
    * is "projects/{project_id_or_number}".
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string aggregation.crossSeriesReducer The approach to be used to
+   * combine time series. Not all reducer functions may be applied to all time
+   * series, depending on the metric type and the value type of the original time
+   * series. Reduction may change the metric type of value type of the time
+   * series.Time series data must be aligned in order to perform cross-time series
+   * reduction. If crossSeriesReducer is specified, then perSeriesAligner must be
+   * specified and not equal ALIGN_NONE and alignmentPeriod must be specified;
+   * otherwise, an error is returned.
    * @opt_param string filter A monitoring filter that specifies which time series
    * should be returned. The filter must specify a single metric type, and can
    * additionally specify metric labels and other information. For example:
@@ -100,14 +108,6 @@ class Google_Service_Monitoring_Resource_ProjectsTimeSeries extends Google_Servi
    * maximum number of TimeSeries returned.
    * @opt_param string orderBy Unsupported: must be left blank. The points in each
    * time series are returned in reverse time order.
-   * @opt_param string aggregation.crossSeriesReducer The approach to be used to
-   * combine time series. Not all reducer functions may be applied to all time
-   * series, depending on the metric type and the value type of the original time
-   * series. Reduction may change the metric type of value type of the time
-   * series.Time series data must be aligned in order to perform cross-time series
-   * reduction. If crossSeriesReducer is specified, then perSeriesAligner must be
-   * specified and not equal ALIGN_NONE and alignmentPeriod must be specified;
-   * otherwise, an error is returned.
    * @return Google_Service_Monitoring_ListTimeSeriesResponse
    */
   public function listProjectsTimeSeries($name, $optParams = array())

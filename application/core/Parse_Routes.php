@@ -1,5 +1,5 @@
 <?php
-$default_routes_dir = [
+$routes_dir = [
     ""=>"",
     "/"=>"/",
 ];
@@ -25,10 +25,10 @@ if($def_controller_dir){
     }
 }
 
-if($default_routes){
-    foreach($default_routes as $key_dir=>$row_dir){
+if($routes){
+    foreach($routes as $key_dir=>$row_dir){
         if($key_dir == "/" || $key_dir == "" || $key_dir == null){
-            $default_routes_dir[$key_dir] = $row_dir;
+            $routes_dir[$key_dir] = $row_dir;
         }else{
             $tmp_method_request = trim($key_dir, "/");
             $method_request = explode('/', $tmp_method_request);
@@ -41,7 +41,7 @@ if($default_routes){
                 $this_method_request .= '/'.$method_request[1];
             }
 
-            $default_routes_dir[$this_method_request] = $row_dir;
+            $routes_dir[$this_method_request] = $row_dir;
         }
     }
 }

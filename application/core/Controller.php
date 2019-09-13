@@ -677,13 +677,6 @@ use Zend\Crypt\Password\Apache as OctaApache;
 use Zend\Crypt\PublicKey\DiffieHellman as OctaDiffieHellman;
 
 /**
- * Initialize GenericProvider class.
- * Represents a generic service provider that may be used to interact with any
- * OAuth 2.0 service provider, using Bearer token authentication.
- */
-use League\OAuth2\Client\Provider\GenericProvider as OctaGenericProvider;
-
-/**
  * ###########################
  * ###START OF DEBUG CONSOLE##
  * ###########################
@@ -717,16 +710,47 @@ use Symfony\Component\Debug\DebugClassLoader;
 DebugClassLoader::enable();
 
 /**
- * Initialize Stopwatch class.
+ * ##########################################################
+ * ###START OF DATABASE ACTIVE RECORD AND CONNECTIONS########
+ * ##########################################################
+ *
+ * Initialize PDO connection.
  * Manages .env files.
  */
 use system\database\connection\pdo_connection;
 
 /**
  * Initialize Octa Active Record class.
- * An advance Active Record using RedbeanPHP ORM.
+ * An advance Active Record using RedbeanPHP ORM as it's core.
  */
 use system\database\active_record\active_record;
+
+/**
+ * ##################################
+ * ###START OF Authentication########
+ * ##################################
+ *
+ * Initialize authentication class.
+ */
+use Zend\Authentication\AuthenticationService as OctaAuthenticationService;
+
+
+use React\EventLoop\Factory as OctaReactFactory;
+
+/**
+ * Initialize zend Config class.
+ *
+ * Provides a property based interface to an array.
+ * The data are read-only unless $allowModifications is set to true
+ * on construction.
+ *
+ * Implements Countable, Iterator and ArrayAccess
+ * to facilitate easy access to the data.
+ */
+use Zend\Config\Config as OctaConfig;
+
+use system\database\connection\db_connection as OctaDatabase;
+
 
 class Controller{
 
@@ -741,6 +765,7 @@ class Controller{
     protected $form_validation;
     protected $bean;
     protected $octa;
+    protected $config;
 
     /**
      * diffie-hellman crypt Key formats
@@ -750,23 +775,25 @@ class Controller{
     const FORMAT_BTWOC = OctaDiffieHellman::FORMAT_BTWOC;
 
     public function __construct(){
+        $this->config = $this->config($GLOBALS['config']);
+
         /**
          * initializing assets directory base on configuration settings.
          * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
          */
-        $this->assets($GLOBALS['template'],assets_config);
+        $this->assets($GLOBALS['template'],$this->config->assets);
 
         /**
          * initializing third-party libraries.
          * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
          */
-        $this->parse_library(libraries);
+        $this->parse_library($this->config->autoload->libraries);
 
         /**
          * initializing helpers.
          * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
          */
-        $this->parse_helpers(helpers);
+        $this->parse_helpers($this->config->autoload->helpers);
 
         /**
          * initializing database component using redbeanPhp.
@@ -800,66 +827,12 @@ class Controller{
         $this->curl_http_client();
 
         /**
-         * connect to database.
+         * connect to database and active record.
          * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
          */
-        if(DB['driver'] == "MariaDB" || DB['driver'] == "MySQL"){
-            $db_host = DB['hostname'];
-            $db_username = DB['username'];
-            $db_password = DB['password'];
-            $db_name = DB['database_name'];
-
-            if(!$this->bean->testConnection()) {
-                $this->bean->setup('mysql:host=' . $db_host . ';dbname=' . $db_name, $db_username, $db_password);
-            }
-            $this->octa = new active_record($this->bean);
-        }
-
-        if(DB['driver'] == "PDO"){
-            $this->conn = new pdo_connection();
-            $this->conn = $this->conn->connect();
-            if(!$this->bean->testConnection()){
-                $this->bean->setup($this->conn);
-            }
-            $this->octa = new active_record($this->bean);
-
-        }
-
-        if(DB['driver'] == "PostgreSQL"){
-            $db_host = DB['hostname'];
-            $db_username = DB['username'];
-            $db_password = DB['password'];
-            $db_name = DB['database_name'];
-            if(!$this->bean->testConnection()) {
-                $this->bean->setup('pgsql:host=' . $db_host . ';dbname=' . $db_name, $db_username, $db_password);
-            }
-            $this->octa = new active_record($this->bean);
-        }
-
-        if(DB['driver'] == "CUBRID"){
-            $db_host = DB['hostname'];
-            $db_username = DB['username'];
-            $db_password = DB['password'];
-            $db_name = DB['database_name'];
-            $db_port = DB['port'];
-            if(!$this->bean->testConnection()) {
-                $this->bean->setup('cubrid:host='.$db_host.';port='.$db_port.';dbname='.$db_name, $db_username, $db_password);
-            }
-            $this->octa = new active_record($this->bean);
-        }
-
-        if(DB['driver'] == "SQLite"){
-            $sqlite_database_directory = DB['sqlite_database_directory'];
-            if(!$this->bean->testConnection()) {
-                $this->bean->setup('sqlite:'.$sqlite_database_directory);
-            }
-            $this->octa = new active_record($this->bean);
-        }
-
-        #$this->octa->get('users');
-        #$res = $this->octa->result();
-        #p($res);
-        #exit;
+        $database = new OctaDatabase($this->bean, $this->config);
+        $database->connect();
+        $this->octa = new active_record($this->bean);
     }
 
     /**
@@ -979,12 +952,9 @@ class Controller{
      */
     public function assets($view,$assets_config){
         if($assets_config){
-            foreach($assets_config as $key=>$row){
-                $GLOBALS['asset_row'] = $row;
-                $view->addFunction(new \Twig\TwigFunction($key, function ($asset) {
-                    return sprintf($GLOBALS['asset_row'].DS.'%s', ltrim($asset, '/'));
-                }));
-            }
+            $view->addFunction(new \Twig\TwigFunction($this->config->assets->directory_name, function ($asset) {
+                return sprintf($this->config->assets->directory_url.DS.'%s', ltrim($asset, '/'));
+            }));
         }
     }
 
@@ -1002,7 +972,8 @@ class Controller{
      * @param string $NativeSessionStorage      native session storage
      * @param string $NamespacedAttributeBag      native session storage attribute bag
      * @return OctaSession class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
+     * @author Drak <drak@zikula.org>
      */
     public function session($NativeSessionStorage=null,$NamespacedAttributeBag=null){
         return new OctaSession($NativeSessionStorage,$NamespacedAttributeBag);
@@ -1012,7 +983,7 @@ class Controller{
      * integrating session attribute bag of symfony.
      * @param string $storageKey The key used to store attributes in the session
      * @return OctaAttributeBag class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
      */
     public function attribute_bag($storageKey = '_sf2_attributes'){
         return new OctaAttributeBag($storageKey);
@@ -1026,7 +997,7 @@ class Controller{
      * @param $metaBag                    MetadataBag
      *
      * @return OctaNativeSessionStorage class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Drak <drak@zikula.org>
      */
     public function native_session_storage(array $options = [], $handler = null, $metaBag = null){
         return new OctaNativeSessionStorage($options, $handler, $metaBag);
@@ -1038,7 +1009,7 @@ class Controller{
      * @param string $storageKey         Session storage key
      * @param string $namespaceCharacter Namespace character to use in keys
      * @return OctaNamespacedAttributeBag class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Drak <drak@zikula.org>
      */
     public function namespaced_attribute_bag($storageKey = '_sf2_attributes', $namespaceCharacter = '/'){
         return new OctaNamespacedAttributeBag($storageKey, $namespaceCharacter);
@@ -1047,7 +1018,7 @@ class Controller{
     /**
      * integrating property access of symfony.
      * @return OctaPropertyAccess::createPropertyAccessor class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Bernhard Schussek <bschussek@gmail.com>
      */
     public function property_accessor(){
         return OctaPropertyAccess::createPropertyAccessor();
@@ -1056,7 +1027,7 @@ class Controller{
     /**
      * integrating property access builder of symfony.
      * @return OctaPropertyAccess::createPropertyAccessorBuilder class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Bernhard Schussek <bschussek@gmail.com>
      */
     public function property_accessor_builder(){
         return OctaPropertyAccess::createPropertyAccessorBuilder();
@@ -1069,7 +1040,7 @@ class Controller{
      * @param string $uri      The current URI
      * @param string $baseHref The base href value
      * @return OctaCrawler class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
      */
     public function dom_crawler($node = null, $uri = null, $baseHref = null){
         return new OctaCrawler($node,$uri,$baseHref);
@@ -1078,7 +1049,7 @@ class Controller{
     /**
      * integrating http_client component of symfony.
      * @return OctaHttpClient class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Nicolas Grekas <p@tchwork.com>
      */
     public function http_client(){
         return new OctaHttpClient();
@@ -1089,7 +1060,7 @@ class Controller{
      * @param array $defaultOptions      The current URI
      * @param int $maxHostConnections      The current URI
      * @return OctaNativeHttpClient class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Nicolas Grekas <p@tchwork.com>
      */
     public function native_http_client($defaultOptions = [], $maxHostConnections = 6){
         return new OctaNativeHttpClient($defaultOptions,$maxHostConnections);
@@ -1101,7 +1072,7 @@ class Controller{
      * @param int $maxHostConnections    maximum host connections
      * @param int $maxPendingPushes      maximum pending pushes
      * @return OctaCurlHttpClient class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Nicolas Grekas <p@tchwork.com>
      */
     public function curl_http_client(array $defaultOptions = [], $maxHostConnections = 6, $maxPendingPushes = 50){
         return new OctaCurlHttpClient($defaultOptions,$maxHostConnections,$maxPendingPushes);
@@ -1120,7 +1091,7 @@ class Controller{
      * @param int $store         store
      * @param array $defaultOptions      default options
      * @return OctaCachingHttpClient class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Nicolas Grekas <p@tchwork.com>
      */
     public function caching_http_client(array $client = [], $store = 6, $defaultOptions = []){
         return new OctaCachingHttpClient($client, $store, $defaultOptions);
@@ -1134,7 +1105,7 @@ class Controller{
      * @param array $defaultOptionsByRegexp      regular exp default options
      * @param null $defaultRegexp      default regex
      * @return OctaScopingHttpClient class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Anthony Martin <anthony.martin@sensiolabs.com>
      */
     public function scoping_http_client($client = [], $defaultOptionsByRegexp = [], $defaultRegexp = null){
         return new OctaScopingHttpClient($client,$defaultOptionsByRegexp,$defaultRegexp);
@@ -1147,7 +1118,7 @@ class Controller{
      * @param callable|ResponseInterface|ResponseInterface[]|iterable|null $responseFactory
      * @param null $baseUri
      * @return OctaMockHttpClient class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Nicolas Grekas <p@tchwork.com>
      */
     public function mock_http_client($responseFactory = null, $baseUri = null){
         return new OctaMockHttpClient($responseFactory,$baseUri);
@@ -1160,7 +1131,7 @@ class Controller{
      *                                       exceptions are turned to TransportException
      * @param array $info
      * @return OctaMockResponse class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
      */
     public function mock_response($body = '', array $info = []){
         return new OctaMockResponse($body,$info);
@@ -1171,7 +1142,7 @@ class Controller{
      *
      * @param null $root
      * @return OctaStore class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
      */
     public function store($root=null){
         return new OctaStore($root);
@@ -1430,7 +1401,7 @@ class Controller{
      * integrating css selector component of symfony.
      * @param bool $html Whether HTML support should be enabled. Disable it for XML documents
      * @return OctaCssSelectorConverter class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Christophe Coevoet <stof@notk.org>
      */
     public function css_selector($html = true){
         return new OctaCssSelectorConverter($html);
@@ -1441,7 +1412,10 @@ class Controller{
      * @param array $normalizers
      * @param array $encoders
      * @return OctaSerializer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Jordi Boggiano <j.boggiano@seld.be>
+     * @author Johannes M. Schmitt <schmittjoh@gmail.com>
+     * @author Lukas Kahwe Smith <smith@pooteeweet.org>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function serializer(array $normalizers = [], array $encoders = []){
         return new OctaSerializer($normalizers, $encoders);
@@ -1452,7 +1426,7 @@ class Controller{
      * @param null $encodingImpl
      * @param null $decodingImpl
      * @return OctaJsonEncoder class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Jordi Boggiano <j.boggiano@seld.be>
      */
     public function json_encoder($encodingImpl = null, $decodingImpl = null){
         return new OctaJsonEncoder($encodingImpl, $decodingImpl);
@@ -1465,7 +1439,11 @@ class Controller{
      * @param array $decoderIgnoredNodeTypes
      * @param array $encoderIgnoredNodeTypes
      * @return OctaXmlEncoder class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Jordi Boggiano <j.boggiano@seld.be>
+     * @author John Wards <jwards@whiteoctober.co.uk>
+     * @author Fabian Vogler <fabian@equivalence.ch>
+     * @author Kévin Dunglas <dunglas@gmail.com>
+     * @author Dany Maillard <danymaillard93b@gmail.com>
      */
     public function xml_encoder($defaultContext = [], $loadOptions = null, array $decoderIgnoredNodeTypes = [XML_PI_NODE, XML_COMMENT_NODE], array $encoderIgnoredNodeTypes = []){
         return new OctaXmlEncoder($defaultContext, $loadOptions, $decoderIgnoredNodeTypes, $encoderIgnoredNodeTypes);
@@ -1477,7 +1455,7 @@ class Controller{
      * @param null $parser
      * @param array $defaultContext
      * @return OctaYamlEncoder class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function yaml_encoder($dumper = null, $parser = null, array $defaultContext = []){
         return new OctaYamlEncoder($dumper, $parser, $defaultContext);
@@ -1491,7 +1469,8 @@ class Controller{
      * @param string $keySeparator
      * @param boolean $escapeFormulas
      * @return OctaCsvEncoder class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
+     * @author Oliver Hoff <oliver@hofff.com>
      */
     public function csv_encoder($defaultContext = [], $enclosure = '"', $escapeChar = '\\', $keySeparator = '.', $escapeFormulas = false){
         return new OctaCsvEncoder($defaultContext, $enclosure, $escapeChar, $keySeparator, $escapeFormulas);
@@ -1508,7 +1487,7 @@ class Controller{
      * @param callable $objectClassResolver
      * @param array $defaultContext
      * @return OctaObjectNormalizer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function object_normalizer($classMetadataFactory = null, $nameConverter = null, $propertyAccessor = null, $propertyTypeExtractor = null, $classDiscriminatorResolver = null, callable $objectClassResolver = null, array $defaultContext = []){
         return new OctaObjectNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor, $classDiscriminatorResolver, $objectClassResolver, $defaultContext);
@@ -1518,7 +1497,8 @@ class Controller{
      * integrating serializer (get and set method normalizer).
      *
      * @return OctaGetSetMethodNormalizer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Nils Adermann <naderman@naderman.de>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function get_set_method_normalizer(){
         return new OctaGetSetMethodNormalizer();
@@ -1528,7 +1508,8 @@ class Controller{
      * integrating serializer (property normalizer).
      *
      * @return OctaPropertyNormalizer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Matthieu Napoli <matthieu@mnapoli.fr>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function property_normalizer(){
         return new OctaPropertyNormalizer();
@@ -1538,7 +1519,7 @@ class Controller{
      * integrating serializer (json serializable normalizer).
      *
      * @return OctaJsonSerializableNormalizer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fred Cox <mcfedr@gmail.com>
      */
     public function json_serializable_normalizer(){
         return new OctaJsonSerializableNormalizer();
@@ -1548,7 +1529,7 @@ class Controller{
      * integrating serializer (datetime normalizer).
      *
      * @return OctaDateTimeNormalizer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function datetime_normalizer(){
         return new OctaDateTimeNormalizer();
@@ -1558,7 +1539,7 @@ class Controller{
      * integrating serializer (data uri normalizer).
      *
      * @return OctaDataUriNormalizer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function data_uri_normalizer(){
         return new OctaDataUriNormalizer();
@@ -1568,7 +1549,7 @@ class Controller{
      * integrating serializer (date interval normalizer).
      *
      * @return OctaDateIntervalNormalizer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Jérôme Parmentier <jerome@prmntr.me>
      */
     public function date_interval_normalizer(){
         return new OctaDateIntervalNormalizer();
@@ -1578,7 +1559,8 @@ class Controller{
      * integrating serializer (constraint violationList normalizer).
      *
      * @return OctaConstraintViolationListNormalizer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Grégoire Pineau <lyrixx@lyrixx.info>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function constraint_violation_list_normalizer(){
         return new OctaConstraintViolationListNormalizer();
@@ -1588,7 +1570,7 @@ class Controller{
      * integrating serializer (constraint violationList normalizer).
      *
      * @return OctaArrayDenormalizer class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Alexander M. Turek <me@derrabus.de>
      */
     public function array_denormalizer(){
         return new OctaArrayDenormalizer();
@@ -1598,7 +1580,7 @@ class Controller{
      * integrating serializer (metadata factory).
      *
      * @return OctaClassMetadataFactory class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function class_metadata_factory($loader){
         return new OctaClassMetadataFactory($loader);
@@ -1608,7 +1590,7 @@ class Controller{
      * integrating serializer (annotation loader).
      * @param $reader
      * @return OctaAnnotationLoader class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function annotation_loader($reader=null){
         return new OctaAnnotationLoader($reader);
@@ -1618,7 +1600,7 @@ class Controller{
      * integrating serializer (yaml file loader).
      * @param string $classMetadata
      * @return OctaYamlFileLoader class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function yaml_file_loader($classMetadata=null){
         return new OctaYamlFileLoader($classMetadata);
@@ -1628,7 +1610,7 @@ class Controller{
      * integrating serializer (xml file loader).
      * @param null $classMetadata
      * @return OctaXmlFileLoader class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function xml_file_loader($classMetadata=null){
         return new OctaXmlFileLoader($classMetadata);
@@ -1638,7 +1620,11 @@ class Controller{
      * integrating serializer (annotation reader).
      * @param null $parser
      * @return OctaAnnotationReader class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author  Benjamin Eberlei <kontakt@beberlei.de>
+     * @author  Guilherme Blanco <guilhermeblanco@hotmail.com>
+     * @author  Jonathan Wage <jonwage@gmail.com>
+     * @author  Roman Borschel <roman@code-factory.org>
+     * @author  Johannes M. Schmitt <schmittjoh@gmail.com>
      */
     public function annotation_reader($parser = null){
         return new OctaAnnotationReader($parser);
@@ -1649,7 +1635,7 @@ class Controller{
      * @param array $attributes
      * @param boolean $lowerCamelCase
      * @return OctaCamelCaseToSnakeCaseNameConverter class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function camelcase_to_snakecase_name_converter(array $attributes = null, $lowerCamelCase = true){
         return new OctaCamelCaseToSnakeCaseNameConverter($attributes, $lowerCamelCase);
@@ -1660,7 +1646,7 @@ class Controller{
      * @param null $metadataFactory
      * @param null $fallbackNameConverter
      * @return OctaMetadataAwareNameConverter class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
      */
     public function metadata_aware_name_converter($metadataFactory = null, $fallbackNameConverter = null){
         return new OctaMetadataAwareNameConverter($metadataFactory, $fallbackNameConverter);
@@ -1670,7 +1656,7 @@ class Controller{
      * integrating serializer (DiscriminatorMap Annotation).
      * @param array $data
      * @return OctaDiscriminatorMap class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Samuel Roze <samuel.roze@gmail.com>
      */
     public function discriminator_map(array $data){
         return new OctaDiscriminatorMap($data);
@@ -1680,7 +1666,7 @@ class Controller{
      * integrating serializer (groups Annotation).
      * @param array $data
      * @return OctaGroups class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function groups(array $data){
         return new OctaGroups($data);
@@ -1690,7 +1676,7 @@ class Controller{
      * integrating serializer (MaxDepth Annotation).
      * @param array $data
      * @return OctaMaxDepth class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Kévin Dunglas <dunglas@gmail.com>
      */
     public function max_depth(array $data){
         return new OctaMaxDepth($data);
@@ -1700,7 +1686,7 @@ class Controller{
      * integrating serializer (serialized_name Annotation).
      * @param array $data
      * @return OctaSerializedName class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Bourigault <bourigaultfabien@gmail.com>
      */
     public function serialized_name(array $data){
         return new OctaSerializedName($data);
@@ -1710,7 +1696,7 @@ class Controller{
      * integrating data validator.
      *
      * @return Validator class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Alexandre Gomes Gaigalas <alexandre@gaigalas.net>
      */
     public function validator(){
         return new Validator();
@@ -1720,7 +1706,7 @@ class Controller{
      * integrating stopwatch component of symfony.
      *
      * @return OctaStopwatch class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
      */
     public function stopwatch(){
         return new OctaStopwatch();
@@ -1730,7 +1716,7 @@ class Controller{
      * integrating DotEnv component of symfony.
      *
      * @return OctaDotenv class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
      */
     public function dot_env(){
         return new OctaDotenv();
@@ -1740,7 +1726,7 @@ class Controller{
      * integrating finder component of symfony.
      *
      * @return OctaFinder class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
      */
     public function finder(){
         return new OctaFinder();
@@ -1750,7 +1736,7 @@ class Controller{
      * integrating expression language component of symfony.
      *
      * @return OctaExpressionLanguage class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Fabien Potencier <fabien@symfony.com>
      */
     public function expression_language(){
         return new OctaExpressionLanguage();
@@ -1767,7 +1753,8 @@ class Controller{
      * @param boolean $create
      * @param int $mode
      * @return OctaLocalAdapter class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Antoine Hérault <antoine.herault@gmail.com>
+     * @author Leszek Prabucki <leszek.prabucki@gmail.com>
      */
     public function local_adapter($directory, $create = false, $mode = 0777){
         return new OctaLocalAdapter($directory, $create, $mode);
@@ -1782,7 +1769,7 @@ class Controller{
      * @param null $serializeCache
      * @return OctaCacheAdapter class
      * @deprecated Since the release of symfony-4.
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Antoine Hérault <antoine.herault@gmail.com>
      */
     public function cache_adapter($source, $cache, $ttl = 0, $serializeCache = null){
         return new OctaCacheAdapter($source, $cache, $ttl, $serializeCache);
@@ -1795,7 +1782,7 @@ class Controller{
      * @param string $host
      * @param array $options
      * @return OctaFtpAdapter class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Antoine Hérault <antoine.herault@gmail.com>
      */
     public function ftp_adapter($directory, $host, $options = array()){
         return new OctaFtpAdapter($directory, $host, $options);
@@ -1806,7 +1793,7 @@ class Controller{
      * in memory adapter
      * @param array $files
      * @return OctaInMemory class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Antoine Hérault <antoine.herault@gmail.com>
      */
     public function in_memory_adapter(array $files = array()){
         return new OctaInMemory($files);
@@ -1820,7 +1807,7 @@ class Controller{
      * @param array $options
      * @param boolean $detectContentType
      * @return OctaAwsS3Adapter class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Michael Dowling <mtdowling@gmail.com>
      */
     public function aws_s3_adapter($service = null, $bucket, array $options = [], $detectContentType = false){
         return new OctaAwsS3Adapter($service, $bucket, $options, $detectContentType);
@@ -1831,7 +1818,8 @@ class Controller{
      * zip adapter
      * @param null $zipFile
      * @return OctaZipAdapter class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Boris Guéry <guery.b@gmail.com>
+     * @author Antoine Hérault <antoine.herault@gmail.com>
      */
     public function zip_adapter($zipFile = null){
         return new OctaZipAdapter($zipFile);
@@ -1843,7 +1831,7 @@ class Controller{
      * @param string $host
      * @param int $port
      * @return phpseclib\Net\SFTP class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Jim Wigginton <terrafrost@php.net>
      */
     public function phpseclib_connection($host = 'localhost', $port = 22){
         return new phpseclib\Net\SFTP($host, $port);
@@ -1870,7 +1858,7 @@ class Controller{
      * @param array $options
      * @param boolean $detectContentType
      * @return OctaGoogleCloudStorage class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Patrik Karisch <patrik@karisch.guru>
      */
     public function google_cloud_storage_adapter($service, $bucket, array $options = array(), $detectContentType = false){
         return new OctaGoogleCloudStorage($service, $bucket, $options, $detectContentType);
@@ -1881,7 +1869,8 @@ class Controller{
      * local filesystem client
      * @param null $data contains local adapter settings
      * @return OctaFilesystem class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Antoine Hérault <antoine.herault@gmail.com>
+     * @author Leszek Prabucki <leszek.prabucki@gmail.com>
      */
     public function file_system($data=null){
         return new OctaFilesystem($data);
@@ -1902,7 +1891,7 @@ class Controller{
      * integrating filesystem abstraction wrapper of gaufrette.
      * @param null $mode
      * @return OctaStreamMode class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Antoine Hérault <antoine.herault@gmail.com>
      */
     public function stream_mode($mode=null){
         return new OctaStreamMode($mode);
@@ -1911,7 +1900,8 @@ class Controller{
     /**
      * integrating filesystem abstraction wrapper of gaufrette.
      * @return OctaStreamWrapper class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Antoine Hérault <antoine.herault@gmail.com>
+     * @author Leszek Prabucki <leszek.prabucki@gmail.com>
      */
     public function stream_wrapper(){
         return new OctaStreamWrapper();
@@ -1920,7 +1910,7 @@ class Controller{
     /**
      * integrating filesystem abstraction wrapper of gaufrette.
      * @return OctaFilesystemMap class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Antoine Hérault <antoine.herault@gmail.com>
      */
     public function filesystem_map(){
         return new OctaFilesystemMap();
@@ -1931,12 +1921,18 @@ class Controller{
      * google-api adapter
      * @param array $config
      * @return Google_Client class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Google Inc.
      */
     public function google_client(array $config = array()){
         return new \Google_Client($config);
     }
 
+    /**
+     * integrating filesystem abstraction layout of gaufrette.
+     * @param null $client
+     * @return Google_Service_Books class
+     * @author Google, Inc.
+     */
     public function google_service_books($client=null){
         return new \Google_Service_Books($client);
     }
@@ -1946,7 +1942,7 @@ class Controller{
      * @param string $secret
      * @param null $requestMethod
      * @return ReCaptcha\ReCaptcha class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Google Inc.
      */
     public function google_captcha($secret, $requestMethod = null){
         return new \ReCaptcha\ReCaptcha($secret, $requestMethod);
@@ -1955,7 +1951,7 @@ class Controller{
     /**
      * @param string $connectionString
      * @return OctaBlobProxyFactory class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Luciano Mammino <lmammino@oryzone.com>
      */
     public function blob_proxy_factory($connectionString){
         return new OctaBlobProxyFactory($connectionString);
@@ -1967,7 +1963,8 @@ class Controller{
      * @param bool                                       $create
      * @param bool                                       $detectContentType
      * @return OctaAzureBlobStorage class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Luciano Mammino <lmammino@oryzone.com>
+     * @author Pawe? Czy?ewski <pawel.czyzewski@enginewerk.com>
      */
     public function azure_blob_storage($blobProxyFactory, $containerName = null, $create = false, $detectContentType = true){
         return new OctaAzureBlobStorage($blobProxyFactory, $containerName, $create, $detectContentType);
@@ -1976,7 +1973,7 @@ class Controller{
     /**
      * Optional parameters for createContainer API
      * @return OctaCreateContainerOptions class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     * @author Azure Storage PHP SDK <dmsh@microsoft.com>
      */
     public function create_container_options(){
         return new OctaCreateContainerOptions();
@@ -2076,13 +2073,24 @@ class Controller{
     }
 
     /**
-     * oauth2 client-side
-     * @param  array $options
-     * @param  array $collaborators
-     * @return OctaGenericProvider class
+     * zend authentication component.
+     * @param  $storage
+     * @param  $adapter
+     * @return OctaAuthenticationService class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function generic_provider(array $options = [], array $collaborators = []){
-        return new OctaGenericProvider($options, $collaborators);
+    public function auth($storage = null, $adapter = null){
+        return new OctaAuthenticationService($storage, $adapter);
+    }
+
+    /**
+     * zend config component.
+     * @param  array $array
+     * @param  boolean $allowModifications
+     * @return OctaAuthenticationService class
+     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+     */
+    public function config(array $array, $allowModifications = false){
+        return new OctaConfig($array, $allowModifications);
     }
 }

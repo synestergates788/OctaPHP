@@ -19,6 +19,8 @@ class Google_Service_Compute_NetworkPeering extends Google_Model
 {
   public $autoCreateRoutes;
   public $exchangeSubnetRoutes;
+  public $exportCustomRoutes;
+  public $importCustomRoutes;
   public $name;
   public $network;
   public $state;
@@ -39,6 +41,22 @@ class Google_Service_Compute_NetworkPeering extends Google_Model
   public function getExchangeSubnetRoutes()
   {
     return $this->exchangeSubnetRoutes;
+  }
+  public function setExportCustomRoutes($exportCustomRoutes)
+  {
+    $this->exportCustomRoutes = $exportCustomRoutes;
+  }
+  public function getExportCustomRoutes()
+  {
+    return $this->exportCustomRoutes;
+  }
+  public function setImportCustomRoutes($importCustomRoutes)
+  {
+    $this->importCustomRoutes = $importCustomRoutes;
+  }
+  public function getImportCustomRoutes()
+  {
+    return $this->importCustomRoutes;
   }
   public function setName($name)
   {

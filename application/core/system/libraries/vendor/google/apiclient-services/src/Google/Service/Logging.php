@@ -188,6 +188,11 @@ class Google_Service_Logging extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
+                'resourceNames' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
               ),
             ),
           )
@@ -486,6 +491,11 @@ class Google_Service_Logging extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
+                'resourceNames' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
               ),
             ),
           )
@@ -613,6 +623,11 @@ class Google_Service_Logging extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'resourceNames' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ),
                 'pageToken' => array(
                   'location' => 'query',
@@ -754,6 +769,11 @@ class Google_Service_Logging extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'resourceNames' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ),
               ),
             ),
@@ -962,6 +982,11 @@ class Google_Service_Logging extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'resourceNames' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ),
               ),
             ),

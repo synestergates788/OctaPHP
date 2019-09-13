@@ -45,7 +45,8 @@ OctaPHP is brought to you by [Melquecedec Catang-catang](https://www.linkedin.co
 * [CodeIgniter](https://www.codeigniter.com/)
 * [Respect\Validation](https://respect-validation.readthedocs.io)
 * [vlucas/valitron](https://github.com/vlucas/valitron)
-* [Gaufrette](https://knplabs.github.io/Gaufrette/)
+* [ThePhpLeague](https://thephpleague.com/)
+* [ReactPHP](https://reactphp.org/)
 
 ## Support
 Reach me out here [Linkedin.com](https://www.linkedin.com/in/melquecedec-catang-catang)

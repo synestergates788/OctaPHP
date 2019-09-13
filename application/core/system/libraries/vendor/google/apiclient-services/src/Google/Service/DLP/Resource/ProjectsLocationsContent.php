@@ -74,4 +74,22 @@ class Google_Service_DLP_Resource_ProjectsLocationsContent extends Google_Servic
     $params = array_merge($params, $optParams);
     return $this->call('inspect', array($params), "Google_Service_DLP_GooglePrivacyDlpV2InspectContentResponse");
   }
+  /**
+   * Re-identifies content that has been de-identified. See
+   * https://cloud.google.com/dlp/docs/pseudonymization#re-
+   * identification_in_free_text_code_example to learn more. (content.reidentify)
+   *
+   * @param string $parent The parent resource name.
+   * @param string $location The geographic location to process content
+   * reidentification.  Reserved for future extensions.
+   * @param Google_Service_DLP_GooglePrivacyDlpV2ReidentifyContentRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_DLP_GooglePrivacyDlpV2ReidentifyContentResponse
+   */
+  public function reidentify($parent, $location, Google_Service_DLP_GooglePrivacyDlpV2ReidentifyContentRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'location' => $location, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('reidentify', array($params), "Google_Service_DLP_GooglePrivacyDlpV2ReidentifyContentResponse");
+  }
 }

@@ -102,6 +102,8 @@ class Google_Service_CloudMachineLearningEngine_Resource_ProjectsModelsVersions 
    * version.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string filter Optional. Specifies the subset of versions to
+   * retrieve.
    * @opt_param string pageToken Optional. A page token to request the next page
    * of results.
    *
@@ -112,8 +114,6 @@ class Google_Service_CloudMachineLearningEngine_Resource_ProjectsModelsVersions 
    * response message will contain a valid value in the `next_page_token` field.
    *
    * The default value is 20, and the maximum page size is 100.
-   * @opt_param string filter Optional. Specifies the subset of versions to
-   * retrieve.
    * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ListVersionsResponse
    */
   public function listProjectsModelsVersions($parent, $optParams = array())

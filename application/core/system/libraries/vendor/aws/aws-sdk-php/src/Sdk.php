@@ -286,6 +286,10 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPolly(array $args = [])
  * @method \Aws\Pricing\PricingClient createPricing(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPricing(array $args = [])
+ * @method \Aws\QLDB\QLDBClient createQLDB(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionQLDB(array $args = [])
+ * @method \Aws\QLDBSession\QLDBSessionClient createQLDBSession(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionQLDBSession(array $args = [])
  * @method \Aws\QuickSight\QuickSightClient createQuickSight(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionQuickSight(array $args = [])
  * @method \Aws\RAM\RAMClient createRAM(array $args = [])
@@ -381,7 +385,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.110.10';
+    const VERSION = '3.111.1';
 
     /** @var array Arguments for creating clients */
     private $args;

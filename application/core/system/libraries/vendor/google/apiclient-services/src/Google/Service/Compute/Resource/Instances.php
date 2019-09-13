@@ -1016,6 +1016,37 @@ class Google_Service_Compute_Resource_Instances extends Google_Service_Resource
     return $this->call('updateAccessConfig', array($params), "Google_Service_Compute_Operation");
   }
   /**
+   * Updates the Display config for a VM instance. You can only use this method on
+   * a stopped VM instance. This method supports PATCH semantics and uses the JSON
+   * merge patch format and processing rules. (instances.updateDisplayDevice)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $zone The name of the zone for this request.
+   * @param string $instance Name of the instance scoping this request.
+   * @param Google_Service_Compute_DisplayDevice $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string requestId An optional request ID to identify requests.
+   * Specify a unique request ID so that if you must retry your request, the
+   * server will know to ignore the request if it has already been completed.
+   *
+   * For example, consider a situation where you make an initial request and the
+   * request times out. If you make the request again with the same request ID,
+   * the server can check if original operation with the same request ID was
+   * received, and if so, will ignore the second request. This prevents clients
+   * from accidentally creating duplicate commitments.
+   *
+   * The request ID must be a valid UUID with the exception that zero UUID is not
+   * supported (00000000-0000-0000-0000-000000000000).
+   * @return Google_Service_Compute_Operation
+   */
+  public function updateDisplayDevice($project, $zone, $instance, Google_Service_Compute_DisplayDevice $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'zone' => $zone, 'instance' => $instance, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('updateDisplayDevice', array($params), "Google_Service_Compute_Operation");
+  }
+  /**
    * Updates an instance's network interface. This method follows PATCH semantics.
    * (instances.updateNetworkInterface)
    *

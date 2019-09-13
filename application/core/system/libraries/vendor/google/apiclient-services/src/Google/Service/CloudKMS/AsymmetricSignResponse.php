@@ -17,17 +17,8 @@
 
 class Google_Service_CloudKMS_AsymmetricSignResponse extends Google_Model
 {
-  public $name;
   public $signature;
 
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
-  }
   public function setSignature($signature)
   {
     $this->signature = $signature;

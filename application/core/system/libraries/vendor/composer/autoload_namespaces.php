@@ -15,6 +15,7 @@ return array(
     'Google_Service_' => array($vendorDir . '/google/apiclient-services/src'),
     'Google_' => array($vendorDir . '/google/apiclient/src'),
     'Gaufrette' => array($vendorDir . '/knplabs/gaufrette/src'),
+    'Evenement' => array($vendorDir . '/evenement/evenement/src'),
     'Console' => array($vendorDir . '/pear/console_getopt'),
     'Bramus' => array($vendorDir . '/bramus/router/src'),
     '' => array($vendorDir . '/pear/pear-core-minimal/src'),

@@ -1,5 +1,6 @@
 <?php
 namespace system\database\active_record;
+use \PDO;
 
 class active_record{
     protected $redbean;

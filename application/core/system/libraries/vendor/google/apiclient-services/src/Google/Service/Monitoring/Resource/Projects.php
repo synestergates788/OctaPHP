@@ -25,21 +25,4 @@
  */
 class Google_Service_Monitoring_Resource_Projects extends Google_Service_Resource
 {
-  /**
-   * Validates a new uptime check configuration, and also executes the Uptime
-   * check. The results of the Uptime check are returned, but not stored.
-   * (projects.validateUptimeCheckConfig)
-   *
-   * @param string $parent The project for the uptime check. The format is
-   * projects/[PROJECT_ID].
-   * @param Google_Service_Monitoring_UptimeCheckConfig $postBody
-   * @param array $optParams Optional parameters.
-   * @return Google_Service_Monitoring_ValidateUptimeCheckConfigResponse
-   */
-  public function validateUptimeCheckConfig($parent, Google_Service_Monitoring_UptimeCheckConfig $postBody, $optParams = array())
-  {
-    $params = array('parent' => $parent, 'postBody' => $postBody);
-    $params = array_merge($params, $optParams);
-    return $this->call('validateUptimeCheckConfig', array($params), "Google_Service_Monitoring_ValidateUptimeCheckConfigResponse");
-  }
 }

@@ -33,11 +33,11 @@ class Google_Service_BigtableAdmin_Resource_ProjectsInstancesAppProfiles extends
    * @param Google_Service_BigtableAdmin_AppProfile $postBody
    * @param array $optParams Optional parameters.
    *
+   * @opt_param bool ignoreWarnings If true, ignore safety checks when creating
+   * the app profile.
    * @opt_param string appProfileId The ID to be used when referring to the new
    * app profile within its instance, e.g., just `myprofile` rather than
    * `projects/myproject/instances/myinstance/appProfiles/myprofile`.
-   * @opt_param bool ignoreWarnings If true, ignore safety checks when creating
-   * the app profile.
    * @return Google_Service_BigtableAdmin_AppProfile
    */
   public function create($parent, Google_Service_BigtableAdmin_AppProfile $postBody, $optParams = array())
@@ -114,10 +114,10 @@ class Google_Service_BigtableAdmin_Resource_ProjectsInstancesAppProfiles extends
    * @param Google_Service_BigtableAdmin_AppProfile $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param bool ignoreWarnings If true, ignore safety checks when updating
-   * the app profile.
    * @opt_param string updateMask The subset of app profile fields which should be
    * replaced. If unset, all fields will be replaced.
+   * @opt_param bool ignoreWarnings If true, ignore safety checks when updating
+   * the app profile.
    * @return Google_Service_BigtableAdmin_Operation
    */
   public function patch($name, Google_Service_BigtableAdmin_AppProfile $postBody, $optParams = array())

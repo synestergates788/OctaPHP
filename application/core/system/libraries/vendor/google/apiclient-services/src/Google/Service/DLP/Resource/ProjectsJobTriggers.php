@@ -97,23 +97,6 @@ class Google_Service_DLP_Resource_ProjectsJobTriggers extends Google_Service_Res
    * project-id`.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string pageToken Optional page token to continue retrieval. Comes
-   * from previous call to ListJobTriggers. `order_by` field must not change for
-   * subsequent calls.
-   * @opt_param string orderBy Optional comma separated list of triggeredJob
-   * fields to order by, followed by `asc` or `desc` postfix. This list is case-
-   * insensitive, default sorting order is ascending, redundant space characters
-   * are insignificant.
-   *
-   * Example: `name asc,update_time, create_time desc`
-   *
-   * Supported fields are:
-   *
-   * - `create_time`: corresponds to time the JobTrigger was created. -
-   * `update_time`: corresponds to time the JobTrigger was last updated. -
-   * `last_run_time`: corresponds to the last time the JobTrigger ran. - `name`:
-   * corresponds to JobTrigger's name. - `display_name`: corresponds to
-   * JobTrigger's display name. - `status`: corresponds to JobTrigger's status.
    * @opt_param int pageSize Optional size of the page, can be limited by a
    * server.
    * @opt_param string filter Optional. Allows filtering.
@@ -138,6 +121,23 @@ class Google_Service_DLP_Resource_ProjectsJobTriggers extends Google_Service_Res
    * \"2017-12-12T00:00:00+00:00\"
    *
    * The length of this field should be no more than 500 characters.
+   * @opt_param string pageToken Optional page token to continue retrieval. Comes
+   * from previous call to ListJobTriggers. `order_by` field must not change for
+   * subsequent calls.
+   * @opt_param string orderBy Optional comma separated list of triggeredJob
+   * fields to order by, followed by `asc` or `desc` postfix. This list is case-
+   * insensitive, default sorting order is ascending, redundant space characters
+   * are insignificant.
+   *
+   * Example: `name asc,update_time, create_time desc`
+   *
+   * Supported fields are:
+   *
+   * - `create_time`: corresponds to time the JobTrigger was created. -
+   * `update_time`: corresponds to time the JobTrigger was last updated. -
+   * `last_run_time`: corresponds to the last time the JobTrigger ran. - `name`:
+   * corresponds to JobTrigger's name. - `display_name`: corresponds to
+   * JobTrigger's display name. - `status`: corresponds to JobTrigger's status.
    * @return Google_Service_DLP_GooglePrivacyDlpV2ListJobTriggersResponse
    */
   public function listProjectsJobTriggers($parent, $optParams = array())

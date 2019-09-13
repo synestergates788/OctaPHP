@@ -18,7 +18,6 @@
 class Google_Service_CloudKMS_PublicKey extends Google_Model
 {
   public $algorithm;
-  public $name;
   public $pem;
 
   public function setAlgorithm($algorithm)
@@ -28,14 +27,6 @@ class Google_Service_CloudKMS_PublicKey extends Google_Model
   public function getAlgorithm()
   {
     return $this->algorithm;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
-  public function getName()
-  {
-    return $this->name;
   }
   public function setPem($pem)
   {

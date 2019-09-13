@@ -25,6 +25,8 @@ class Google_Service_Compute_Instance extends Google_Collection
   public $description;
   protected $disksType = 'Google_Service_Compute_AttachedDisk';
   protected $disksDataType = 'array';
+  protected $displayDeviceType = 'Google_Service_Compute_DisplayDevice';
+  protected $displayDeviceDataType = '';
   protected $guestAcceleratorsType = 'Google_Service_Compute_AcceleratorConfig';
   protected $guestAcceleratorsDataType = 'array';
   public $hostname;
@@ -110,6 +112,20 @@ class Google_Service_Compute_Instance extends Google_Collection
   public function getDisks()
   {
     return $this->disks;
+  }
+  /**
+   * @param Google_Service_Compute_DisplayDevice
+   */
+  public function setDisplayDevice(Google_Service_Compute_DisplayDevice $displayDevice)
+  {
+    $this->displayDevice = $displayDevice;
+  }
+  /**
+   * @return Google_Service_Compute_DisplayDevice
+   */
+  public function getDisplayDevice()
+  {
+    return $this->displayDevice;
   }
   /**
    * @param Google_Service_Compute_AcceleratorConfig

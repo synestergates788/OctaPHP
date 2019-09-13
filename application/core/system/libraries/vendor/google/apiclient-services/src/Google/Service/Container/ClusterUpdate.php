@@ -21,6 +21,8 @@ class Google_Service_Container_ClusterUpdate extends Google_Collection
   protected $desiredAddonsConfigType = 'Google_Service_Container_AddonsConfig';
   protected $desiredAddonsConfigDataType = '';
   public $desiredImageType;
+  protected $desiredIntraNodeVisibilityConfigType = 'Google_Service_Container_IntraNodeVisibilityConfig';
+  protected $desiredIntraNodeVisibilityConfigDataType = '';
   public $desiredLocations;
   public $desiredLoggingService;
   protected $desiredMasterAuthorizedNetworksConfigType = 'Google_Service_Container_MasterAuthorizedNetworksConfig';
@@ -55,6 +57,20 @@ class Google_Service_Container_ClusterUpdate extends Google_Collection
   public function getDesiredImageType()
   {
     return $this->desiredImageType;
+  }
+  /**
+   * @param Google_Service_Container_IntraNodeVisibilityConfig
+   */
+  public function setDesiredIntraNodeVisibilityConfig(Google_Service_Container_IntraNodeVisibilityConfig $desiredIntraNodeVisibilityConfig)
+  {
+    $this->desiredIntraNodeVisibilityConfig = $desiredIntraNodeVisibilityConfig;
+  }
+  /**
+   * @return Google_Service_Container_IntraNodeVisibilityConfig
+   */
+  public function getDesiredIntraNodeVisibilityConfig()
+  {
+    return $this->desiredIntraNodeVisibilityConfig;
   }
   public function setDesiredLocations($desiredLocations)
   {

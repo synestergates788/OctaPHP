@@ -6,8 +6,16 @@ class Helpers{
         $this->helpers($helpers);
     }
 
-    public function helpers($helpers){
+    public function helpers($config_helpers){
         $def_helpers = ['core_helper'];
+        $helpers = [];
+
+        if($config_helpers){
+            foreach($config_helpers as $row){
+                array_push($helpers, $row);
+            }
+        }
+
         $helpers = array_merge($helpers,$def_helpers);
 
         $helper_dir = scandir(ROOT.DS.'application'.DS.'helpers');

@@ -45,8 +45,14 @@ class Google_Service_Docs_Request extends Google_Model
   protected $insertTableRowDataType = '';
   protected $insertTextType = 'Google_Service_Docs_InsertTextRequest';
   protected $insertTextDataType = '';
+  protected $mergeTableCellsType = 'Google_Service_Docs_MergeTableCellsRequest';
+  protected $mergeTableCellsDataType = '';
   protected $replaceAllTextType = 'Google_Service_Docs_ReplaceAllTextRequest';
   protected $replaceAllTextDataType = '';
+  protected $replaceImageType = 'Google_Service_Docs_ReplaceImageRequest';
+  protected $replaceImageDataType = '';
+  protected $unmergeTableCellsType = 'Google_Service_Docs_UnmergeTableCellsRequest';
+  protected $unmergeTableCellsDataType = '';
   protected $updateDocumentStyleType = 'Google_Service_Docs_UpdateDocumentStyleRequest';
   protected $updateDocumentStyleDataType = '';
   protected $updateParagraphStyleType = 'Google_Service_Docs_UpdateParagraphStyleRequest';
@@ -257,6 +263,20 @@ class Google_Service_Docs_Request extends Google_Model
     return $this->insertText;
   }
   /**
+   * @param Google_Service_Docs_MergeTableCellsRequest
+   */
+  public function setMergeTableCells(Google_Service_Docs_MergeTableCellsRequest $mergeTableCells)
+  {
+    $this->mergeTableCells = $mergeTableCells;
+  }
+  /**
+   * @return Google_Service_Docs_MergeTableCellsRequest
+   */
+  public function getMergeTableCells()
+  {
+    return $this->mergeTableCells;
+  }
+  /**
    * @param Google_Service_Docs_ReplaceAllTextRequest
    */
   public function setReplaceAllText(Google_Service_Docs_ReplaceAllTextRequest $replaceAllText)
@@ -269,6 +289,34 @@ class Google_Service_Docs_Request extends Google_Model
   public function getReplaceAllText()
   {
     return $this->replaceAllText;
+  }
+  /**
+   * @param Google_Service_Docs_ReplaceImageRequest
+   */
+  public function setReplaceImage(Google_Service_Docs_ReplaceImageRequest $replaceImage)
+  {
+    $this->replaceImage = $replaceImage;
+  }
+  /**
+   * @return Google_Service_Docs_ReplaceImageRequest
+   */
+  public function getReplaceImage()
+  {
+    return $this->replaceImage;
+  }
+  /**
+   * @param Google_Service_Docs_UnmergeTableCellsRequest
+   */
+  public function setUnmergeTableCells(Google_Service_Docs_UnmergeTableCellsRequest $unmergeTableCells)
+  {
+    $this->unmergeTableCells = $unmergeTableCells;
+  }
+  /**
+   * @return Google_Service_Docs_UnmergeTableCellsRequest
+   */
+  public function getUnmergeTableCells()
+  {
+    return $this->unmergeTableCells;
   }
   /**
    * @param Google_Service_Docs_UpdateDocumentStyleRequest

@@ -51,11 +51,13 @@ class Google_Service_Logging_Resource_Logs extends Google_Service_Resource
    * Lists the logs in projects, organizations, folders, or billing accounts. Only
    * logs that have entries are listed. (logs.listLogs)
    *
-   * @param string $parent Required. The resource name that owns the logs:
-   * "projects/[PROJECT_ID]" "organizations/[ORGANIZATION_ID]"
-   * "billingAccounts/[BILLING_ACCOUNT_ID]" "folders/[FOLDER_ID]"
+   * @param string $parent Required. To be deprecated in Logging Data Model V2.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string resourceNames Required for Logging Data Model V2. The
+   * resource name that owns the logs:  "projects/PROJECT_ID"
+   * "organizations/ORGANIZATION_ID"  "billingAccounts/BILLING_ACCOUNT_ID"
+   * "folders/FOLDER_ID"
    * @opt_param string pageToken Optional. If present, then retrieve the next
    * batch of results from the preceding call to this method. pageToken must be
    * the value of nextPageToken from the previous response. The values of other

@@ -129,6 +129,8 @@ class Google_Service_CloudResourceManager_Resource_Folders extends Google_Servic
    *
    * @param array $optParams Optional parameters.
    *
+   * @opt_param int pageSize The maximum number of Folders to return in the
+   * response. This field is optional.
    * @opt_param string parent The resource name of the Organization or Folder
    * whose Folders are being listed. Must be of the form `folders/{folder_id}` or
    * `organizations/{org_id}`. Access to this method is controlled by checking the
@@ -138,8 +140,6 @@ class Google_Service_CloudResourceManager_Resource_Folders extends Google_Servic
    * @opt_param string pageToken A pagination token returned from a previous call
    * to `ListFolders` that indicates where this listing should continue from. This
    * field is optional.
-   * @opt_param int pageSize The maximum number of Folders to return in the
-   * response. This field is optional.
    * @return Google_Service_CloudResourceManager_ListFoldersResponse
    */
   public function listFolders($optParams = array())

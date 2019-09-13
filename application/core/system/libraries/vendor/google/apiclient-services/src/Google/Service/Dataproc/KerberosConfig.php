@@ -27,6 +27,7 @@ class Google_Service_Dataproc_KerberosConfig extends Google_Model
   public $keystorePasswordUri;
   public $keystoreUri;
   public $kmsKeyUri;
+  public $realm;
   public $rootPrincipalPasswordUri;
   public $tgtLifetimeHours;
   public $truststorePasswordUri;
@@ -111,6 +112,14 @@ class Google_Service_Dataproc_KerberosConfig extends Google_Model
   public function getKmsKeyUri()
   {
     return $this->kmsKeyUri;
+  }
+  public function setRealm($realm)
+  {
+    $this->realm = $realm;
+  }
+  public function getRealm()
+  {
+    return $this->realm;
   }
   public function setRootPrincipalPasswordUri($rootPrincipalPasswordUri)
   {
