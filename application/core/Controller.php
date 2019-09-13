@@ -717,7 +717,7 @@ DebugClassLoader::enable();
  * Initialize PDO connection.
  * Manages .env files.
  */
-use system\database\connection\pdo_connection;
+use system\database\connection\db_connection as OctaDatabase;
 
 /**
  * Initialize Octa Active Record class.
@@ -748,9 +748,6 @@ use React\EventLoop\Factory as OctaReactFactory;
  * to facilitate easy access to the data.
  */
 use Zend\Config\Config as OctaConfig;
-
-use system\database\connection\db_connection as OctaDatabase;
-
 
 class Controller{
 
