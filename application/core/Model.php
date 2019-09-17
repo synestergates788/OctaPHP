@@ -1,7 +1,7 @@
 <?php
-use system\database\active_record\active_record;
+use system\database\active_record;
 use Zend\Config\Config as OctaConfig;
-use system\database\connection\db_connection as OctaDatabase;
+use system\database\connection as OctaDatabase;
 
 class Model{
     protected $octa;

@@ -1,8 +1,9 @@
 <?php
-class octa_redbean{
+namespace system\database;
+use \PDO;
 
+class active_record{
     protected $redbean;
-    protected $db_field;
 
     var $last_id;
     var $last_query;
@@ -29,77 +30,11 @@ class octa_redbean{
     var $num_rows;
     var $result;
 
-    public function __construct($DB,$redbean){
+    public function __construct($redbean){
         $this->redbean = $redbean;
-        $this->db_field = $DB;
-        #$this->redbean->close();
-
-        if(!$this->redbean->testConnection()){
-            /*if($DB['database_adapter'] == "MariaDB"){
-                $this->mariadb_connection($DB);
-
-            }else if($DB['database_adapter'] == "MySQL"){
-                $this->mariadb_connection($DB);
-
-            }else if($DB['database_adapter'] == "PDO"){
-                $conn = $this->pdo_connection($DB);
-                $this->redbean->setup($conn);
-
-            }else if($DB['database_adapter'] == "PostgreSQL"){
-                $this->postgre_sql_connection($DB);
-
-            }else if($DB['database_adapter'] == "SQLite"){
-                $this->sqlite_connection($DB);
-
-            }else if($DB['database_adapter'] == "CUBRID"){
-                $this->cubrid_connection($DB);
-
-            }*/
-
-            $conn = $this->pdo_connection($DB);
-            $this->redbean->setup($conn);
-
-            $this->redbean->useFeatureSet( 'novice/latest' );
-        }
     }
 
-    public function mariadb_connection($DB){
-        $db_host = $DB['hostname'];
-        $db_username = $DB['username'];
-        $db_password = $DB['password'];
-        $db_name = $DB['database_name'];
-
-        $this->redbean->setup('mysql:host='.$db_host.';dbname='.$db_name, $db_username, $db_password);
-    }
-
-    public function postgre_sql_connection($DB){
-        $db_host = $DB['hostname'];
-        $db_username = $DB['username'];
-        $db_password = $DB['password'];
-        $db_name = 'test';#$DB['database_name'];
-
-        $this->redbean->addDatabase('OctaPostgreSql','pgsql:host=localhost;dbname=test', 'root', ''); #$frozen
-        $this->redbean->selectDatabase('OctaPostgreSql');
-
-        #$this->redbean->setup( 'pgsql:host='.$db_host.';dbname='.$db_name, $db_username, $db_password);
-    }
-
-    public function cubrid_connection($DB){
-        $db_host = $DB['hostname'];
-        $db_username = $DB['username'];
-        $db_password = $DB['password'];
-        $db_name = $DB['database_name'];
-        $db_port = $DB['port'];
-
-        $this->redbean->setup('cubrid:host='.$db_host.';port='.$db_port.';dbname='.$db_name, $db_username, $db_password);
-    }
-
-    public function sqlite_connection($DB){
-        $sqlite_database_directory = $DB['sqlite_database_directory'];
-        $this->redbean->setup('sqlite:'.$sqlite_database_directory);
-    }
-
-    public function pdo_connection($DB){
+    public function connect($DB){
         $db_host = $DB['hostname'];
         $db_username = $DB['username'];
         $db_password = $DB['password'];

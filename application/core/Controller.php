@@ -717,13 +717,13 @@ DebugClassLoader::enable();
  * Initialize PDO connection.
  * Manages .env files.
  */
-use system\database\connection\db_connection as OctaDatabase;
+use system\database\connection as OctaDatabase;
 
 /**
  * Initialize Octa Active Record class.
  * An advance Active Record using RedbeanPHP ORM as it's core.
  */
-use system\database\active_record\active_record;
+use system\database\active_record;
 
 /**
  * ##################################
