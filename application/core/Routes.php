@@ -54,6 +54,7 @@ class Routes{
         /*end of overwriting default controller if null*/
 
         #echo '<pre>';
+        #print_r($GLOBALS['routes_dir']);
         #print_r($GLOBALS['routes']);
         #echo '</pre>';
         #exit;
@@ -85,12 +86,15 @@ class Routes{
                     $tmp_controller_file = end($url_array);
                     $controller_file = str_replace(".php","",$tmp_controller_file);
 
-                    $this->controllers = new $controller_file;
+                    $dirInt = count($url_array) - 2;
+                    $controllerDir = $url_array[$dirInt];
+                    $class_file = 'application\\controllers\\'.$controllerDir.'\\'.$controller_file;
+
+                    $this->controllers = new $class_file;
                     $this->actions = $GLOBALS['class_method'];
                     $this->params = !empty($url) ? array_values($url) : [];
 
                 }else{
-
                     $get_controller_file = $GLOBALS['routes']['/'];
                     $url_array = explode(DS,$get_controller_file);
                     $tmp_controller_file = end($url_array);

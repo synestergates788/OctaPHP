@@ -1,7 +1,9 @@
 <?php
 use system\database\active_record;
-use Zend\Config\Config as OctaConfig;
 use system\database\connection as OctaDatabase;
+
+use system\model\core\modelCore;
+use system\model\modelInterface\modelInterface;
 
 class Model{
     protected $octa;
@@ -10,9 +12,12 @@ class Model{
 
     public function __construct(){
 
-        $this->config = $this->config($GLOBALS['config']);
-        $this->initialize_database();
-        $this->bean = $this->bean();
+        /**
+         * initializing database component using redbeanPhp.
+         * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+         */
+        $core = new modelCore();
+        $this->model_dependencies($core, $GLOBALS['config']);
 
         /**
          * connect to database.
@@ -24,23 +29,15 @@ class Model{
     }
 
     /**
-     * initializing database connection.
+     * initializing model-core.
+     * @param modelInterface|$interface
+     * @param array $config
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function initialize_database(){
-        include_once ROOT.DS.'application'.DS.'core'.DS.'system'.DS.'database'.DS.'redbean.php';
-    }
+    private function model_dependencies(modelInterface $interface, $config=[]){
+        $this->config = $interface->config($config);
+        $interface->initialize_database();
+        $this->bean = $interface->bean();
 
-    /**
-     * autoload redbean.
-     * @return R class
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
-     */
-    public function bean(){
-        return new R();
-    }
-
-    public function config(array $array, $allowModifications = false){
-        return new OctaConfig($array, $allowModifications);
     }
 }
