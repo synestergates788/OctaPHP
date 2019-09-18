@@ -7,7 +7,7 @@ class Libraries{
     }
 
     public function libraries($config_libraries){
-        $def_lib = ['debug','unit_test','redbean','octa_redbean'];
+        $def_lib = ['debug','unit_test'];
         $libraries = [];
 
         if($config_libraries){
