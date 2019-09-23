@@ -101,8 +101,6 @@ use Gaufrette\Adapter\AwsS3 as OctaAwsS3Adapter;
  * Cache adapter.
  */
 use Gaufrette\Adapter\Cache as OctaCacheAdapter;
-
-use \ReCaptcha\ReCaptcha;
 use Gaufrette\Adapter\PhpseclibSftp;
 use phpseclib\Net\SFTP;
 
@@ -280,38 +278,6 @@ trait FileSystem{
      */
     public function fileSystemMap(){
         return new OctaFilesystemMap();
-    }
-
-    /**
-     * integrating filesystem abstraction layout of gaufrette.
-     * google-api adapter
-     * @param array $config
-     * @return \Google_Client class
-     * @author Google Inc.
-     */
-    public function googleClient(array $config = array()){
-        return new \Google_Client($config);
-    }
-
-    /**
-     * integrating filesystem abstraction layout of gaufrette.
-     * @param null $client
-     * @return \Google_Service_Books class
-     * @author Google, Inc.
-     */
-    public function googleServiceBooks($client=null){
-        return new \Google_Service_Books($client);
-    }
-
-    /**
-     * integrating botdetect component.
-     * @param string $secret
-     * @param null $requestMethod
-     * @return ReCaptcha class
-     * @author Google Inc.
-     */
-    public function googleCaptcha($secret, $requestMethod = null){
-        return new ReCaptcha($secret, $requestMethod);
     }
 
     /**

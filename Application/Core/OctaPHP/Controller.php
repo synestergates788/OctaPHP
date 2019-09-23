@@ -16,9 +16,12 @@ use OctaPHP\Traits\PropertyAccess\PropertyAccess;
 use OctaPHP\Traits\Serializer\Serializer;
 use OctaPHP\Traits\Session\Session;
 use OctaPHP\Traits\Stopwatch\Stopwatch;
-use OctaPHP\Traits\Validator\Validator;
 use System\Database\Database;
 use System\Database\ActiveRecord;
+use OctaPHP\Traits\DataValidator\DataValidator;
+use OctaPHP\Traits\FormValidator\FormValidator;
+use OctaPHP\Traits\Google\Captcha\Captcha;
+use OctaPHP\Traits\Google\Api\Api;
 
 class Controller{
     use Authentication,
@@ -37,7 +40,10 @@ class Controller{
         Serializer,
         Session,
         Stopwatch,
-        Validator{
+        DataValidator,
+        FormValidator,
+        Captcha,
+        Api{
         CoreController::__construct as public __OctaControllerConstruct;
     }
 

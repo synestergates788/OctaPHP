@@ -337,7 +337,7 @@ trait Mailer{
      * @return OctaMbox class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mbox(array $params=[]){
+    public function mBox(array $params=[]){
         return new OctaMbox($params);
     }
 
@@ -357,7 +357,7 @@ trait Mailer{
      * @return OctaImap class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function imap(array $params=[]){
+    public function iMap(array $params=[]){
         return new OctaImap($params);
     }
 
@@ -376,7 +376,7 @@ trait Mailer{
      * @return OctaMailFolder\Mbox class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mboxFolder(array $params = []){
+    public function mBoxFolder(array $params = []){
         return new OctaMailFolder\Mbox($params);
     }
 
