@@ -13,7 +13,7 @@ use Respect\Validation\Validator as OctaDataValidator;
 
 trait Validator{
 
-    protected $FormValidation;
+    protected $formValidation;
 
     /**
      * integrating form validation using Validator.
@@ -21,7 +21,7 @@ trait Validator{
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function formValidation(array $data = []){
-        $this->FormValidation = new OctaValidator($data);
+        $this->formValidation = new OctaValidator($data);
     }
 
     /**
