@@ -5,89 +5,89 @@ const DS = DIRECTORY_SEPARATOR;
 /**
  * Initialize composer autoload.
  */
-include_once ROOT.DS.'application'.DS.'core'.DS.'system'.DS.'libraries'.DS.'vendor'.DS.'autoload.php';
+include_once ROOT.DS.'Application'.DS.'Core'.DS.'System'.DS.'Libraries'.DS.'vendor'.DS.'autoload.php';
 
 /**
  * Initialize config.php.
  */
-include_once ROOT.DS.'application'.DS.'config'.DS.'config.php';
+include_once ROOT.DS.'Application'.DS.'Config'.DS.'Config.php';
 
 /**
  * Initialize database.
  */
-include_once ROOT.DS.'application'.DS.'config'.DS.'database.php';
+include_once ROOT.DS.'Application'.DS.'Config'.DS.'Database.php';
 
 /**
  * Initialize route.
  */
-include_once ROOT.DS.'application'.DS.'config'.DS.'route.php';
+include_once ROOT.DS.'Application'.DS.'Config'.DS.'Route.php';
 
 /**
  * Initialize assets.
  */
-include_once ROOT.DS.'application'.DS.'config'.DS.'assets.php';
+include_once ROOT.DS.'Application'.DS.'Config'.DS.'Assets.php';
 
 /**
  * Initialize Parse Routes.
  */
-include_once ROOT.DS.'application'.DS.'core'.DS.'Parse_Routes.php';
+include_once ROOT.DS.'Application'.DS.'Core'.DS.'Parse_Routes.php';
 
 /**
  * Initialize Directory.
  */
-include_once ROOT.DS.'application'.DS.'core'.DS.'Directory.php';
+include_once ROOT.DS.'Application'.DS.'Core'.DS.'Directory.php';
 
 /**
  * Initialize config autoload.
  */
-include_once ROOT.DS.'application'.DS.'config'.DS.'autoload.php';
+include_once ROOT.DS.'Application'.DS.'Config'.DS.'Autoload.php';
 
 /**
- * define global var default_controller_dir.
+ * define global var DefaultControllerDir.
  */
-define('default_controller_dir', $config['default_controller']["directory"]);
+define('DefaultControllerDir', $config['DefaultController']["Directory"]);
 
 /**
- * define global var default_controller_ctlr.
+ * define global var DefaultControllerCtlr.
  */
-define('default_controller_ctlr', $config['default_controller']["controller"]);
+define('DefaultControllerCtlr', $config['DefaultController']["Controller"]);
 
 /**
- * define global var session.
+ * define global var Session.
  */
-define('session', $config['session']);
+define('Session', $config['Session']);
 
 /**
  * define global var routes.
  */
-define('routes', $routes);
+define('Routes', $routes);
 
 /**
  * define global var routes_dir.
  */
-define('routes_dir', $routes_dir);
+define('RoutesDir', $RoutesDir);
 
 /**
  * define global var error_404.
  */
-$config['error_404'] = ($config['error_404']) ? $config['error_404'] : ROOT.DS.'application'.DS.'views'.DS.'error_page'.DS.'error_404.php';
+$config['Error404'] = ($config['Error404']) ? $config['Error404'] : ROOT.DS.'Application'.DS.'Views'.DS.'ErrorPage'.DS.'Error404.php';
 
 /**
  * define global var routes.
  */
-$config['routes'] = $routes;
+$config['Routes'] = $routes;
 
 /**
  * define global var routes_dir.
  */
-$config['routes_dir'] = $routes_dir;
+$config['RoutesDir'] = $RoutesDir;
 
 /**
  * parse external directories.
  */
 $modules = [];
-if($directory){
-    foreach($directory as $key_d=>$row_d){
+if($Directory){
+    foreach($Directory as $key_d=>$row_d){
         define($key_d, $row_d);
         $modules[] = $row_d;
     }
@@ -103,4 +103,4 @@ spl_autoload_register('spl_autoload', false);
  * instantiate router.
  */
 $router = new \Bramus\Router\Router();
-new Application($router,routes,routes_dir,$config['error_404']);
+new Application($router,Routes,RoutesDir,$config['Error404']);

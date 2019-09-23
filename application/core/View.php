@@ -2,23 +2,23 @@
 
 class View{
 
-    protected $view;
-    protected $data;
-    protected $template;
+    protected $View;
+    protected $Data;
+    protected $Template;
 
-    public function __construct($view_file,$view_data,$template){
-        $this->view = $view_file;
-        $this->data = $view_data;
-        $this->template = $template;
+    public function __construct($ViewFile,$ViewData,$Template){
+        $this->View = $ViewFile;
+        $this->Data = $ViewData;
+        $this->Template = $Template;
     }
 
     public function render(){
-        if(file_exists(VIEWS.$this->view.'.php')){
-            include_once VIEWS.$this->view.'.php';
+        if(file_exists(VIEWS.$this->View.'.php')){
+            include_once VIEWS.$this->View.'.php';
         }
     }
 
     public function getActions(){
-        return (explode('//',$this->view));
+        return (explode('//',$this->View));
     }
 }

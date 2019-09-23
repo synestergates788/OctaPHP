@@ -2,121 +2,121 @@
 
 class Routes{
 
-    protected $controllers;
-    protected $actions = 'index';
-    protected $params = [];
-    protected $router;
+    protected $Controllers;
+    protected $Actions = 'index';
+    protected $Params = [];
+    protected $Router;
 
-    public function __construct($router,$routes,$routes_dir,$error_404){
-        $this->routes($router,$routes,$routes_dir,$error_404);
+    public function __construct($Router,$Routes,$RoutesDir,$Error404){
+        $this->routes($Router,$Routes,$RoutesDir,$Error404);
     }
 
-    public function routes($router,$routes,$routes_dir,$error_404){
-        $this->router = $router;
-        $request = trim($_SERVER['REQUEST_URI'], "/");
-        $url = explode('/', $request);
-        $segment_1 = (isset($url[1])) ? $url[1] : '';
-        $segment_2 = (isset($url[2])) ? $url[2] : '';
-        $segment_3 = (isset($url[3])) ? $url[3] : '';
-        $segment_4 = (isset($url[4])) ? $url[4] : '';
+    public function routes($Router,$Routes,$RoutesDir,$Error404){
+        $this->Router = $Router;
+        $Request = trim($_SERVER['REQUEST_URI'], "/");
+        $Url = explode('/', $Request);
+        $Segment1 = (isset($Url[1])) ? $Url[1] : '';
+        $Segment2 = (isset($Url[2])) ? $Url[2] : '';
+        $Segment3 = (isset($Url[3])) ? $Url[3] : '';
+        $Segment4 = (isset($Url[4])) ? $Url[4] : '';
 
-        $GLOBALS['segment_1'] = $segment_1;
-        $GLOBALS['segment_2'] = $segment_2;
-        $GLOBALS['segment_3'] = $segment_3;
-        $GLOBALS['segment_4'] = $segment_4;
+        $GLOBALS['Segment1'] = $Segment1;
+        $GLOBALS['Segment2'] = $Segment2;
+        $GLOBALS['Segment3'] = $Segment3;
+        $GLOBALS['Segment4'] = $Segment4;
 
-        $requested_url = '';
-        if(isset($url[1])){
-            $requested_url .= '/'.$segment_1;
+        $RequestedUrl = '';
+        if(isset($Url[1])){
+            $RequestedUrl .= '/'.$Segment1;
         }
 
-        if(isset($url[2])){
-            $requested_url .= '/'.$segment_2;
+        if(isset($Url[2])){
+            $RequestedUrl .= '/'.$Segment2;
         }
 
-        if(isset($url[3])){
-            $requested_url .= '/'.$segment_3;
+        if(isset($Url[3])){
+            $RequestedUrl .= '/'.$Segment3;
         }
 
-        if(isset($url[4])){
-            $requested_url .= '/'.$segment_4;
+        if(isset($Url[4])){
+            $RequestedUrl .= '/'.$Segment4;
         }
 
-        $GLOBALS['routes'] = $routes;
+        $GLOBALS['Routes'] = $Routes;
         /*overwriting default controller if null*/
-        if($GLOBALS['routes'][''] == null && $GLOBALS['routes'][''] == ""){
-            $GLOBALS['routes'][''] = default_controller_dir.DS.default_controller_ctlr;
+        if($GLOBALS['Routes'][''] == null && $GLOBALS['Routes'][''] == ""){
+            $GLOBALS['Routes'][''] = DefaultControllerDir.DS.DefaultControllerCtlr;
 
         }
-        if($GLOBALS['routes']['/'] == null && $GLOBALS['routes']['/'] == ""){
-            $GLOBALS['routes']['/'] = default_controller_dir.DS.default_controller_ctlr;
+        if($GLOBALS['Routes']['/'] == null && $GLOBALS['Routes']['/'] == ""){
+            $GLOBALS['Routes']['/'] = DefaultControllerDir.DS.DefaultControllerCtlr;
         }
         /*end of overwriting default controller if null*/
 
         #echo '<pre>';
-        #print_r($GLOBALS['routes_dir']);
-        #print_r($GLOBALS['routes']);
+        #print_r($GLOBALS['RoutesDir']);
+        #print_r($GLOBALS['Routes']);
         #echo '</pre>';
         #exit;
 
-        $GLOBALS['error_404'] = $error_404;
-        $GLOBALS['routes_dir'] = $routes_dir;
-        $GLOBALS['requested_url'] = $requested_url;
-        $GLOBALS['class_method'] = isset($url[3]) ? $url[3] : 'index';
-        $GLOBALS['url_segment_1'] = isset($url[1]) ? true : false;
+        $GLOBALS['Error404'] = $Error404;
+        $GLOBALS['RoutesDir'] = $RoutesDir;
+        $GLOBALS['RequestedUrl'] = $RequestedUrl;
+        $GLOBALS['ClassMethod'] = isset($Url[3]) ? $Url[3] : 'index';
+        $GLOBALS['UrlSegment1'] = isset($Url[1]) ? true : false;
 
-        $this->router->match('GET|POST', $requested_url, function() {
+        $this->Router->match('GET|POST', $RequestedUrl, function() {
 
-            $tmp_method_request = trim($GLOBALS['requested_url'], "/");
-            $method_request = explode('/', $tmp_method_request);
-            $this_method_request = '';
-            if(isset($method_request[0])){
-                $this_method_request .= '/'.$method_request[0];
+            $TmpMethodRequest = trim($GLOBALS['RequestedUrl'], "/");
+            $MethodRequest = explode('/', $TmpMethodRequest);
+            $ThisMethodRequest = '';
+            if(isset($MethodRequest[0])){
+                $ThisMethodRequest .= '/'.$MethodRequest[0];
             }
 
-            if(isset($method_request[1])){
-                $this_method_request .= '/'.$method_request[1];
+            if(isset($MethodRequest[1])){
+                $ThisMethodRequest .= '/'.$MethodRequest[1];
             }
 
-            if(array_key_exists($this_method_request, $GLOBALS['routes_dir'])){
+            if(array_key_exists($ThisMethodRequest, $GLOBALS['RoutesDir'])){
 
-                if($GLOBALS['url_segment_1'] == true){
-                    $get_controller_file = $GLOBALS['routes']['/'.$GLOBALS['segment_1'].'/'.$GLOBALS['segment_2'].'/([a-z0-9_-]+)?/([a-z0-9_-]+)?'];
-                    $url_array = explode(DS,$get_controller_file);
-                    $tmp_controller_file = end($url_array);
-                    $controller_file = str_replace(".php","",$tmp_controller_file);
+                if($GLOBALS['UrlSegment1'] == true){
+                    $GetControllerFile = $GLOBALS['Routes']['/'.$GLOBALS['Segment1'].'/'.$GLOBALS['Segment2'].'/([a-z0-9_-]+)?/([a-z0-9_-]+)?'];
+                    $UrlArray = explode(DS,$GetControllerFile);
+                    $TmpControllerFile = end($UrlArray);
+                    $ControllerFile = str_replace(".php","",$TmpControllerFile);
 
-                    $dirInt = count($url_array) - 2;
-                    $controllerDir = $url_array[$dirInt];
-                    $class_file = 'application\\controllers\\'.$controllerDir.'\\'.$controller_file;
+                    $DirInt = count($UrlArray) - 2;
+                    $ControllerDir = $UrlArray[$DirInt];
+                    $ClassFile = 'Application\\Controllers\\'.$ControllerDir.'\\'.$ControllerFile;
 
-                    $this->controllers = new $class_file;
-                    $this->actions = $GLOBALS['class_method'];
-                    $this->params = !empty($url) ? array_values($url) : [];
+                    $this->Controllers = new $ClassFile;
+                    $this->Actions = $GLOBALS['ClassMethod'];
+                    $this->Params = !empty($Url) ? array_values($Url) : [];
 
                 }else{
-                    $get_controller_file = $GLOBALS['routes']['/'];
-                    $url_array = explode(DS,$get_controller_file);
-                    $tmp_controller_file = end($url_array);
-                    $controller_file = str_replace(".php","",$tmp_controller_file);
+                    $GetControllerFile = $GLOBALS['Routes']['/'];
+                    $UrlArray = explode(DS,$GetControllerFile);
+                    $TmpControllerFile = end($UrlArray);
+                    $ControllerFile = str_replace(".php","",$TmpControllerFile);
 
-                    $this->controllers = new $controller_file;
-                    $this->actions = $GLOBALS['class_method'];
-                    $this->params = !empty($url) ? array_values($url) : [];
+                    $this->Controllers = new $ControllerFile;
+                    $this->Actions = $GLOBALS['ClassMethod'];
+                    $this->Params = !empty($Url) ? array_values($Url) : [];
                 }
 
-                if(method_exists($this->controllers, $this->actions)){
-                    call_user_func_array([$this->controllers, $this->actions],$this->params);
+                if(method_exists($this->Controllers, $this->Actions)){
+                    call_user_func_array([$this->Controllers, $this->Actions],$this->Params);
 
                 }else{
-                    include_once ROOT.DS.'application'.DS.'views'.DS.'error_page'.DS.'error_methods.php';
+                    include_once ROOT.DS.'Application'.DS.'Views'.DS.'ErrorPage'.DS.'ErrorMethods.php';
                 }
 
             }else{
-                include_once $GLOBALS['error_404'];
+                include_once $GLOBALS['Error404'];
             }
         });
 
-        $this->router->run();
+        $this->Router->run();
     }
 }

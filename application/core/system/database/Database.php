@@ -1,12 +1,12 @@
 <?php
-namespace system\database;
+namespace System\Database;
 use \PDO;
+use RedBeanPHP\Facade as R;
 
-class connection{
+class Database{
 
     protected $bean;
     protected $config;
-
     protected $driver;
     protected $host;
     protected $username;
@@ -15,20 +15,28 @@ class connection{
     protected $port;
     protected $sqlite_database;
 
-    public function __construct($bean,$config){
-        $this->bean = $bean;
+    public function __construct($config){
+        $this->initializeDatabase();
+        $this->bean = $this->bean();
         $this->config = $config;
-
-        $this->driver = $this->config->database->driver;
-        $this->host = $this->config->database->hostname;
-        $this->username = $this->config->database->username;
-        $this->password = $this->config->database->password;
-        $this->database = $this->config->database->database_name;
-        $this->port = $this->config->database->port;
-        $this->sqlite_database = $this->config->database->sqlite_database_directory;
+        $this->driver = $this->config->Database->driver;
+        $this->host = $this->config->Database->hostname;
+        $this->username = $this->config->Database->username;
+        $this->password = $this->config->Database->password;
+        $this->database = $this->config->Database->database_name;
+        $this->port = $this->config->Database->port;
+        $this->sqlite_database = $this->config->Database->sqlite_database_directory;
     }
 
-    protected function create_database(){
+    public function initializeDatabase(){
+        include_once ROOT.DS.'application'.DS.'core'.DS.'system'.DS.'database'.DS.'redbean.php';
+    }
+
+    public function bean(){
+        return new R();
+    }
+
+    protected function createDatabase(){
         if($this->driver == "MariaDB" || $this->driver == "MySQL"){
             $link = mysqli_connect($this->host, $this->username, $this->password);
             $database = mysqli_select_db($link, $this->database);
@@ -68,14 +76,14 @@ class connection{
     public function connect(){
         if($this->driver == "MariaDB" || $this->driver == "MySQL"){
             if(!$this->bean->testConnection()) {
-                $this->create_database();
+                $this->createDatabase();
                 $this->bean->setup('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
             }
         }
 
         if($this->driver == "PDO"){
             if(!$this->bean->testConnection()) {
-                $this->create_database();
+                $this->createDatabase();
                 $db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
                 $this->bean->setup($db);
             }
@@ -83,14 +91,14 @@ class connection{
 
         if($this->driver == "PostgreSQL"){
             if(!$this->bean->testConnection()) {
-                $this->create_database();
+                $this->createDatabase();
                 $this->bean->setup('pgsql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
             }
         }
 
         if($this->driver == "CUBRID"){
             if(!$this->bean->testConnection()) {
-                $this->create_database();
+                $this->createDatabase();
                 $this->bean->setup('cubrid:host='.$this->host.';port='.$this->port.';dbname='.$this->database, $this->username, $this->password);
             }
         }

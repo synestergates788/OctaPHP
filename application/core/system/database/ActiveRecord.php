@@ -1,8 +1,7 @@
 <?php
-namespace system\database;
-use \PDO;
+namespace System\Database;
 
-class active_record{
+class ActiveRecord{
     protected $redbean;
 
     var $last_id;
@@ -34,27 +33,15 @@ class active_record{
         $this->redbean = $redbean;
     }
 
-    public function connect($DB){
-        $db_host = $DB['hostname'];
-        $db_username = $DB['username'];
-        $db_password = $DB['password'];
-        $db_name = $DB['database_name'];
-
-        $db_conn = new PDO("mysql:host={$db_host};dbname={$db_name}",$db_username,$db_password);
-        $db_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $db_conn->exec("CREATE DATABASE IF NOT EXISTS $db_name;");
-        return $db_conn;
-    }
-
-    public function close_connection(){
+    public function closeConnection(){
         $this->redbean->close();
     }
 
-    public function insert_id(){
+    public function insertId(){
         return $this->last_id;
     }
 
-    public function last_query(){
+    public function lastQuery(){
         return $this->last_query;
     }
 
@@ -71,7 +58,7 @@ class active_record{
         return ($this->last_id) ? true : false;
     }
 
-    public function insert_batch($array,$table){
+    public function insertBatch($array,$table){
         $data = array();
 
         if($array){
@@ -116,7 +103,7 @@ class active_record{
         return ($result) ? true : false;
     }
 
-    public function update_batch($table,$array,$where){
+    public function updateBatch($table,$array,$where){
         if($array){
             foreach($array as $key_ub=>$row_ub){
                 $where_key = '';
@@ -170,7 +157,7 @@ class active_record{
         }
     }
 
-    public function delete_all($table){
+    public function deleteAll($table){
         $result = $this->redbean->wipe($table);
         return ($result) ? true : false;
     }
@@ -214,7 +201,7 @@ class active_record{
         $this->where = ($arr_check) ? "WHERE ".$tmp_where : $tmp_where;
     }
 
-    public function or_where($data=null,$match=null){
+    public function orWhere($data=null,$match=null){
         $tmp_or_where = '';
         $arr_check = false;
         if($data){
@@ -241,7 +228,7 @@ class active_record{
         $this->or_where = ($arr_check) ? "OR ".$tmp_or_where : $tmp_or_where;
     }
 
-    public function where_in($field,$data){
+    public function whereIn($field,$data){
         $where_in_fields = '';
         $last_key = end(array_keys($data));
         if($data){
@@ -257,7 +244,7 @@ class active_record{
         $this->where_in = 'WHERE '.$field.' IN ('.$where_in_fields.')';
     }
 
-    public function or_where_in($field,$data){
+    public function orWhereIn($field,$data){
         $where_in_fields = '';
         $last_key = end(array_keys($data));
         if($data){
@@ -273,7 +260,7 @@ class active_record{
         $this->or_where_in = 'OR '.$field.' IN ('.$where_in_fields.')';
     }
 
-    public function where_not_in($field,$data){
+    public function whereNotIn($field,$data){
         $where_in_fields = '';
         $last_key = end(array_keys($data));
         if($data){
@@ -289,7 +276,7 @@ class active_record{
         $this->where_not_in = 'WHERE '.$field.' NOT IN ('.$where_in_fields.')';
     }
 
-    public function or_where_not_in($field,$data){
+    public function orWhereNotIn($field,$data){
         $where_in_fields = '';
         $last_key = end(array_keys($data));
         if($data){
@@ -333,7 +320,7 @@ class active_record{
         $this->like = ($arr_check) ? "WHERE ".$tmp_like : $tmp_like;
     }
 
-    public function or_like($data=null,$match=null){
+    public function orLike($data=null,$match=null){
         $tmp_or_like = '';
         if($data){
             if(is_array($data)){
@@ -357,7 +344,7 @@ class active_record{
         $this->or_like = $tmp_or_like;
     }
 
-    public function not_like($data=null,$match=null){
+    public function notLike($data=null,$match=null){
         $tmp_like = '';
         $arr_check = false;
         if($data){
@@ -385,7 +372,7 @@ class active_record{
         $this->like = ($arr_check) ? "WHERE ".$tmp_like : $tmp_like;
     }
 
-    public function or_not_like($data=null,$match=null){
+    public function orNotLike($data=null,$match=null){
         $tmp_or_like = '';
         if($data){
             if(is_array($data)){
@@ -409,7 +396,7 @@ class active_record{
         $this->or_like = $tmp_or_like;
     }
 
-    public function order_by($field,$sort){
+    public function orderBy($field,$sort){
         $this->order_by = $field.' '.$sort;
     }
 
@@ -417,7 +404,7 @@ class active_record{
         $this->join = $join_type.' JOIN '.$table.' ON '.$joint;
     }
 
-    public function group_by($field){
+    public function groupBy($field){
         $this->group_by = 'GROUP BY '.$field;
     }
 
@@ -427,7 +414,7 @@ class active_record{
         $this->offset = $offset;
     }
 
-    public function clear_global_var(){
+    public function clearGlobalVar(){
         $this->select = '';
         $this->where = '';
         $this->or_where = '';
@@ -484,13 +471,13 @@ class active_record{
         }
 
         /*clear global variables*/
-        $this->clear_global_var();
+        $this->clearGlobalVar();
         /*end clearing global variables*/
 
         return $result;
     }
 
-    public function num_rows(){
+    public function numRows(){
         /*init var*/
         $result = 0;#array();
         $select = ($this->select) ? implode(',',$this->select) : '*';
@@ -524,7 +511,7 @@ class active_record{
         }
 
         /*clear global variables*/
-        $this->clear_global_var();
+        $this->clearGlobalVar();
         /*end clearing global variables*/
 
         return $result;
@@ -566,7 +553,7 @@ class active_record{
         }
 
         /*clear global variables*/
-        $this->clear_global_var();
+        $this->clearGlobalVar();
         /*end clearing global variables*/
 
         return $result;
@@ -606,22 +593,22 @@ class active_record{
         }
     }
 
-    public function get_all_tables(){
+    public function getAllTables(){
         $result = $this->redbean->inspect();
         return ($result) ? $result : false;
     }
 
-    public function add_database($db_name,$hostname,$user_name,$password,$frozen=null){
+    public function addDatabase($db_name,$hostname,$user_name,$password,$frozen=null){
         $result = $this->redbean->addDatabase($db_name, $hostname, $user_name, $password, $frozen );
         return ($result) ? true : false;
     }
 
-    public function select_database($db_name){
+    public function selectDatabase($db_name){
         $result = $this->redbean->selectDatabase($db_name);
         return ($result) ? true : false;
     }
 
-    public function set_database(){
+    public function setDatabase(){
         $result = $this->redbean->selectDatabase('default');
         return ($result) ? true : false;
     }
@@ -636,27 +623,27 @@ class active_record{
         return ($result) ? true : false;
     }
 
-    public function roll_back(){
+    public function rollBack(){
         $result = $this->redbean->rollback();
         return ($result) ? true : false;
     }
 
-    public function reset_query_count(){
+    public function resetQueryCount(){
         $result = $this->redbean->resetQueryCount();
         return ($result) ? true : false;
     }
 
-    public function get_query_count(){
+    public function getQueryCount(){
         $result = $this->redbean->getQueryCount();
         return ($result) ? $result : false;
     }
 
-    public function start_logging(){
+    public function startLogging(){
         $result = $this->redbean->startLogging();
         return ($result) ? true : false;
     }
 
-    public function get_logs(){
+    public function getLogs(){
         $result = $this->redbean->getLogs();
         return ($result) ? $result : false;
     }
@@ -667,49 +654,49 @@ class active_record{
         return ($result) ? $result : false;
     }
 
-    public function get_all($table){
+    public function getAll($table){
         $result = $this->redbean->getAll($table);
         return ($result) ? $result : false;
     }
 
-    public function get_row($data){
+    public function getRow($data){
         $result = $this->redbean->getRow($data);
         return ($result) ? $result : false;
     }
 
-    public function get_column($data){
+    public function getColumn($data){
         $result = $this->redbean->getCol($data);
         return ($result) ? $result : false;
     }
 
-    public function get_cell($data){
+    public function getCell($data){
         $result = $this->redbean->getCell($data);
         return ($result) ? $result : false;
     }
 
-    public function get_assoc($data){
+    public function getAssoc($data){
         $result = $this->redbean->getAssoc($data);
         return ($result) ? $result : false;
     }
 
-    public function get_inserted_id(){
+    public function getInsertedId(){
         $result = $this->redbean->getInsertID();
         return ($result) ? $result : false;
     }
 
-    public function convert_to_beans($type,$rows,$metamask=null){
+    public function convertToBeans($type,$rows,$metamask=null){
         $result = $this->redbean->convertToBeans( $type, $rows, $metamask );
         return ($result) ? $result : false;
     }
 
     /*Data Tools*/
     /*this will return an html data*/
-    public function get_look($sql, $bindings = array(), $keys = array( 'selected', 'id', 'name' ), $template = '<option %s value="%s">%s</option>', $filter = 'trim', $glue = '' ){
+    public function getLook($sql, $bindings = array(), $keys = array( 'selected', 'id', 'name' ), $template = '<option %s value="%s">%s</option>', $filter = 'trim', $glue = '' ){
         $result = $this->redbean->getLook()->look($sql,$bindings,$keys,$template,$filter,$glue);
         return ($result) ? $result : false;
     }
 
-    public function match_up($type, $sql, $bindings = array(), $onFoundDo = NULL, $onNotFoundDo = NULL, &$bean = NULL){
+    public function matchUp($type, $sql, $bindings = array(), $onFoundDo = NULL, $onNotFoundDo = NULL, &$bean = NULL){
         $result = $this->redbean->matchUp($type, $sql, $bindings, $onFoundDo, $onNotFoundDo, $bean);
         return ($result) ? $result : false;
     }
@@ -719,7 +706,7 @@ class active_record{
         return ($result) ? true : false;
     }
 
-    public function find_all($table){
+    public function findAll($table){
         $result = $this->redbean->findAll($table);
         return ($result) ? $result : false;
     }
@@ -729,7 +716,7 @@ class active_record{
         return ($result) ? $result : false;
     }
 
-    public function csv_result(){
+    public function csvResult(){
         /*init var*/
         $result = array();
         $select = ($this->select) ? implode(',',$this->select) : '*';
@@ -761,7 +748,7 @@ class active_record{
         }
 
         /*clear global variables*/
-        $this->clear_global_var();
+        $this->clearGlobalVar();
         /*end clearing global variables*/
 
         return $result;
@@ -785,7 +772,7 @@ class active_record{
     }
 
     /*Debugging*/
-    public function fancy_debug($toggle = TRUE){
+    public function fancyDebug($toggle = TRUE){
         $result = $this->redbean->fancyDebug($toggle);
         return ($result) ? $result : false;
     }
@@ -812,7 +799,7 @@ class active_record{
         return ($result) ? $result : false;
     }
 
-    public function fetch_as($type){
+    public function fetchAs($type){
         $result = $this->redbean->fetchAs($type);
         return ($result) ? $result : false;
     }
@@ -828,23 +815,23 @@ class active_record{
         return ($result) ? $result : false;
     }
 
-    public function count_own($type){
+    public function countOwn($type){
         $result = $this->redbean->countOwn($type);
         return ($result) ? $result : false;
     }
 
-    public function count_shared($type){
+    public function countShared($type){
         $result = $this->redbean->countOwn($type);
         return ($result) ? $result : false;
     }
 
     /*Labels, Enums, Tags*/
-    public function dispense_labels($type,$labels){
+    public function dispenseLabels($type,$labels){
         $result = $this->redbean->dispenseLabels($type,$labels);
         return ($result) ? $result : false;
     }
 
-    public function gather_labels($beans){
+    public function gatherLabels($beans){
         $result = $this->redbean->gatherLabels($beans);
         return ($result) ? $result : false;
     }
@@ -859,7 +846,7 @@ class active_record{
         return ($result) ? $result : false;
     }
 
-    public function add_tag($bean, $tagList){
+    public function addTag($bean, $tagList){
         $result = $this->redbean->addTags($bean, $tagList);
         return ($result) ? $result : false;
     }
@@ -874,22 +861,22 @@ class active_record{
         return ($result) ? $result : false;
     }
 
-    public function tagged_all($beanType,$tagList,$sql='',$bindings=array()){
+    public function taggedAll($beanType,$tagList,$sql='',$bindings=array()){
         $result = $this->redbean->taggedAll($beanType,$tagList,$sql,$bindings);
         return ($result) ? $result : false;
     }
 
-    public function count_tagged_all($beanType,$tagList,$sql='',$bindings=array()){
+    public function countTaggedAll($beanType,$tagList,$sql='',$bindings=array()){
         $result = $this->redbean->countTaggedAll($beanType,$tagList,$sql,$bindings);
         return ($result) ? $result : false;
     }
 
-    public function count_tagged($beanType,$tagList,$sql='',$bindings=array()){
+    public function countTagged($beanType,$tagList,$sql='',$bindings=array()){
         $result = $this->redbean->countTagged($beanType,$tagList,$sql,$bindings);
         return ($result) ? $result : false;
     }
 
-    public function has_tag($bean,$tags,$all=FALSE){
+    public function hasTag($bean,$tags,$all=FALSE){
         $result = $this->redbean->hasTag($bean,$tags,$all);
         return ($result) ? $result : false;
     }
@@ -900,7 +887,7 @@ class active_record{
         return ($result) ? $result : false;
     }
 
-    public function import_row($row){
+    public function importRow($row){
         $result = $this->redbean->importRow($row);
         return ($result) ? $result : false;
     }
@@ -910,12 +897,12 @@ class active_record{
         return ($result) ? $result : false;
     }
 
-    public function export_all($beans, $parents = FALSE, $filters = array()){
+    public function exportAll($beans, $parents = FALSE, $filters = array()){
         $result = $this->redbean->exportAll($beans,$parents,$filters);
         return ($result) ? $result : false;
     }
 
-    public function import_from($sourceBean){
+    public function importFrom($sourceBean){
         $result = $this->redbean->importFrom($sourceBean);
         return ($result) ? $result : false;
     }

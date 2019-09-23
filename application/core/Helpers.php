@@ -1,31 +1,32 @@
 <?php
+namespace Core;
 
 class Helpers{
 
-    public function __construct($helpers){
-        $this->helpers($helpers);
+    public function __construct($Helpers){
+        $this->loadHelpers($Helpers);
     }
 
-    public function helpers($config_helpers){
-        $def_helpers = ['core_helper'];
-        $helpers = [];
+    public function loadHelpers($ConfigHelpers){
+        $DefHelpers = ['CoreHelper'];
+        $Helpers = [];
 
-        if($config_helpers){
-            foreach($config_helpers as $row){
-                array_push($helpers, $row);
+        if($ConfigHelpers){
+            foreach($ConfigHelpers as $row){
+                array_push($Helpers, $row);
             }
         }
 
-        $helpers = array_merge($helpers,$def_helpers);
+        $Helpers = array_merge($Helpers,$DefHelpers);
 
-        $helper_dir = scandir(ROOT.DS.'application'.DS.'helpers');
-        unset($helper_dir[0],$helper_dir[1]);
-        if($helper_dir){
-            foreach($helper_dir as $row){
+        $HelperDir = scandir(ROOT.DS.'Application'.DS.'Helpers');
+        unset($HelperDir[0],$HelperDir[1]);
+        if($HelperDir){
+            foreach($HelperDir as $row){
                 if(strpos($row, '.php')){
                     $row = str_replace(".php","",$row);
-                    if(in_array($row,$helpers)){
-                        include_once ROOT.DS.'application'.DS.'helpers'.DS.$row.'.php';
+                    if(in_array($row,$Helpers)){
+                        include_once ROOT.DS.'Application'.DS.'Helpers'.DS.$row.'.php';
                     }
                 }
             }

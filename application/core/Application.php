@@ -1,22 +1,22 @@
 <?php
 
 class Application{
-    protected $session;
+    protected $Session;
 
-    public function __construct($router,$routes,$routes_dir,$error_404){
-        $this->load_router($router,$routes,$routes_dir,$error_404);
+    public function __construct($Router,$Routes,$RoutesDir,$Error404){
+        $this->LoadRouter($Router,$Routes,$RoutesDir,$Error404);
     }
 
-    public function load_router($router,$routes,$routes_dir,$error_404){
-        $this->session = new Routes($router,$routes,$routes_dir,$error_404);
+    public function LoadRouter($Router,$Routes,$RoutesDir,$Error404){
+        $this->Session = new Routes($Router,$Routes,$RoutesDir,$Error404);
     }
 
-    public function url_segment($segment){
-        $request = trim($_SERVER['REQUEST_URI'], "/");
-        if(!empty($request)){
-            $url = explode('/',$request);
+    public function UrlSegment($Segment){
+        $Request = trim($_SERVER['REQUEST_URI'], "/");
+        if(!empty($Request)){
+            $Url = explode('/',$Request);
 
-            return (isset($url[$segment])) ? $url[$segment] : '';
+            return (isset($Url[$Segment])) ? $Url[$Segment] : '';
         }
     }
 }
