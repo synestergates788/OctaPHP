@@ -8,7 +8,7 @@ $config['Database'] = array(
     'database_name' => 'your_database_name',
 
     /***
-     * Note: It is highly recommended to choose your preffered database adapter
+     * Note: It is highly recommended to choose your preffered database driver
      * ['MariaDB', 'MySQL', 'PDO', 'PostgreSQL', 'SQLite', 'CUBRID'].
      * Ex: 'driver' => 'PDO'
      ***/
