@@ -65,6 +65,14 @@ class Routes{
         $GLOBALS['ClassMethod'] = isset($Url[3]) ? $Url[3] : 'index';
         $GLOBALS['UrlSegment1'] = isset($Url[1]) ? true : false;
 
+
+        $GLOBALS['RDir'] = [];
+        if($RoutesDir){
+            foreach($RoutesDir as $key=>$comp_dir){
+                array_push($GLOBALS['RDir'],$key);
+            }
+        }
+
         $this->Router->match('GET|POST', $RequestedUrl, function() {
 
             $TmpMethodRequest = trim($GLOBALS['RequestedUrl'], "/");
@@ -78,7 +86,11 @@ class Routes{
                 $ThisMethodRequest .= '/'.$MethodRequest[1];
             }
 
-            if(array_key_exists($ThisMethodRequest, $GLOBALS['RoutesDir'])){
+            /*
+             * this was the original routes allocator
+             * if(array_key_exists($ThisMethodRequest, $GLOBALS['RoutesDir'])){
+             * */
+            if(in_array($ThisMethodRequest, $GLOBALS['RDir'])){
 
                 if($GLOBALS['UrlSegment1'] == true){
                     $GetControllerFile = $GLOBALS['Routes']['/'.$GLOBALS['Segment1'].'/'.$GLOBALS['Segment2'].'/([a-z0-9_-]+)?/([a-z0-9_-]+)?'];

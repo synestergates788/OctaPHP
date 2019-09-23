@@ -6,17 +6,17 @@
 </head>
 <body>
 <div class="container" style="width:800px; border: 1px solid #ccc;margin-top: 50px;box-shadow: 1px 4px 12px 1px rgba(138,138,138,1);border-radius: 5px;">
-    <div style="margin-top: 10px;"><h3>This is the default <strong>OctaPHP</strong> 404!</h3></div>
+    <div style="margin-top: 10px;"><h3>Hello there, I'm the default <strong>OctaPHP</strong> 404 landing page!</h3></div>
     <hr>
 
     <div>
         <p>
             <!--The page you are looking at is being generated dynamically by <strong>squeedPHP</strong><br>-->
-            If you would like to edit this page you'll find it located at:
+            If you would like to edit me, you'll find me located at:
         </p>
     </div>
     <div>
-        <div style="border: 1px solid #ccc;height: 40px;color: #008000;"><p style="margin-left: 10px;margin-top: 5px;">application/views/error_page/error_404.php</p></div>
+        <div style="border: 1px solid #ccc;height: 40px;color: #008000;"><p style="margin-left: 10px;margin-top: 5px;">Application/Views/ErrorPage/Error404.php</p></div>
     </div>
     <br>
     <br>

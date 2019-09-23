@@ -18,7 +18,7 @@ if($DefControllerDir){
             if($def_controller_file){
                 foreach($def_controller_file as $key_file=>$row_file){
                     $method = str_replace('.php', '', $row_file);
-                    $default_routes['/'.$row_def.'/'.$method.'-actions/([a-z0-9_-]+)?/([a-z0-9_-]+)?'] = ROOT.DS.'Application'.DS.'Controllers'.DS.$row_def.DS.$method;
+                    $routes['/'.$row_def.'/'.$method.'-actions/([a-z0-9_-]+)?/([a-z0-9_-]+)?'] = ROOT.DS.'Application'.DS.'Controllers'.DS.$row_def.DS.$method;
                 }
             }
         }
