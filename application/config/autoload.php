@@ -1,7 +1,7 @@
 <?php
 /*load your libraries and helpers here*/
-$config['autoload'] = [
-    "libraries" => array(),
+$config['Autoload'] = [
+    "Libraries" => array(),
 
-    "helpers"=> array(),
+    "Helpers"=> array(),
 ];

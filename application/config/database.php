@@ -1,7 +1,7 @@
 <?php
 /*
  * set your database connection here*/
-$config['database'] = array(
+$config['Database'] = array(
     'hostname' => 'localhost',
     'username' => 'root',
     'password' => '',
@@ -24,5 +24,5 @@ $config['database'] = array(
      * database_name and port] a null value if you are using sqlite database adapter otherwise leave it null
      * (Ex: 'sqlite_database_directory' => '/tmp/dbfile.db')
      ***/
-    'sqlite_database_directory' => '',
+    'SqliteDatabaseDirectory' => '',
 );
