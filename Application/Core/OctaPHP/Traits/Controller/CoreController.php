@@ -78,18 +78,6 @@ trait CoreController{
         $this->assets($GLOBALS['template'],$this->config->Assets);
 
         /**
-         * initializing third-party libraries.
-         * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
-         */
-        $this->parseLibrary($this->config->Autoload->Libraries);
-
-        /**
-         * initializing helpers.
-         * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
-         */
-        $this->parseHelpers($this->config->Autoload->Helpers);
-
-        /**
          * initializing input validator.
          * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
          */
@@ -151,26 +139,6 @@ trait CoreController{
                 }
             }
         }
-    }
-
-    /**
-     * loading autoload helpers.
-     *
-     * @param string $helpers      helper file name
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
-     */
-    public function parseHelpers($helpers){
-        new Helpers($helpers);
-    }
-
-    /**
-     * loading autoload libraries.
-     *
-     * @param string $libraries      library file name
-     * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
-     */
-    public function parseLibrary($libraries){
-        new Libraries($libraries);
     }
 
     /**

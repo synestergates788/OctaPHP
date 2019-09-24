@@ -22,6 +22,8 @@ use OctaPHP\Traits\DataValidator\DataValidator;
 use OctaPHP\Traits\FormValidator\FormValidator;
 use OctaPHP\Traits\Google\Captcha\Captcha;
 use OctaPHP\Traits\Google\Api\Api;
+use OctaPHP\Traits\Libraries\Libraries;
+use OctaPHP\Traits\Helpers\Helpers;
 
 class Controller{
     use Authentication,
@@ -43,13 +45,19 @@ class Controller{
         DataValidator,
         FormValidator,
         Captcha,
-        Api{
+        Api,
+        Libraries,
+        Helpers{
         CoreController::__construct as public __OctaControllerConstruct;
+        Libraries::__construct as public __OctaLibrariesConstruct;
+        Helpers::__construct as public __OctaHelpersConstruct;
     }
 
     public function __construct()
     {
         $this->__OctaControllerConstruct();
+        $this->__OctaLibrariesConstruct($this->config->Autoload->Libraries);
+        $this->__OctaHelpersConstruct($this->config->Autoload->Helpers);
         $database = new Database($this->config);
         $database->connect();
         $this->bean = $database->bean();

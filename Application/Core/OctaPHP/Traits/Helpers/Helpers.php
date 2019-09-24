@@ -1,14 +1,20 @@
 <?php
-namespace Core;
+namespace OctaPHP\Traits\Helpers;
 
-class Helpers{
+/**
+ * loading autoload helpers.
+ *
+ * @param string $helpers      helper file name
+ * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
+ */
+
+trait Helpers{
 
     public function __construct($Helpers){
         $this->loadHelpers($Helpers);
     }
 
     public function loadHelpers($ConfigHelpers){
-        $DefHelpers = ['CoreHelper'];
         $Helpers = [];
 
         if($ConfigHelpers){
@@ -16,8 +22,6 @@ class Helpers{
                 array_push($Helpers, $row);
             }
         }
-
-        $Helpers = array_merge($Helpers,$DefHelpers);
 
         $HelperDir = scandir(ROOT.DS.'Application'.DS.'Helpers');
         unset($HelperDir[0],$HelperDir[1]);
