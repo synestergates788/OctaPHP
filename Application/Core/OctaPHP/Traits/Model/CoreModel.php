@@ -1,12 +1,12 @@
 <?php
 namespace OctaPHP\Traits\Model;
 
-trait CoreModel{
+trait CoreModel {
     protected $octa;
     protected $bean;
     protected $config;
 
-    public function __construct(){
+    public function __construct() {
 
     }
 }

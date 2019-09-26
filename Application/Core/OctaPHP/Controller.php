@@ -25,7 +25,7 @@ use OctaPHP\Traits\Google\Api\Api;
 use OctaPHP\Traits\Libraries\Libraries;
 use OctaPHP\Traits\Helpers\Helpers;
 
-class Controller{
+class Controller {
     use Authentication,
         CoreController,
         Crawler,
