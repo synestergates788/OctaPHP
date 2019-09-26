@@ -33,10 +33,6 @@ class ActiveRecord{
         $this->redbean = $redbean;
     }
 
-    public function closeConnection(){
-        $this->redbean->close();
-    }
-
     public function insertId(){
         return $this->last_id;
     }
@@ -55,6 +51,7 @@ class ActiveRecord{
         }
 
         $this->last_id = $this->redbean->store($data);
+        $this->redbean->close();
         return ($this->last_id) ? true : false;
     }
 
@@ -87,6 +84,7 @@ class ActiveRecord{
         }
 
         $result = $this->redbean->storeAll($data);
+        $this->redbean->close();
         return ($result) ? true : false;
     }
 
@@ -100,6 +98,7 @@ class ActiveRecord{
         }
 
         $result = $this->redbean->store($data);
+        $this->redbean->close();
         return ($result) ? true : false;
     }
 
@@ -137,7 +136,7 @@ class ActiveRecord{
                 }
             }
         }
-
+        $this->redbean->close();
         return true;
     }
 
@@ -148,10 +147,12 @@ class ActiveRecord{
                     $this->redbean->trash($table,$row);
                 }
 
+                $this->redbean->close();
                 return true;
 
             }else{
                 $result = $this->redbean->trash($table,$id);
+                $this->redbean->close();
                 return ($result) ? true : false;
             }
         }
@@ -159,6 +160,7 @@ class ActiveRecord{
 
     public function deleteAll($table){
         $result = $this->redbean->wipe($table);
+        $this->redbean->close();
         return ($result) ? true : false;
     }
 
@@ -557,353 +559,5 @@ class ActiveRecord{
         /*end clearing global variables*/
 
         return $result;
-    }
-
-    /*Database*/
-    public function wipe($beanType){
-        $result = $this->redbean->wipe($beanType);
-        return ($result) ? $result : false;
-    }
-
-    public function dispense($data){
-        $result = $this->redbean->dispense($data);
-        return ($result) ? true : false;
-    }
-
-    public function store($data){
-        $result = $this->redbean->store($data);
-        return ($result) ? true : false;
-    }
-
-    public function inspect($data){
-        if($data){
-            if(is_array($data)){
-
-                $result = array();
-                foreach($data as $key=>$row){
-                    $result[$key]=$this->redbean->inspect($row);
-                }
-
-                return ($result) ? $result : false;
-
-            }else{
-                $result = $this->redbean->inspect($data);
-                return ($result) ? $result : false;
-            }
-        }
-    }
-
-    public function getAllTables(){
-        $result = $this->redbean->inspect();
-        return ($result) ? $result : false;
-    }
-
-    public function addDatabase($db_name,$hostname,$user_name,$password,$frozen=null){
-        $result = $this->redbean->addDatabase($db_name, $hostname, $user_name, $password, $frozen );
-        return ($result) ? true : false;
-    }
-
-    public function selectDatabase($db_name){
-        $result = $this->redbean->selectDatabase($db_name);
-        return ($result) ? true : false;
-    }
-
-    public function setDatabase(){
-        $result = $this->redbean->selectDatabase('default');
-        return ($result) ? true : false;
-    }
-
-    public function begin(){
-        $result = $this->redbean->begin();
-        return ($result) ? true : false;
-    }
-
-    public function commit(){
-        $result = $this->redbean->commit();
-        return ($result) ? true : false;
-    }
-
-    public function rollBack(){
-        $result = $this->redbean->rollback();
-        return ($result) ? true : false;
-    }
-
-    public function resetQueryCount(){
-        $result = $this->redbean->resetQueryCount();
-        return ($result) ? true : false;
-    }
-
-    public function getQueryCount(){
-        $result = $this->redbean->getQueryCount();
-        return ($result) ? $result : false;
-    }
-
-    public function startLogging(){
-        $result = $this->redbean->startLogging();
-        return ($result) ? true : false;
-    }
-
-    public function getLogs(){
-        $result = $this->redbean->getLogs();
-        return ($result) ? $result : false;
-    }
-
-    /*querying*/
-    public function exec($data){
-        $result = $this->redbean->exec($data);
-        return ($result) ? $result : false;
-    }
-
-    public function getAll($table){
-        $result = $this->redbean->getAll($table);
-        return ($result) ? $result : false;
-    }
-
-    public function getRow($data){
-        $result = $this->redbean->getRow($data);
-        return ($result) ? $result : false;
-    }
-
-    public function getColumn($data){
-        $result = $this->redbean->getCol($data);
-        return ($result) ? $result : false;
-    }
-
-    public function getCell($data){
-        $result = $this->redbean->getCell($data);
-        return ($result) ? $result : false;
-    }
-
-    public function getAssoc($data){
-        $result = $this->redbean->getAssoc($data);
-        return ($result) ? $result : false;
-    }
-
-    public function getInsertedId(){
-        $result = $this->redbean->getInsertID();
-        return ($result) ? $result : false;
-    }
-
-    public function convertToBeans($type,$rows,$metamask=null){
-        $result = $this->redbean->convertToBeans( $type, $rows, $metamask );
-        return ($result) ? $result : false;
-    }
-
-    /*Data Tools*/
-    /*this will return an html data*/
-    public function getLook($sql, $bindings = array(), $keys = array( 'selected', 'id', 'name' ), $template = '<option %s value="%s">%s</option>', $filter = 'trim', $glue = '' ){
-        $result = $this->redbean->getLook()->look($sql,$bindings,$keys,$template,$filter,$glue);
-        return ($result) ? $result : false;
-    }
-
-    public function matchUp($type, $sql, $bindings = array(), $onFoundDo = NULL, $onNotFoundDo = NULL, &$bean = NULL){
-        $result = $this->redbean->matchUp($type, $sql, $bindings, $onFoundDo, $onNotFoundDo, $bean);
-        return ($result) ? $result : false;
-    }
-
-    public function csv($sql, $id = array(), $bindings = array()){
-        $result = $this->redbean->csv($sql,$id,$bindings);
-        return ($result) ? true : false;
-    }
-
-    public function findAll($table){
-        $result = $this->redbean->findAll($table);
-        return ($result) ? $result : false;
-    }
-
-    public function find($type,$sql,$bindings){
-        $result = $this->redbean->find($type,$sql,$bindings);
-        return ($result) ? $result : false;
-    }
-
-    public function csvResult(){
-        /*init var*/
-        $result = array();
-        $select = ($this->select) ? implode(',',$this->select) : '*';
-        $order_by = ($this->order_by) ? 'ORDER BY '.$this->order_by : '';
-        $join = ($this->join) ? $this->join : '';
-        $group_by = ($this->group_by) ? $this->group_by : '';
-        $limit = ($this->limit) ? 'LIMIT '.$this->limit : '';
-        $table = ($this->table) ? $this->table : '';
-
-        $where = ($this->where) ? $this->where : '';
-        $or_where = ($this->or_where) ? $this->or_where : '';
-        $where_in = ($this->where_in) ? $this->where_in : '';
-        $or_where_in = ($this->or_where_in) ? $this->or_where_in : '';
-        $where_not_in = ($this->where_not_in) ? $this->where_not_in : '';
-        $or_where_not_in = ($this->or_where_not_in) ? $this->or_where_not_in : '';
-
-        $like = ($this->like) ? $this->like : '';
-        $or_like = ($this->or_like) ? $this->or_like : '';
-        $not_like = ($this->not_like) ? $this->not_like : '';
-        $or_not_like = ($this->or_not_like) ? $this->or_not_like : '';
-        /*end init var*/
-
-        $this->last_query = "SELECT {$select} FROM {$table} {$join} {$where} {$or_where} {$where_in} {$or_where_in} {$where_not_in} {$or_where_not_in} {$like} {$or_like} {$not_like} {$or_not_like} {$group_by} {$order_by} {$limit}";
-        $data = $this->redbean->csv("SELECT {$select} FROM {$table} {$join} {$where} {$or_where} {$where_in} {$or_where_in} {$where_not_in} {$or_where_not_in} {$like} {$or_like} {$not_like} {$or_not_like} {$group_by} {$order_by} {$limit}");
-        if($data){
-            foreach($data as $key=>$row){
-                $result[$key] = (object)$row;
-            }
-        }
-
-        /*clear global variables*/
-        $this->clearGlobalVar();
-        /*end clearing global variables*/
-
-        return $result;
-    }
-
-    /*Fluid and Frozen*/
-    public function freeze($data=null){
-        if($data){
-            if(is_array($data)){
-                $data = array();
-                foreach($data as $key=>$row){
-                    $data[$key] = $row;
-                }
-
-                $this->redbean->freeze($data);
-            }
-        }else{
-            $this->redbean->freeze(TRUE);
-        }
-        return true;
-    }
-
-    /*Debugging*/
-    public function fancyDebug($toggle = TRUE){
-        $result = $this->redbean->fancyDebug($toggle);
-        return ($result) ? $result : false;
-    }
-
-    /*value "true", "false"*/
-    public function debug($tf = TRUE, $mode = 0){
-        $result = $this->redbean->debug($tf,$mode);
-        return ($result) ? $result : false;
-    }
-
-    public function dump($data){
-        $result = $this->redbean->dump($data);
-        return ($result) ? $result : false;
-    }
-
-    public function test_connection(){
-        $result = $this->redbean->testConnection();
-        return ($result) ? $result : false;
-    }
-
-    /*Aliases*/
-    public function load($oodb, $types, $id){
-        $result = $this->redbean->load($oodb, $types, $id);
-        return ($result) ? $result : false;
-    }
-
-    public function fetchAs($type){
-        $result = $this->redbean->fetchAs($type);
-        return ($result) ? $result : false;
-    }
-
-    public function alias($alias_name){
-        $result = $this->redbean->alias($alias_name);
-        return ($result) ? $result : false;
-    }
-
-    /*Count*/
-    public function count(){
-        $result = $this->redbean->count();
-        return ($result) ? $result : false;
-    }
-
-    public function countOwn($type){
-        $result = $this->redbean->countOwn($type);
-        return ($result) ? $result : false;
-    }
-
-    public function countShared($type){
-        $result = $this->redbean->countOwn($type);
-        return ($result) ? $result : false;
-    }
-
-    /*Labels, Enums, Tags*/
-    public function dispenseLabels($type,$labels){
-        $result = $this->redbean->dispenseLabels($type,$labels);
-        return ($result) ? $result : false;
-    }
-
-    public function gatherLabels($beans){
-        $result = $this->redbean->gatherLabels($beans);
-        return ($result) ? $result : false;
-    }
-
-    public function enum($enum){
-        $result = $this->redbean->enum($enum);
-        return ($result) ? $result : false;
-    }
-
-    public function tag($bean, $tagList){
-        $result = $this->redbean->tag($bean, $tagList);
-        return ($result) ? $result : false;
-    }
-
-    public function addTag($bean, $tagList){
-        $result = $this->redbean->addTags($bean, $tagList);
-        return ($result) ? $result : false;
-    }
-
-    public function tagged($beanType,$tagList,$sql='',$bindings=array()){
-        $result = $this->redbean->addTags($beanType,$tagList,$sql,$bindings);
-        return ($result) ? $result : false;
-    }
-
-    public function untag($bean,$tagList){
-        $result = $this->redbean->untag($bean,$tagList);
-        return ($result) ? $result : false;
-    }
-
-    public function taggedAll($beanType,$tagList,$sql='',$bindings=array()){
-        $result = $this->redbean->taggedAll($beanType,$tagList,$sql,$bindings);
-        return ($result) ? $result : false;
-    }
-
-    public function countTaggedAll($beanType,$tagList,$sql='',$bindings=array()){
-        $result = $this->redbean->countTaggedAll($beanType,$tagList,$sql,$bindings);
-        return ($result) ? $result : false;
-    }
-
-    public function countTagged($beanType,$tagList,$sql='',$bindings=array()){
-        $result = $this->redbean->countTagged($beanType,$tagList,$sql,$bindings);
-        return ($result) ? $result : false;
-    }
-
-    public function hasTag($bean,$tags,$all=FALSE){
-        $result = $this->redbean->hasTag($bean,$tags,$all);
-        return ($result) ? $result : false;
-    }
-
-    /*Import and Export*/
-    public function import($array, $selection = FALSE, $notrim = FALSE){
-        $result = $this->redbean->import($array,$selection,$notrim);
-        return ($result) ? $result : false;
-    }
-
-    public function importRow($row){
-        $result = $this->redbean->importRow($row);
-        return ($result) ? $result : false;
-    }
-
-    public function export($meta = FALSE, $parents = FALSE, $onlyMe = FALSE, $filters = array()){
-        $result = $this->redbean->export($meta,$parents,$onlyMe,$filters);
-        return ($result) ? $result : false;
-    }
-
-    public function exportAll($beans, $parents = FALSE, $filters = array()){
-        $result = $this->redbean->exportAll($beans,$parents,$filters);
-        return ($result) ? $result : false;
-    }
-
-    public function importFrom($sourceBean){
-        $result = $this->redbean->importFrom($sourceBean);
-        return ($result) ? $result : false;
     }
 }

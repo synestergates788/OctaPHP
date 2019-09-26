@@ -11,8 +11,6 @@ $view = new Environment($loader);
 $GLOBALS['template'] = $view;
 
 use Core\Input;
-use Core\Libraries;
-use Core\Helpers;
 
 /**
  * ###########################

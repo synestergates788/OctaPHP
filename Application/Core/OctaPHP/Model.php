@@ -4,8 +4,9 @@ use OctaPHP\Traits\Model\CoreModel;
 use System\Database\Database;
 use System\Database\ActiveRecord;
 use OctaPHP\Traits\Controller\CoreController;
+use RedBean_SimpleModel;
 
-class Model{
+class Model extends RedBean_SimpleModel{
     use CoreModel,
         CoreController {
         CoreModel::__construct as public __OctaCoreModelConstruct;
