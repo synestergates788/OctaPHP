@@ -57,12 +57,12 @@ DebugClassLoader::enable();
  */
 use Zend\Config\Config as OctaConfig;
 
-trait CoreController{
+trait CoreController {
 
     protected $input;
     protected $config;
 
-    public function __construct(){
+    public function __construct() {
         /**
          * initializing database component using redbeanPhp.
          * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
@@ -89,21 +89,22 @@ trait CoreController{
      * @param string $alias      model alias
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function model($modelName,$alias=null){
-        if(!is_array($modelName)){
-            $models_dir = scandir(ROOT.DS.'Application'.DS.'Models');
-            unset($models_dir[0],$models_dir[1]);
+    public function model($modelName, $alias = null) {
+        if(!is_array($modelName)) {
+            $models_dir = scandir(ROOT . DS . 'Application' . DS . 'Models');
+            unset($models_dir[0], $models_dir[1]);
 
-            if($models_dir){
-                foreach($models_dir as $key_m=>$row_m){
+            if($models_dir) {
+                foreach($models_dir as $key_m => $row_m) {
 
-                    if(strpos($row_m, '.php') == false){
-                        if(file_exists(ROOT.DS.'Application'.DS.'Models'.DS.$row_m.DS.$modelName.".php")){
+                    if(strpos($row_m, '.php') == false) {
+                        if(file_exists(ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $modelName . ".php")) {
 
-                            include_once ROOT.DS.'Application'.DS.'Models'.DS.$row_m.DS.$modelName.".php";
-                            if($alias){
+                            include_once ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $modelName . ".php";
+
+                            if($alias) {
                                 $this->$alias = new $modelName;
-                            }else{
+                            }else {
                                 $this->$modelName = new $modelName;
                             }
                         }
@@ -111,21 +112,21 @@ trait CoreController{
                 }
             }
 
-        }else{
-            $models_dir = scandir(ROOT.DS.'Application'.DS.'Models');
-            unset($models_dir[0],$models_dir[1]);
+        }else {
+            $models_dir = scandir(ROOT . DS . 'Application' . DS . 'Models');
+            unset($models_dir[0], $models_dir[1]);
 
             $model_checker = [];
             if($models_dir){
-                foreach($models_dir as $key_m=>$row_m){
-                    if(strpos($row_m, '.php') == false){
+                foreach($models_dir as $key_m => $row_m) {
+                    if(strpos($row_m, '.php') == false) {
 
-                        if($modelName){
-                            foreach($modelName as $key_arrm=>$row_arrm){
+                        if($modelName) {
+                            foreach($modelName as $key_arrm => $row_arrm) {
 
-                                if(!in_array($key_arrm,$model_checker)){
-                                    if(file_exists(ROOT.DS.'Application'.DS.'Models'.DS.$row_m.DS.$key_arrm.".php")){
-                                        include_once ROOT.DS.'Application'.DS.'Models'.DS.$row_m.DS.$key_arrm.".php";
+                                if(!in_array($key_arrm, $model_checker)){
+                                    if(file_exists(ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $key_arrm . ".php")){
+                                        include_once ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $key_arrm . ".php";
                                         $this->hm = new $key_arrm;
                                     }
 
@@ -146,11 +147,11 @@ trait CoreController{
      * @param array $data      an array of data to be pass on the view file
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function view($template_name,$data=[]){
-        if($template_name){
+    public function view($template_name, $data = []) {
+        if($template_name) {
             echo $GLOBALS['template']->render($template_name, $data);
-        }else{
-            include_once(ROOT.DS.'Application'.DS.'Views'.DS.'ErrorPage'.DS.'ErrorTemplate.php');
+        }else {
+            include_once(ROOT . DS . 'Application' . DS . 'Views' . DS . 'ErrorPage' . DS . 'ErrorTemplate.php');
         }
     }
 
@@ -160,10 +161,10 @@ trait CoreController{
      * @param string $assets_config
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function assets($view,$assets_config){
-        if($assets_config){
+    public function assets($view,$assets_config) {
+        if($assets_config) {
             $view->addFunction(new TwigFunction($this->config->Assets->DirectoryName, function ($asset) {
-                return sprintf($this->config->Assets->DirectoryUrl.DS.'%s', ltrim($asset, '/'));
+                return sprintf($this->config->Assets->DirectoryUrl . DS . '%s', ltrim($asset, '/'));
             }));
         }
     }
@@ -175,7 +176,7 @@ trait CoreController{
      * @return OctaConfig class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function config(array $array, $allowModifications = false){
+    public function config(array $array, $allowModifications = false) {
         return new OctaConfig($array, $allowModifications);
     }
 }

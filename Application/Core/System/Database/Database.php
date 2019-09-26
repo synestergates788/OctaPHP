@@ -3,7 +3,7 @@ namespace System\Database;
 use \PDO;
 use RedBeanPHP\Facade as R;
 
-class Database{
+class Database {
 
     protected $bean;
     protected $config;
@@ -15,7 +15,7 @@ class Database{
     protected $port;
     protected $sqlite_database;
 
-    public function __construct($config){
+    public function __construct($config) {
         $this->initializeDatabase();
         $this->bean = $this->bean();
         $this->config = $config;
@@ -28,23 +28,23 @@ class Database{
         $this->sqlite_database = $this->config->Database->sqlite_database_directory;
     }
 
-    public function initializeDatabase(){
+    public function initializeDatabase() {
         include_once ROOT.DS.'application'.DS.'core'.DS.'system'.DS.'database'.DS.'redbean.php';
     }
 
-    public function bean(){
+    public function bean() {
         return new R();
     }
 
-    protected function createDatabase(){
-        if($this->database !== "" || $this->database !== null){
-            if($this->driver == "MariaDB" || $this->driver == "MySQL"){
+    protected function createDatabase() {
+        if($this->database !== "" || $this->database !== null) {
+            if($this->driver == "MariaDB" || $this->driver == "MySQL") {
                 $link = mysqli_connect($this->host, $this->username, $this->password);
                 $database = mysqli_select_db($link, $this->database);
 
-                if (!$database){
+                if (!$database) {
                     $sql = "CREATE DATABASE {$this->database};";
-                    if(!mysqli_query($link, $sql)){
+                    if(!mysqli_query($link, $sql)) {
                         echo 'Error creating database: ' . mysqli_error($link);
                     }
                 }
@@ -52,22 +52,22 @@ class Database{
                 mysqli_close($link);
             }
 
-            if($this->driver == "PDO"){
-                $pdo = new PDO("mysql:host=".$this->host, $this->username, $this->password);
+            if($this->driver == "PDO") {
+                $pdo = new PDO("mysql:host=" . $this->host, $this->username, $this->password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pdo->exec("CREATE DATABASE IF NOT EXISTS {$this->database};");
                 $pdo = null;
             }
 
-            if($this->driver == "PostgreSQL"){
-                $pdo = new PDO("pgsql:host=".$this->host.";dbname=".$this->database, $this->username, $this->password);
+            if($this->driver == "PostgreSQL") {
+                $pdo = new PDO("pgsql:host=" . $this->host . ";dbname=" . $this->database, $this->username, $this->password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pdo->exec("CREATE DATABASE IF NOT EXISTS {$this->database};");
                 $pdo = null;
             }
 
-            if($this->driver == "CUBRID"){
-                $pdo = new PDO('cubrid:host='.$this->host.';port='.$this->port.';dbname='.$this->database, $this->username, $this->password);
+            if($this->driver == "CUBRID") {
+                $pdo = new PDO('cubrid:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->database, $this->username, $this->password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pdo->exec("CREATE DATABASE IF NOT EXISTS {$this->database};");
                 $pdo = null;
@@ -75,7 +75,7 @@ class Database{
         }
     }
 
-    public function connect(){
+    public function connect() {
         if($this->driver == "MariaDB" || $this->driver == "MySQL"){
             if(!$this->bean->testConnection()) {
                 $this->createDatabase();
@@ -83,7 +83,7 @@ class Database{
             }
         }
 
-        if($this->driver == "PDO"){
+        if($this->driver == "PDO") {
             if(!$this->bean->testConnection()) {
                 $this->createDatabase();
                 $db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
@@ -91,23 +91,23 @@ class Database{
             }
         }
 
-        if($this->driver == "PostgreSQL"){
+        if($this->driver == "PostgreSQL") {
             if(!$this->bean->testConnection()) {
                 $this->createDatabase();
                 $this->bean->setup('pgsql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
             }
         }
 
-        if($this->driver == "CUBRID"){
+        if($this->driver == "CUBRID") {
             if(!$this->bean->testConnection()) {
                 $this->createDatabase();
-                $this->bean->setup('cubrid:host='.$this->host.';port='.$this->port.';dbname='.$this->database, $this->username, $this->password);
+                $this->bean->setup('cubrid:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->database, $this->username, $this->password);
             }
         }
 
-        if($this->driver == "SQLite"){
+        if($this->driver == "SQLite") {
             if(!$this->bean->testConnection()) {
-                $this->bean->setup('sqlite:'.$this->sqlite_database);
+                $this->bean->setup('sqlite:' . $this->sqlite_database);
             }
         }
     }
