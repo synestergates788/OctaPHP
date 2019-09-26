@@ -1,22 +1,22 @@
 <?php
 namespace Core;
 
-class Input{
+class Input {
 
-    public function isAjaxRequest(){
+    public function isAjaxRequest() {
         return ( ! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
     }
 
-    public function post($Data){
-        if(isset($_POST[$Data])){
+    public function post($Data) {
+        if(isset($_POST[$Data])) {
             return $_POST[$Data];
-        }else{
+        }else {
             return false;
         }
     }
 
-    public function get($Data){
-        if(isset($_GET[$Data])){
+    public function get($Data) {
+        if(isset($_GET[$Data])) {
             return $_GET[$Data];
         }
     }
