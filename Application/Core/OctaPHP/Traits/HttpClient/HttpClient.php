@@ -158,7 +158,7 @@ trait HttpClient {
      * @return OctaMockHttpClient class
      * @author Nicolas Grekas <p@tchwork.com>
      */
-    public function mockHttpClient($responseFactory = null, $baseUri = null){
+    public function mockHttpClient($responseFactory = null, $baseUri = null) {
         return new OctaMockHttpClient($responseFactory, $baseUri);
     }
 
@@ -171,7 +171,7 @@ trait HttpClient {
      * @return OctaMockResponse class
      * @author Fabien Potencier <fabien@symfony.com>
      */
-    public function mockResponse($body = '', array $info = []){
+    public function mockResponse($body = '', array $info = []) {
         return new OctaMockResponse($body, $info);
     }
 
@@ -182,7 +182,7 @@ trait HttpClient {
      * @return OctaStore class
      * @author Fabien Potencier <fabien@symfony.com>
      */
-    public function store($root = null){
+    public function store($root = null) {
         return new OctaStore($root);
     }
 }

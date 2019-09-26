@@ -90,21 +90,21 @@ trait CoreController {
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function model($modelName, $alias = null) {
-        if(!is_array($modelName)) {
+        if (!is_array($modelName)) {
             $models_dir = scandir(ROOT . DS . 'Application' . DS . 'Models');
             unset($models_dir[0], $models_dir[1]);
 
-            if($models_dir) {
-                foreach($models_dir as $key_m => $row_m) {
+            if ($models_dir) {
+                foreach ($models_dir as $key_m => $row_m) {
 
-                    if(strpos($row_m, '.php') == false) {
-                        if(file_exists(ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $modelName . ".php")) {
+                    if (strpos($row_m, '.php') == false) {
+                        if (file_exists(ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $modelName . ".php")) {
 
                             include_once ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $modelName . ".php";
 
-                            if($alias) {
+                            if ($alias) {
                                 $this->$alias = new $modelName;
-                            }else {
+                            } else {
                                 $this->$modelName = new $modelName;
                             }
                         }
@@ -117,15 +117,15 @@ trait CoreController {
             unset($models_dir[0], $models_dir[1]);
 
             $model_checker = [];
-            if($models_dir){
-                foreach($models_dir as $key_m => $row_m) {
-                    if(strpos($row_m, '.php') == false) {
+            if ($models_dir){
+                foreach ($models_dir as $key_m => $row_m) {
+                    if (strpos($row_m, '.php') == false) {
 
-                        if($modelName) {
-                            foreach($modelName as $key_arrm => $row_arrm) {
+                        if ($modelName) {
+                            foreach ($modelName as $key_arrm => $row_arrm) {
 
-                                if(!in_array($key_arrm, $model_checker)){
-                                    if(file_exists(ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $key_arrm . ".php")){
+                                if (!in_array($key_arrm, $model_checker)){
+                                    if (file_exists(ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $key_arrm . ".php")){
                                         include_once ROOT . DS . 'Application' . DS . 'Models' . DS . $row_m . DS . $key_arrm . ".php";
                                         $this->hm = new $key_arrm;
                                     }
@@ -148,9 +148,9 @@ trait CoreController {
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function view($template_name, $data = []) {
-        if($template_name) {
+        if ($template_name) {
             echo $GLOBALS['template']->render($template_name, $data);
-        }else {
+        } else {
             include_once(ROOT . DS . 'Application' . DS . 'Views' . DS . 'ErrorPage' . DS . 'ErrorTemplate.php');
         }
     }
@@ -162,7 +162,7 @@ trait CoreController {
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function assets($view,$assets_config) {
-        if($assets_config) {
+        if ($assets_config) {
             $view->addFunction(new TwigFunction($this->config->Assets->DirectoryName, function ($asset) {
                 return sprintf($this->config->Assets->DirectoryUrl . DS . '%s', ltrim($asset, '/'));
             }));

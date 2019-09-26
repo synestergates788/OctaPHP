@@ -37,14 +37,15 @@ class Database {
     }
 
     protected function createDatabase() {
-        if($this->database !== "" || $this->database !== null) {
-            if($this->driver == "MariaDB" || $this->driver == "MySQL") {
+        if ($this->database !== "" || $this->database !== null) {
+            if ($this->driver == "MariaDB" || $this->driver == "MySQL") {
+
                 $link = mysqli_connect($this->host, $this->username, $this->password);
                 $database = mysqli_select_db($link, $this->database);
 
                 if (!$database) {
                     $sql = "CREATE DATABASE {$this->database};";
-                    if(!mysqli_query($link, $sql)) {
+                    if (!mysqli_query($link, $sql)) {
                         echo 'Error creating database: ' . mysqli_error($link);
                     }
                 }
@@ -52,21 +53,21 @@ class Database {
                 mysqli_close($link);
             }
 
-            if($this->driver == "PDO") {
+            if ($this->driver == "PDO") {
                 $pdo = new PDO("mysql:host=" . $this->host, $this->username, $this->password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pdo->exec("CREATE DATABASE IF NOT EXISTS {$this->database};");
                 $pdo = null;
             }
 
-            if($this->driver == "PostgreSQL") {
+            if ($this->driver == "PostgreSQL") {
                 $pdo = new PDO("pgsql:host=" . $this->host . ";dbname=" . $this->database, $this->username, $this->password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pdo->exec("CREATE DATABASE IF NOT EXISTS {$this->database};");
                 $pdo = null;
             }
 
-            if($this->driver == "CUBRID") {
+            if ($this->driver == "CUBRID") {
                 $pdo = new PDO('cubrid:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->database, $this->username, $this->password);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $pdo->exec("CREATE DATABASE IF NOT EXISTS {$this->database};");
@@ -76,37 +77,37 @@ class Database {
     }
 
     public function connect() {
-        if($this->driver == "MariaDB" || $this->driver == "MySQL"){
-            if(!$this->bean->testConnection()) {
+        if ($this->driver == "MariaDB" || $this->driver == "MySQL"){
+            if (!$this->bean->testConnection()) {
                 $this->createDatabase();
                 $this->bean->setup('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
             }
         }
 
-        if($this->driver == "PDO") {
-            if(!$this->bean->testConnection()) {
+        if ($this->driver == "PDO") {
+            if (!$this->bean->testConnection()) {
                 $this->createDatabase();
                 $db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
                 $this->bean->setup($db);
             }
         }
 
-        if($this->driver == "PostgreSQL") {
-            if(!$this->bean->testConnection()) {
+        if ($this->driver == "PostgreSQL") {
+            if (!$this->bean->testConnection()) {
                 $this->createDatabase();
                 $this->bean->setup('pgsql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
             }
         }
 
-        if($this->driver == "CUBRID") {
-            if(!$this->bean->testConnection()) {
+        if ($this->driver == "CUBRID") {
+            if (!$this->bean->testConnection()) {
                 $this->createDatabase();
                 $this->bean->setup('cubrid:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->database, $this->username, $this->password);
             }
         }
 
-        if($this->driver == "SQLite") {
-            if(!$this->bean->testConnection()) {
+        if ($this->driver == "SQLite") {
+            if (!$this->bean->testConnection()) {
                 $this->bean->setup('sqlite:' . $this->sqlite_database);
             }
         }

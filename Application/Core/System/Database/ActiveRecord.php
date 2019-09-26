@@ -43,8 +43,8 @@ class ActiveRecord {
     public function insert($array, $table) {
         $data = $this->redbean->dispense($table);
 
-        if($array) {
-            foreach($array as $key=>$row) {
+        if ($array) {
+            foreach ($array as $key => $row) {
                 $data->$key = $row;
             }
         }
@@ -57,21 +57,21 @@ class ActiveRecord {
     public function insertBatch($array, $table) {
         $data = array();
 
-        if($array) {
-            foreach($array as $key_ib=>$row_ib) {
+        if ($array) {
+            foreach ($array as $key_ib => $row_ib) {
 
                 $data[$key_ib] = $this->redbean->dispense($table);
                 $table_fields = [];
                 $table_fields_val = [];
 
-                if($row_ib) {
-                    foreach($row_ib as $row=>$val) {
+                if ($row_ib) {
+                    foreach ($row_ib as $row => $val) {
                         $table_fields[] = $row;
                         $table_fields_val[] = $val;
                     }
 
-                    if($table_fields && $table_fields_val) {
-                        foreach($table_fields as $key=>$row) {
+                    if ($table_fields && $table_fields_val) {
+                        foreach ($table_fields as $key => $row) {
                             $data[$key_ib]->$row = $table_fields_val[$key];
                         }
 
@@ -90,8 +90,8 @@ class ActiveRecord {
     public function update($table, $array, $id) {
         $data = $this->redbean->load($table, $id);
 
-        if($array) {
-            foreach($array as $key=>$row) {
+        if ($array) {
+            foreach ($array as $key => $row) {
                 $data->$key = $row;
             }
         }
@@ -102,28 +102,28 @@ class ActiveRecord {
     }
 
     public function updateBatch($table, $array, $where) {
-        if($array) {
-            foreach($array as $key_ub=>$row_ub) {
+        if ($array) {
+            foreach ($array as $key_ub => $row_ub) {
                 $where_key = '';
                 $table_fields = [];
                 $table_fields_val = [];
 
-                if($row_ub) {
-                    foreach($row_ub as $row=>$val) {
+                if ($row_ub) {
+                    foreach ($row_ub as $row => $val) {
 
-                        if($row === $where) {
+                        if ($row === $where) {
                             $where_key = $val;
                         }
 
-                        if($row !== $where) {
+                        if ($row !== $where) {
                             $table_fields[] = $row;
                             $table_fields_val[] = $val;
                         }
                     }
 
                     $data = $this->redbean->load($table, $where_key);
-                    if($table_fields && $table_fields_val) {
-                        foreach($table_fields as $key=>$row) {
+                    if ($table_fields && $table_fields_val) {
+                        foreach ($table_fields as $key => $row) {
                             $data->$row = $table_fields_val[$key];
                         }
 
@@ -140,9 +140,9 @@ class ActiveRecord {
     }
 
     public function delete($table, $id) {
-        if($id) {
-            if(is_array($id)) {
-                foreach($id as $key=>$row) {
+        if ($id) {
+            if (is_array($id)) {
+                foreach ($id as $key => $row) {
                     $this->redbean->trash($table, $row);
                 }
 
@@ -165,8 +165,8 @@ class ActiveRecord {
 
     public function select($data) {
         $reset = [];
-        if($data) {
-            foreach($data as $key=>$row) {
+        if ($data) {
+            foreach ($data as $key=>$row) {
                 array_push($reset, $row);
             }
         }
@@ -178,22 +178,23 @@ class ActiveRecord {
     public function where($data=null, $match=null) {
         $tmp_where = '';
         $arr_check = false;
-        if($data) {
-            if(is_array($data)) {
+        if ($data) {
+            if (is_array($data)) {
                 end($data);
                 $last_element = key($data);
 
-                if($data) {
+                if ($data) {
                     $arr_check = true;
-                    foreach($data as $key=>$row) {
-                        if($key == $last_element) {
+
+                    foreach ($data as $key => $row) {
+                        if ($key == $last_element) {
                             $tmp_where .= $key . "='" . $row . "'";
-                        }else{
+                        } else {
                             $tmp_where .= $key . "='" . $row . "' AND ";
                         }
                     }
                 }
-            }else {
+            } else {
                 $arr_check = false;
                 $tmp_where = "WHERE " . $data . "='" . $match . "'";
             }
@@ -205,22 +206,23 @@ class ActiveRecord {
     public function orWhere($data=null, $match=null) {
         $tmp_or_where = '';
         $arr_check = false;
-        if($data) {
-            if(is_array($data)) {
+
+        if ($data) {
+            if (is_array($data)) {
                 end($data);
                 $last_element = key($data);
                 $arr_check = true;
 
-                if($data) {
-                    foreach($data as $key=>$row) {
-                        if($key == $last_element) {
+                if ($data) {
+                    foreach ($data as $key => $row) {
+                        if ($key == $last_element) {
                             $tmp_or_where .= $key ."='" . $row . "'";
-                        }else {
+                        } else {
                             $tmp_or_where .= $key . "='" . $row . "' AND ";
                         }
                     }
                 }
-            }else {
+            } else {
                 $arr_check = false;
                 $tmp_or_where = "OR " . $data . "='" . $match . "'";
             }
@@ -232,11 +234,11 @@ class ActiveRecord {
     public function whereIn($field, $data) {
         $where_in_fields = '';
         $last_key = end(array_keys($data));
-        if($data) {
-            foreach($data as $key=>$row) {
-                if($key == $last_key) {
+        if ($data) {
+            foreach ($data as $key => $row) {
+                if ($key == $last_key) {
                     $where_in_fields .= $row;
-                }else {
+                } else {
                     $where_in_fields .= $row . ",";
                 }
             }
@@ -248,11 +250,11 @@ class ActiveRecord {
     public function orWhereIn($field, $data) {
         $where_in_fields = '';
         $last_key = end(array_keys($data));
-        if($data) {
-            foreach($data as $key=>$row) {
-                if($key == $last_key) {
+        if ($data) {
+            foreach ($data as $key => $row) {
+                if ($key == $last_key) {
                     $where_in_fields .= $row;
-                }else {
+                } else {
                     $where_in_fields .= $row.",";
                 }
             }
@@ -264,11 +266,11 @@ class ActiveRecord {
     public function whereNotIn($field, $data) {
         $where_in_fields = '';
         $last_key = end(array_keys($data));
-        if($data) {
-            foreach($data as $key=>$row) {
-                if($key == $last_key) {
+        if ($data) {
+            foreach ($data as $key => $row) {
+                if ($key == $last_key) {
                     $where_in_fields .= $row;
-                }else{
+                } else{
                     $where_in_fields .= $row . ",";
                 }
             }
@@ -280,11 +282,11 @@ class ActiveRecord {
     public function orWhereNotIn($field, $data) {
         $where_in_fields = '';
         $last_key = end(array_keys($data));
-        if($data) {
-            foreach($data as $key=>$row) {
-                if($key == $last_key){
+        if ($data) {
+            foreach ($data as $key => $row) {
+                if ($key == $last_key){
                     $where_in_fields .= $row;
-                }else{
+                } else{
                     $where_in_fields .= $row . ",";
                 }
             }
@@ -296,22 +298,22 @@ class ActiveRecord {
     public function like($data=null, $match=null) {
         $tmp_like = '';
         $arr_check = false;
-        if($data) {
-            if(is_array($data)) {
+        if ($data) {
+            if (is_array($data)) {
                 end($data);
                 $last_element = key($data);
 
-                if($data) {
+                if ($data) {
                     $arr_check = true;
-                    foreach($data as $key=>$row) {
-                        if($key == $last_element) {
+                    foreach ($data as $key => $row) {
+                        if ($key == $last_element) {
                             $tmp_like .= $key . " LIKE '%" . $row . "%'";
-                        }else{
+                        } else{
                             $tmp_like .= $key . " LIKE '%" . $row . "%' AND ";
                         }
                     }
                 }
-            }else {
+            } else {
                 $arr_check = false;
                 $tmp_like = "WHERE " . $data . " LIKE '%" . $match . "%'";
             }
@@ -323,21 +325,21 @@ class ActiveRecord {
 
     public function orLike($data=null, $match=null) {
         $tmp_or_like = '';
-        if($data) {
-            if(is_array($data)) {
+        if ($data) {
+            if (is_array($data)) {
                 end($data);
                 $last_element = key($data);
 
-                if($data) {
-                    foreach($data as $key=>$row) {
-                        if($key == $last_element) {
+                if ($data) {
+                    foreach ($data as $key => $row) {
+                        if ($key == $last_element) {
                             $tmp_or_like .= "OR " . $key . " LIKE '%" . $row . "%'";
-                        }else{
+                        } else{
                             $tmp_or_like .= "OR " . $key . " LIKE '%" . $row . "%' AND ";
                         }
                     }
                 }
-            }else{
+            } else{
                 $tmp_or_like = "OR " . $data . " LIKE '%" . $match . "%'";
             }
         }
@@ -349,26 +351,26 @@ class ActiveRecord {
         $tmp_like = '';
         $arr_check = false;
 
-        if($data) {
-            if(is_array($data)) {
+        if ($data) {
+            if (is_array($data)) {
 
                 end($data);
                 $last_element = key($data);
 
-                if($data) {
+                if ($data) {
 
                     $arr_check = true;
 
-                    foreach($data as $key=>$row) {
-                        if($key == $last_element) {
+                    foreach ($data as $key => $row) {
+                        if ($key == $last_element) {
                             $tmp_like .= $key . " NOT LIKE '%" . $row . "%'";
-                        }else{
+                        } else{
                             $tmp_like .= $key . " NOT LIKE '%" . $row . "%' AND ";
                         }
                     }
                 }
 
-            }else {
+            } else {
 
                 $arr_check = false;
                 $tmp_like = "WHERE " . $data . " NOT LIKE '%" . $match . "%'";
@@ -381,23 +383,23 @@ class ActiveRecord {
 
     public function orNotLike($data = null, $match = null) {
         $tmp_or_like = '';
-        if($data) {
-            if(is_array($data)) {
+        if ($data) {
+            if (is_array($data)) {
 
                 end($data);
                 $last_element = key($data);
 
-                if($data) {
-                    foreach($data as $key=>$row) {
-                        if($key == $last_element) {
+                if ($data) {
+                    foreach ($data as $key => $row) {
+                        if ($key == $last_element) {
                             $tmp_or_like .= "OR " . $key . " NOT LIKE '%" . $row . "%'";
-                        }else{
+                        } else{
                             $tmp_or_like .= "OR " . $key . " NOT LIKE '%" . $row . "%' AND ";
                         }
                     }
                 }
 
-            }else {
+            } else {
                 $tmp_or_like = "OR " . $data . " NOT LIKE '%" . $match . "%'";
             }
         }
@@ -473,8 +475,8 @@ class ActiveRecord {
         $this->row = "SELECT {$select} FROM {$table} {$join} {$where} {$or_where} {$where_in} {$or_where_in} {$where_not_in} {$or_where_not_in} {$like} {$or_like} {$not_like} {$or_not_like} {$group_by} {$order_by} {$limit} {$offset}";
         $this->last_query = $this->row;
         $data = $this->redbean->getRow($this->row);
-        if($data) {
-            foreach($data as $key=>$row) {
+        if ($data) {
+            foreach ($data as $key => $row) {
                 $result[$key] = $row;
             }
         }
@@ -513,8 +515,8 @@ class ActiveRecord {
         $this->num_rows = "SELECT {$select} FROM {$table} {$join} {$where} {$or_where} {$where_in} {$or_where_in} {$where_not_in} {$or_where_not_in} {$like} {$or_like} {$not_like} {$or_not_like} {$group_by} {$order_by} {$limit} {$offset}";
         $this->last_query = $this->num_rows;
         $data = $this->redbean->getAll($this->num_rows);
-        if($data) {
-            foreach($data as $key=>$row) {
+        if ($data) {
+            foreach ($data as $key => $row) {
                 $result++;
             }
         }
@@ -555,8 +557,8 @@ class ActiveRecord {
         $this->result = "SELECT {$select} FROM {$table} {$join} {$where} {$or_where} {$where_in} {$or_where_in} {$where_not_in} {$or_where_not_in} {$like} {$or_like} {$not_like} {$or_not_like} {$group_by} {$order_by} {$limit} {$offset}";
         $this->last_query = $this->result;
         $data = $this->redbean->getAll($this->result);
-        if($data) {
-            foreach($data as $key=>$row) {
+        if ($data) {
+            foreach ($data as $key => $row) {
                 $result[$key] = (object)$row;
             }
         }

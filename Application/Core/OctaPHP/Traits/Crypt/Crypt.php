@@ -80,7 +80,7 @@ trait Crypt {
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
     public function blockCipher($adapter, $options = []) {
-        return OctaBlockCipher::factory($adapter,$options);
+        return OctaBlockCipher::factory($adapter, $options);
     }
 
     /**

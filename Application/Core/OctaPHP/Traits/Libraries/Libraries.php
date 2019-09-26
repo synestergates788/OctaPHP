@@ -18,8 +18,8 @@ trait Libraries {
         $DefLib = [];
         $Libraries = [];
 
-        if($ConfigLibraries) {
-            foreach($ConfigLibraries as $row) {
+        if ($ConfigLibraries) {
+            foreach ($ConfigLibraries as $row) {
                 array_push($Libraries, $row);
             }
         }
@@ -28,12 +28,12 @@ trait Libraries {
 
         $LibrariesDir = scandir(ROOT . DS . 'Application' . DS . 'Libraries');
         unset($LibrariesDir[0],$LibrariesDir[1]);
-        if($LibrariesDir) {
+        if ($LibrariesDir) {
 
-            foreach($LibrariesDir as $row) {
-                if(strpos($row, '.php')) {
+            foreach ($LibrariesDir as $row) {
+                if (strpos($row, '.php')) {
                     $classFile = str_replace(".php", "", $row);
-                    if(in_array($classFile, $Libraries)) {
+                    if (in_array($classFile, $Libraries)) {
                         include_once ROOT . DS . 'Application' . DS . 'Libraries' . DS . $classFile . '.php';
                         $this->$classFile = new $classFile;
                     }

@@ -13,7 +13,7 @@ class Application {
 
     public function UrlSegment($Segment) {
         $Request = trim($_SERVER['REQUEST_URI'], "/");
-        if(!empty($Request)) {
+        if (!empty($Request)) {
             $Url = explode('/', $Request);
 
             return (isset($Url[$Segment])) ? $Url[$Segment] : '';

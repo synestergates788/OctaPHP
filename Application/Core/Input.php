@@ -8,15 +8,15 @@ class Input {
     }
 
     public function post($Data) {
-        if(isset($_POST[$Data])) {
+        if (isset($_POST[$Data])) {
             return $_POST[$Data];
-        }else {
+        } else {
             return false;
         }
     }
 
     public function get($Data) {
-        if(isset($_GET[$Data])) {
+        if (isset($_GET[$Data])) {
             return $_GET[$Data];
         }
     }
