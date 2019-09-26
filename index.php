@@ -5,42 +5,42 @@ const DS = DIRECTORY_SEPARATOR;
 /**
  * Initialize composer autoload.
  */
-include_once ROOT.DS.'Application'.DS.'Core'.DS.'System'.DS.'Libraries'.DS.'vendor'.DS.'autoload.php';
+include_once ROOT . DS . 'Application' . DS . 'Core' . DS . 'System' . DS . 'Libraries' . DS . 'vendor' . DS . 'autoload.php';
 
 /**
  * Initialize config.php.
  */
-include_once ROOT.DS.'Application'.DS.'Config'.DS.'Config.php';
+include_once ROOT . DS . 'Application' . DS . 'Config' . DS . 'Config.php';
 
 /**
  * Initialize database.
  */
-include_once ROOT.DS.'Application'.DS.'Config'.DS.'Database.php';
+include_once ROOT . DS . 'Application' . DS . 'Config' . DS . 'Database.php';
 
 /**
  * Initialize route.
  */
-include_once ROOT.DS.'Application'.DS.'Config'.DS.'Route.php';
+include_once ROOT . DS . 'Application' . DS . 'Config' . DS . 'Route.php';
 
 /**
  * Initialize assets.
  */
-include_once ROOT.DS.'Application'.DS.'Config'.DS.'Assets.php';
+include_once ROOT . DS . 'Application' . DS . 'Config' . DS . 'Assets.php';
 
 /**
  * Initialize Parse Routes.
  */
-include_once ROOT.DS.'Application'.DS.'Core'.DS.'Parse_Routes.php';
+include_once ROOT . DS . 'Application' . DS . 'Core' . DS . 'Parse_Routes.php';
 
 /**
  * Initialize Directory.
  */
-include_once ROOT.DS.'Application'.DS.'Core'.DS.'Directory.php';
+include_once ROOT . DS . 'Application' . DS . 'Core' . DS . 'Directory.php';
 
 /**
  * Initialize config autoload.
  */
-include_once ROOT.DS.'Application'.DS.'Config'.DS.'Autoload.php';
+include_once ROOT . DS . 'Application' . DS . 'Config' . DS . 'Autoload.php';
 
 /**
  * define global var DefaultControllerDir.
@@ -86,8 +86,8 @@ $config['RoutesDir'] = $RoutesDir;
  * parse external directories.
  */
 $modules = [];
-if($Directory){
-    foreach($Directory as $key_d=>$row_d){
+if($Directory) {
+    foreach($Directory as $key_d => $row_d) {
         define($key_d, $row_d);
         $modules[] = $row_d;
     }
@@ -96,11 +96,11 @@ if($Directory){
 /**
  * parse include paths.
  */
-set_include_path(get_include_path().PATH_SEPARATOR.implode(PATH_SEPARATOR,$modules));
+set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR,$modules));
 spl_autoload_register('spl_autoload', false);
 
 /**
  * instantiate router.
  */
 $router = new \Bramus\Router\Router();
-new Application($router,Routes,RoutesDir,$config['Error404']);
+new Application($router, Routes, RoutesDir, $config['Error404']);

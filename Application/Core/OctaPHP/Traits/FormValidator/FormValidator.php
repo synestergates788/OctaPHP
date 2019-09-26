@@ -2,7 +2,7 @@
 namespace OctaPHP\Traits\FormValidator;
 use Valitron\Validator as OctaValidator;
 
-trait FormValidator{
+trait FormValidator {
 
     protected $formValidation;
 
@@ -11,7 +11,7 @@ trait FormValidator{
      * @param array $data      contains an array of fields to be validated
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function formValidation(array $data = []){
+    public function formValidation(array $data = []) {
         $this->formValidation = new OctaValidator($data);
     }
 }

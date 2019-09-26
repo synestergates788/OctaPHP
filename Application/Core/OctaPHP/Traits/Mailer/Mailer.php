@@ -140,14 +140,14 @@ use Zend\Mail\Storage\Folder as OctaMailFolder;
  */
 use Zend\Mail\Storage as OctaMailStorage;
 
-trait Mailer{
+trait Mailer {
     /**
      * integrating MIME (email) component of zend.
      *
      * @return OctaMailMessage class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function message(){
+    public function message() {
         return new OctaMailMessage();
     }
 
@@ -158,7 +158,7 @@ trait Mailer{
      * @return OctaSendmailTransport class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function transport($parameters = null){
+    public function transport($parameters = null) {
         return new OctaSendmailTransport($parameters);
     }
 
@@ -169,7 +169,7 @@ trait Mailer{
      * @return OctaSmtpTransport class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function smtpTransport($options = null){
+    public function smtpTransport($options = null) {
         return new OctaSmtpTransport($options);
     }
 
@@ -180,7 +180,7 @@ trait Mailer{
      * @return OctaSmtpOptions class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function smtpOptions(array $options = []){
+    public function smtpOptions(array $options = []) {
         return new OctaSmtpOptions($options);
     }
 
@@ -191,7 +191,7 @@ trait Mailer{
      * @return OctaSendmailTransport class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function sendMailTransport($parameters = null){
+    public function sendMailTransport($parameters = null) {
         return new OctaSendmailTransport($parameters);
     }
 
@@ -204,8 +204,8 @@ trait Mailer{
      * @return OctaSmtpProtocol class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function smtpProtocol($host = '127.0.0.1', $port = null, array $config = null){
-        return new OctaSmtpProtocol($host,$port,$config);
+    public function smtpProtocol($host = '127.0.0.1', $port = null, array $config = null) {
+        return new OctaSmtpProtocol($host, $port, $config);
     }
 
     /**
@@ -214,7 +214,7 @@ trait Mailer{
      * @return OctaSmtpPluginManager class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function smtpPluginManager(){
+    public function smtpPluginManager() {
         return new OctaSmtpPluginManager();
     }
 
@@ -225,7 +225,7 @@ trait Mailer{
      * @return OctaFileTransport class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function fileTransport($options = null){
+    public function fileTransport($options = null) {
         return new OctaFileTransport($options);
     }
 
@@ -236,7 +236,7 @@ trait Mailer{
      * @return OctaFileOptions class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function fileOptions(array $options = null){
+    public function fileOptions(array $options = null) {
         return new OctaFileOptions($options);
     }
 
@@ -246,7 +246,7 @@ trait Mailer{
      * @return OctaInMemoryTransport class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function inMemoryTransport(){
+    public function inMemoryTransport() {
         return new OctaInMemoryTransport();
     }
 
@@ -256,7 +256,7 @@ trait Mailer{
      * @return OctaMimeMessage class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mimeMessage(){
+    public function mimeMessage() {
         return new OctaMimeMessage();
     }
 
@@ -267,7 +267,7 @@ trait Mailer{
      * @return OctaMime class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mime($boundary = null){
+    public function mime($boundary = null) {
         return new OctaMime($boundary);
     }
 
@@ -278,7 +278,7 @@ trait Mailer{
      * @return OctaMimePart class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mimePart($content = ''){
+    public function mimePart($content = '') {
         return new OctaMimePart($content);
     }
 
@@ -291,7 +291,7 @@ trait Mailer{
      * @return OctaPlain class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function plainAuth($host = '127.0.0.1', $port = null, $config = null){
+    public function plainAuth($host = '127.0.0.1', $port = null, $config = null) {
         return new OctaPlain($host, $port, $config);
     }
 
@@ -304,7 +304,7 @@ trait Mailer{
      * @return OctaLogin class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function loginAuth($host = '127.0.0.1', $port = null, $config = null){
+    public function loginAuth($host = '127.0.0.1', $port = null, $config = null) {
         return new OctaLogin($host, $port, $config);
     }
 
@@ -317,7 +317,7 @@ trait Mailer{
      * @return OctaCrammd5 class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function crammd5Auth($host = '127.0.0.1', $port = null, $config = null){
+    public function crammd5Auth($host = '127.0.0.1', $port = null, $config = null) {
         return new OctaCrammd5($host, $port, $config);
     }
 
@@ -327,7 +327,7 @@ trait Mailer{
      * @return OctaPop3 class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function pop3(array $params=[]){
+    public function pop3(array $params=[]) {
         return new OctaPop3($params);
     }
 
@@ -337,7 +337,7 @@ trait Mailer{
      * @return OctaMbox class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mBox(array $params=[]){
+    public function mBox(array $params=[]) {
         return new OctaMbox($params);
     }
 
@@ -347,7 +347,7 @@ trait Mailer{
      * @return OctaMaildir class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mailDir(array $params=[]){
+    public function mailDir(array $params=[]) {
         return new OctaMaildir($params);
     }
 
@@ -357,7 +357,7 @@ trait Mailer{
      * @return OctaImap class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function iMap(array $params=[]){
+    public function iMap(array $params=[]) {
         return new OctaImap($params);
     }
 
@@ -366,7 +366,7 @@ trait Mailer{
      * @return OctaMailStorage class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mailStorage(){
+    public function mailStorage() {
         return new OctaMailStorage();
     }
 
@@ -376,7 +376,7 @@ trait Mailer{
      * @return OctaMailFolder\Mbox class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mBoxFolder(array $params = []){
+    public function mBoxFolder(array $params = []) {
         return new OctaMailFolder\Mbox($params);
     }
 
@@ -386,7 +386,7 @@ trait Mailer{
      * @return OctaMailFolder\Maildir class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function mailDirFolder(array $params = []){
+    public function mailDirFolder(array $params = []) {
         return new OctaMailFolder\Maildir($params);
     }
 }

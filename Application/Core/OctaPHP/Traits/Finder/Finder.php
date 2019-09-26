@@ -7,7 +7,7 @@ namespace OctaPHP\Traits\Finder;
  */
 use Symfony\Component\Finder\Finder as OctaFinder;
 
-trait Finder{
+trait Finder {
 
     /**
      * integrating finder component of symfony.
@@ -15,7 +15,7 @@ trait Finder{
      * @return OctaFinder class
      * @author Fabien Potencier <fabien@symfony.com>
      */
-    public function finder(){
+    public function finder() {
         return new OctaFinder();
     }
 }

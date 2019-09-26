@@ -62,9 +62,9 @@ use Symfony\Component\HttpClient\Response\MockResponse as OctaMockResponse;
  */
 use Symfony\Component\HttpKernel\HttpCache\Store as OctaStore;
 
-trait HttpClient{
+trait HttpClient {
 
-    public function __construct(){
+    public function __construct() {
         /**
          * start of initializing http-request (http_client, native_http_client and curl_http_client).
          * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
@@ -89,7 +89,7 @@ trait HttpClient{
      * @return OctaHttpClient class
      * @author Nicolas Grekas <p@tchwork.com>
      */
-    public function httpClient(){
+    public function httpClient() {
         return new OctaHttpClient();
     }
 
@@ -100,8 +100,8 @@ trait HttpClient{
      * @return OctaNativeHttpClient class
      * @author Nicolas Grekas <p@tchwork.com>
      */
-    public function nativeHttpClient($defaultOptions = [], $maxHostConnections = 6){
-        return new OctaNativeHttpClient($defaultOptions,$maxHostConnections);
+    public function nativeHttpClient($defaultOptions = [], $maxHostConnections = 6) {
+        return new OctaNativeHttpClient($defaultOptions, $maxHostConnections);
     }
 
     /**
@@ -112,8 +112,8 @@ trait HttpClient{
      * @return OctaCurlHttpClient class
      * @author Nicolas Grekas <p@tchwork.com>
      */
-    public function curlHttpClient(array $defaultOptions = [], $maxHostConnections = 6, $maxPendingPushes = 50){
-        return new OctaCurlHttpClient($defaultOptions,$maxHostConnections,$maxPendingPushes);
+    public function curlHttpClient(array $defaultOptions = [], $maxHostConnections = 6, $maxPendingPushes = 50) {
+        return new OctaCurlHttpClient($defaultOptions, $maxHostConnections, $maxPendingPushes);
     }
 
     /**
@@ -131,7 +131,7 @@ trait HttpClient{
      * @return OctaCachingHttpClient class
      * @author Nicolas Grekas <p@tchwork.com>
      */
-    public function cachingHttpClient(array $client = [], $store = 6, $defaultOptions = []){
+    public function cachingHttpClient(array $client = [], $store = 6, $defaultOptions = []) {
         return new OctaCachingHttpClient($client, $store, $defaultOptions);
     }
 
@@ -145,8 +145,8 @@ trait HttpClient{
      * @return OctaScopingHttpClient class
      * @author Anthony Martin <anthony.martin@sensiolabs.com>
      */
-    public function scopingHttpClient($client = [], $defaultOptionsByRegexp = [], $defaultRegexp = null){
-        return new OctaScopingHttpClient($client,$defaultOptionsByRegexp,$defaultRegexp);
+    public function scopingHttpClient($client = [], $defaultOptionsByRegexp = [], $defaultRegexp = null) {
+        return new OctaScopingHttpClient($client, $defaultOptionsByRegexp, $defaultRegexp);
     }
 
     /**
@@ -159,7 +159,7 @@ trait HttpClient{
      * @author Nicolas Grekas <p@tchwork.com>
      */
     public function mockHttpClient($responseFactory = null, $baseUri = null){
-        return new OctaMockHttpClient($responseFactory,$baseUri);
+        return new OctaMockHttpClient($responseFactory, $baseUri);
     }
 
     /**
@@ -172,7 +172,7 @@ trait HttpClient{
      * @author Fabien Potencier <fabien@symfony.com>
      */
     public function mockResponse($body = '', array $info = []){
-        return new OctaMockResponse($body,$info);
+        return new OctaMockResponse($body, $info);
     }
 
     /**
@@ -182,7 +182,7 @@ trait HttpClient{
      * @return OctaStore class
      * @author Fabien Potencier <fabien@symfony.com>
      */
-    public function store($root=null){
+    public function store($root = null){
         return new OctaStore($root);
     }
 }

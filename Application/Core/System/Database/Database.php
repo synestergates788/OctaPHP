@@ -29,7 +29,7 @@ class Database {
     }
 
     public function initializeDatabase() {
-        include_once ROOT.DS.'application'.DS.'core'.DS.'system'.DS.'database'.DS.'redbean.php';
+        include_once ROOT . DS . 'application' . DS . 'core' . DS . 'system' . DS . 'database' . DS . 'redbean.php';
     }
 
     public function bean() {

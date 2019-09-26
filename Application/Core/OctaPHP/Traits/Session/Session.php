@@ -29,7 +29,7 @@ use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage as Oct
  */
 use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag as OctaNamespacedAttributeBag;
 
-trait Session{
+trait Session {
 
     /**
      * integrating session of symfony.
@@ -39,8 +39,8 @@ trait Session{
      * @author Fabien Potencier <fabien@symfony.com>
      * @author Drak <drak@zikula.org>
      */
-    public function session($NativeSessionStorage=null,$NamespacedAttributeBag=null){
-        return new OctaSession($NativeSessionStorage,$NamespacedAttributeBag);
+    public function session($NativeSessionStorage = null, $NamespacedAttributeBag = null) {
+        return new OctaSession($NativeSessionStorage, $NamespacedAttributeBag);
     }
 
     /**
@@ -49,7 +49,7 @@ trait Session{
      * @return OctaAttributeBag class
      * @author Fabien Potencier <fabien@symfony.com>
      */
-    public function attributeBag($storageKey = '_sf2_attributes'){
+    public function attributeBag($storageKey = '_sf2_attributes') {
         return new OctaAttributeBag($storageKey);
     }
 
@@ -63,7 +63,7 @@ trait Session{
      * @return OctaNativeSessionStorage class
      * @author Drak <drak@zikula.org>
      */
-    public function nativeSessionStorage(array $options = [], $handler = null, $metaBag = null){
+    public function nativeSessionStorage(array $options = [], $handler = null, $metaBag = null) {
         return new OctaNativeSessionStorage($options, $handler, $metaBag);
     }
 
@@ -75,7 +75,7 @@ trait Session{
      * @return OctaNamespacedAttributeBag class
      * @author Drak <drak@zikula.org>
      */
-    public function namespacedAttributeBag($storageKey = '_sf2_attributes', $namespaceCharacter = '/'){
+    public function namespacedAttributeBag($storageKey = '_sf2_attributes', $namespaceCharacter = '/') {
         return new OctaNamespacedAttributeBag($storageKey, $namespaceCharacter);
     }
 }

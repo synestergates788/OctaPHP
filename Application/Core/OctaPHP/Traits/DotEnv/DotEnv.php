@@ -7,7 +7,7 @@ namespace OctaPHP\Traits\DotEnv;
  */
 use Symfony\Component\Dotenv\Dotenv as OctaDotenv;
 
-trait DotEnv{
+trait DotEnv {
 
     /**
      * integrating DotEnv component of symfony.
@@ -15,7 +15,7 @@ trait DotEnv{
      * @return OctaDotenv class
      * @author Fabien Potencier <fabien@symfony.com>
      */
-    public function dotEnv(){
+    public function dotEnv() {
         return new OctaDotenv();
     }
 }

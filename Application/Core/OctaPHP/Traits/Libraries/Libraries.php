@@ -6,35 +6,35 @@ namespace OctaPHP\Traits\Libraries;
  * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
  */
 
-trait Libraries{
+trait Libraries {
 
     protected $classFile;
 
-    public function __construct($Libraries){
+    public function __construct($Libraries) {
         $this->loadLibraries($Libraries);
     }
 
-    public function loadLibraries($ConfigLibraries){
+    public function loadLibraries($ConfigLibraries) {
         $DefLib = [];
         $Libraries = [];
 
-        if($ConfigLibraries){
-            foreach($ConfigLibraries as $row){
+        if($ConfigLibraries) {
+            foreach($ConfigLibraries as $row) {
                 array_push($Libraries, $row);
             }
         }
 
-        $Libraries = array_merge($Libraries,$DefLib);
+        $Libraries = array_merge($Libraries, $DefLib);
 
-        $LibrariesDir = scandir(ROOT.DS.'Application'.DS.'Libraries');
+        $LibrariesDir = scandir(ROOT . DS . 'Application' . DS . 'Libraries');
         unset($LibrariesDir[0],$LibrariesDir[1]);
-        if($LibrariesDir){
+        if($LibrariesDir) {
 
-            foreach($LibrariesDir as $row){
-                if(strpos($row, '.php')){
-                    $classFile = str_replace(".php","",$row);
-                    if(in_array($classFile,$Libraries)){
-                        include_once ROOT.DS.'Application'.DS.'Libraries'.DS.$classFile.'.php';
+            foreach($LibrariesDir as $row) {
+                if(strpos($row, '.php')) {
+                    $classFile = str_replace(".php", "", $row);
+                    if(in_array($classFile, $Libraries)) {
+                        include_once ROOT . DS . 'Application' . DS . 'Libraries' . DS . $classFile . '.php';
                         $this->$classFile = new $classFile;
                     }
                 }

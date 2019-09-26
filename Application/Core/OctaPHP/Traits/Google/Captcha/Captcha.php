@@ -2,7 +2,7 @@
 namespace OctaPHP\Traits\Google\Captcha;
 use ReCaptcha\ReCaptcha as OctaReCaptcha;
 
-trait Captcha{
+trait Captcha {
     /**
      * integrating botdetect component.
      * @param string $secret
@@ -10,7 +10,7 @@ trait Captcha{
      * @return OctaReCaptcha class
      * @author Google Inc.
      */
-    public function googleCaptcha($secret, $requestMethod = null){
+    public function googleCaptcha($secret, $requestMethod = null) {
         return new OctaReCaptcha($secret, $requestMethod);
     }
 }

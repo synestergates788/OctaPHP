@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Encoder\YamlEncoder as OctaYamlEncoder;
  */
 use Symfony\Component\Serializer\Encoder\CsvEncoder as OctaCsvEncoder;
 
-trait Encoder{
+trait Encoder {
 
     /**
      * integrating serializer (json encoder).
@@ -38,7 +38,7 @@ trait Encoder{
      * @return OctaJsonEncoder class
      * @author Jordi Boggiano <j.boggiano@seld.be>
      */
-    public function jsonEncoder($encodingImpl = null, $decodingImpl = null){
+    public function jsonEncoder($encodingImpl = null, $decodingImpl = null) {
         return new OctaJsonEncoder($encodingImpl, $decodingImpl);
     }
 
@@ -55,7 +55,7 @@ trait Encoder{
      * @author Kévin Dunglas <dunglas@gmail.com>
      * @author Dany Maillard <danymaillard93b@gmail.com>
      */
-    public function xmlEncoder($defaultContext = [], $loadOptions = null, array $decoderIgnoredNodeTypes = [XML_PI_NODE, XML_COMMENT_NODE], array $encoderIgnoredNodeTypes = []){
+    public function xmlEncoder($defaultContext = [], $loadOptions = null, array $decoderIgnoredNodeTypes = [XML_PI_NODE, XML_COMMENT_NODE], array $encoderIgnoredNodeTypes = []) {
         return new OctaXmlEncoder($defaultContext, $loadOptions, $decoderIgnoredNodeTypes, $encoderIgnoredNodeTypes);
     }
 
@@ -67,7 +67,7 @@ trait Encoder{
      * @return OctaYamlEncoder class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function yamlEncoder($dumper = null, $parser = null, array $defaultContext = []){
+    public function yamlEncoder($dumper = null, $parser = null, array $defaultContext = []) {
         return new OctaYamlEncoder($dumper, $parser, $defaultContext);
     }
 
@@ -82,7 +82,7 @@ trait Encoder{
      * @author Kévin Dunglas <dunglas@gmail.com>
      * @author Oliver Hoff <oliver@hofff.com>
      */
-    public function csvEncoder($defaultContext = [], $enclosure = '"', $escapeChar = '\\', $keySeparator = '.', $escapeFormulas = false){
+    public function csvEncoder($defaultContext = [], $enclosure = '"', $escapeChar = '\\', $keySeparator = '.', $escapeFormulas = false) {
         return new OctaCsvEncoder($defaultContext, $enclosure, $escapeChar, $keySeparator, $escapeFormulas);
     }
 }

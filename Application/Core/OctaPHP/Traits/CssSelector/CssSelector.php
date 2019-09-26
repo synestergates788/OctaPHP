@@ -8,14 +8,14 @@ namespace OctaPHP\Traits\CssSelector;
  */
 use Symfony\Component\CssSelector\CssSelectorConverter as OctaCssSelectorConverter;
 
-trait CssSelector{
+trait CssSelector {
     /**
      * integrating css selector component of symfony.
      * @param bool $html Whether HTML support should be enabled. Disable it for XML documents
      * @return OctaCssSelectorConverter class
      * @author Christophe Coevoet <stof@notk.org>
      */
-    public function cssSelector($html = true){
+    public function cssSelector($html = true) {
         return new OctaCssSelectorConverter($html);
     }
 }

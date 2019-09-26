@@ -70,7 +70,7 @@ use Zend\Crypt\Password\Apache as OctaApache;
  */
 use Zend\Crypt\PublicKey\DiffieHellman as OctaDiffieHellman;
 
-trait Crypt{
+trait Crypt {
     /**
      * block cipher Factory
      *
@@ -79,7 +79,7 @@ trait Crypt{
      * @return OctaBlockCipher class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function blockCipher($adapter, $options = []){
+    public function blockCipher($adapter, $options = []) {
         return OctaBlockCipher::factory($adapter,$options);
     }
 
@@ -89,7 +89,7 @@ trait Crypt{
      * @return OctaOpenssl class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function openSSL($options = []){
+    public function openSSL($options = []) {
         return new OctaOpenssl($options);
     }
 
@@ -98,7 +98,7 @@ trait Crypt{
      * @return OctaFileCipher class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function fileCipher(){
+    public function fileCipher() {
         return new OctaFileCipher();
     }
 
@@ -107,7 +107,7 @@ trait Crypt{
      * @return OctaHybrid class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function hybrid(){
+    public function hybrid() {
         return new OctaHybrid();
     }
 
@@ -117,7 +117,7 @@ trait Crypt{
      * @return OctaRsaOptions class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function rsaOptions($options = null){
+    public function rsaOptions($options = null) {
         return new OctaRsaOptions($options);
     }
 
@@ -127,7 +127,7 @@ trait Crypt{
      * @return OctaRsa class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function rsa($options = null){
+    public function rsa($options = null) {
         return new OctaRsa($options);
     }
 
@@ -137,7 +137,7 @@ trait Crypt{
      * @return OctaBcrypt class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function bCrypt($options = []){
+    public function bCrypt($options = []) {
         return new OctaBcrypt($options);
     }
 
@@ -147,7 +147,7 @@ trait Crypt{
      * @return OctaApache class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function apache($options = []){
+    public function apache($options = []) {
         return new OctaApache($options);
     }
 
@@ -160,7 +160,7 @@ trait Crypt{
      * @return OctaDiffieHellman class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function diffieHellman($prime, $generator, $privateKey = null, $privateKeyFormat = self::FORMAT_NUMBER){
+    public function diffieHellman($prime, $generator, $privateKey = null, $privateKeyFormat = self::FORMAT_NUMBER) {
         return new OctaDiffieHellman($prime, $generator, $privateKey, $privateKeyFormat);
     }
 }

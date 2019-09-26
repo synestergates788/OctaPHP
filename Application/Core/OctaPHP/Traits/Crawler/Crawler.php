@@ -7,7 +7,7 @@ namespace OctaPHP\Traits\Crawler;
  */
 use Symfony\Component\DomCrawler\Crawler as OctaCrawler;
 
-trait Crawler{
+trait Crawler {
 
     /**
      * integrating dom crawler of symfony.
@@ -18,7 +18,7 @@ trait Crawler{
      * @return OctaCrawler class
      * @author Fabien Potencier <fabien@symfony.com>
      */
-    public function domCrawler($node = null, $uri = null, $baseHref = null){
-        return new OctaCrawler($node,$uri,$baseHref);
+    public function domCrawler($node = null, $uri = null, $baseHref = null) {
+        return new OctaCrawler($node, $uri, $baseHref);
     }
 }

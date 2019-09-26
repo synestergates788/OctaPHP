@@ -7,7 +7,7 @@ namespace OctaPHP\Traits\ExpressionLanguage;
  */
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage as OctaExpressionLanguage;
 
-trait ExpressionLanguage{
+trait ExpressionLanguage {
 
     /**
      * integrating expression language component of symfony.
@@ -15,7 +15,7 @@ trait ExpressionLanguage{
      * @return OctaExpressionLanguage class
      * @author Fabien Potencier <fabien@symfony.com>
      */
-    public function expressionLanguage(){
+    public function expressionLanguage() {
         return new OctaExpressionLanguage();
     }
 }

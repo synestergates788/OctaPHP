@@ -180,7 +180,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth as OctaMaxDepth;
  */
 use Symfony\Component\Serializer\Annotation\SerializedName as OctaSerializedName;
 
-trait Serializer{
+trait Serializer {
 
     /**
      * integrating serializer component of symfony.
@@ -192,7 +192,7 @@ trait Serializer{
      * @author Lukas Kahwe Smith <smith@pooteeweet.org>
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function serializer(array $normalizers = [], array $encoders = []){
+    public function serializer(array $normalizers = [], array $encoders = []) {
         return new OctaSerializer($normalizers, $encoders);
     }
 
@@ -209,7 +209,7 @@ trait Serializer{
      * @return OctaObjectNormalizer class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function objectNormalizer($classMetadataFactory = null, $nameConverter = null, $propertyAccessor = null, $propertyTypeExtractor = null, $classDiscriminatorResolver = null, callable $objectClassResolver = null, array $defaultContext = []){
+    public function objectNormalizer($classMetadataFactory = null, $nameConverter = null, $propertyAccessor = null, $propertyTypeExtractor = null, $classDiscriminatorResolver = null, callable $objectClassResolver = null, array $defaultContext = []) {
         return new OctaObjectNormalizer($classMetadataFactory, $nameConverter, $propertyAccessor, $propertyTypeExtractor, $classDiscriminatorResolver, $objectClassResolver, $defaultContext);
     }
 
@@ -220,7 +220,7 @@ trait Serializer{
      * @author Nils Adermann <naderman@naderman.de>
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function getSetMethodNormalizer(){
+    public function getSetMethodNormalizer() {
         return new OctaGetSetMethodNormalizer();
     }
 
@@ -231,7 +231,7 @@ trait Serializer{
      * @author Matthieu Napoli <matthieu@mnapoli.fr>
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function propertyNormalizer(){
+    public function propertyNormalizer() {
         return new OctaPropertyNormalizer();
     }
 
@@ -241,7 +241,7 @@ trait Serializer{
      * @return OctaJsonSerializableNormalizer class
      * @author Fred Cox <mcfedr@gmail.com>
      */
-    public function jsonSerializableNormalizer(){
+    public function jsonSerializableNormalizer() {
         return new OctaJsonSerializableNormalizer();
     }
 
@@ -251,7 +251,7 @@ trait Serializer{
      * @return OctaDateTimeNormalizer class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function datetimeNormalizer(){
+    public function datetimeNormalizer() {
         return new OctaDateTimeNormalizer();
     }
 
@@ -261,7 +261,7 @@ trait Serializer{
      * @return OctaDataUriNormalizer class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function dataUriNormalizer(){
+    public function dataUriNormalizer() {
         return new OctaDataUriNormalizer();
     }
 
@@ -271,7 +271,7 @@ trait Serializer{
      * @return OctaDateIntervalNormalizer class
      * @author Jérôme Parmentier <jerome@prmntr.me>
      */
-    public function dateIntervalNormalizer(){
+    public function dateIntervalNormalizer() {
         return new OctaDateIntervalNormalizer();
     }
 
@@ -282,7 +282,7 @@ trait Serializer{
      * @author Grégoire Pineau <lyrixx@lyrixx.info>
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function constraintViolationListNormalizer(){
+    public function constraintViolationListNormalizer() {
         return new OctaConstraintViolationListNormalizer();
     }
 
@@ -292,7 +292,7 @@ trait Serializer{
      * @return OctaArrayDenormalizer class
      * @author Alexander M. Turek <me@derrabus.de>
      */
-    public function arrayDenormalizer(){
+    public function arrayDenormalizer() {
         return new OctaArrayDenormalizer();
     }
 
@@ -302,7 +302,7 @@ trait Serializer{
      * @return OctaClassMetadataFactory class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function classMetadataFactory($loader){
+    public function classMetadataFactory($loader) {
         return new OctaClassMetadataFactory($loader);
     }
 
@@ -312,7 +312,7 @@ trait Serializer{
      * @return OctaAnnotationLoader class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function annotationLoader($reader=null){
+    public function annotationLoader($reader=null) {
         return new OctaAnnotationLoader($reader);
     }
 
@@ -322,7 +322,7 @@ trait Serializer{
      * @return OctaYamlFileLoader class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function yamlFileLoader($classMetadata=null){
+    public function yamlFileLoader($classMetadata=null) {
         return new OctaYamlFileLoader($classMetadata);
     }
 
@@ -332,7 +332,7 @@ trait Serializer{
      * @return OctaXmlFileLoader class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function xmlFileLoader($classMetadata=null){
+    public function xmlFileLoader($classMetadata=null) {
         return new OctaXmlFileLoader($classMetadata);
     }
 
@@ -346,7 +346,7 @@ trait Serializer{
      * @author  Roman Borschel <roman@code-factory.org>
      * @author  Johannes M. Schmitt <schmittjoh@gmail.com>
      */
-    public function annotationReader($parser = null){
+    public function annotationReader($parser = null) {
         return new OctaAnnotationReader($parser);
     }
 
@@ -357,7 +357,7 @@ trait Serializer{
      * @return OctaCamelCaseToSnakeCaseNameConverter class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function camelCaseToSnakeCaseNameConverter(array $attributes = null, $lowerCamelCase = true){
+    public function camelCaseToSnakeCaseNameConverter(array $attributes = null, $lowerCamelCase = true) {
         return new OctaCamelCaseToSnakeCaseNameConverter($attributes, $lowerCamelCase);
     }
 
@@ -368,7 +368,7 @@ trait Serializer{
      * @return OctaMetadataAwareNameConverter class
      * @author Fabien Potencier <fabien@symfony.com>
      */
-    public function metadataAwareNameConverter($metadataFactory = null, $fallbackNameConverter = null){
+    public function metadataAwareNameConverter($metadataFactory = null, $fallbackNameConverter = null) {
         return new OctaMetadataAwareNameConverter($metadataFactory, $fallbackNameConverter);
     }
 
@@ -378,7 +378,7 @@ trait Serializer{
      * @return OctaDiscriminatorMap class
      * @author Samuel Roze <samuel.roze@gmail.com>
      */
-    public function discriminatorMap(array $data){
+    public function discriminatorMap(array $data) {
         return new OctaDiscriminatorMap($data);
     }
 
@@ -388,7 +388,7 @@ trait Serializer{
      * @return OctaGroups class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function groups(array $data){
+    public function groups(array $data) {
         return new OctaGroups($data);
     }
 
@@ -398,7 +398,7 @@ trait Serializer{
      * @return OctaMaxDepth class
      * @author Kévin Dunglas <dunglas@gmail.com>
      */
-    public function maxDepth(array $data){
+    public function maxDepth(array $data) {
         return new OctaMaxDepth($data);
     }
 
@@ -408,7 +408,7 @@ trait Serializer{
      * @return OctaSerializedName class
      * @author Fabien Bourigault <bourigaultfabien@gmail.com>
      */
-    public function serializedName(array $data){
+    public function serializedName(array $data) {
         return new OctaSerializedName($data);
     }
 }

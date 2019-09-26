@@ -104,7 +104,7 @@ use Gaufrette\Adapter\Cache as OctaCacheAdapter;
 use Gaufrette\Adapter\PhpseclibSftp;
 use phpseclib\Net\SFTP;
 
-trait FileSystem{
+trait FileSystem {
 
     /**
      * start of integrating filesystem abstraction layout of gaufrette.
@@ -120,7 +120,7 @@ trait FileSystem{
      * @author Antoine Hérault <antoine.herault@gmail.com>
      * @author Leszek Prabucki <leszek.prabucki@gmail.com>
      */
-    public function localAdapter($directory, $create = false, $mode = 0777){
+    public function localAdapter($directory, $create = false, $mode = 0777) {
         return new OctaLocalAdapter($directory, $create, $mode);
     }
 
@@ -135,7 +135,7 @@ trait FileSystem{
      * @deprecated Since the release of symfony-4.
      * @author Antoine Hérault <antoine.herault@gmail.com>
      */
-    public function cacheAdapter($source, $cache, $ttl = 0, $serializeCache = null){
+    public function cacheAdapter($source, $cache, $ttl = 0, $serializeCache = null) {
         return new OctaCacheAdapter($source, $cache, $ttl, $serializeCache);
     }
 
@@ -148,7 +148,7 @@ trait FileSystem{
      * @return OctaFtpAdapter class
      * @author Antoine Hérault <antoine.herault@gmail.com>
      */
-    public function ftpAdapter($directory, $host, $options = array()){
+    public function ftpAdapter($directory, $host, $options = array()) {
         return new OctaFtpAdapter($directory, $host, $options);
     }
 
@@ -159,7 +159,7 @@ trait FileSystem{
      * @return OctaInMemory class
      * @author Antoine Hérault <antoine.herault@gmail.com>
      */
-    public function inMemoryAdapter(array $files = array()){
+    public function inMemoryAdapter(array $files = array()) {
         return new OctaInMemory($files);
     }
 
@@ -173,7 +173,7 @@ trait FileSystem{
      * @return OctaAwsS3Adapter class
      * @author Michael Dowling <mtdowling@gmail.com>
      */
-    public function awsS3Adapter($service = null, $bucket, array $options = [], $detectContentType = false){
+    public function awsS3Adapter($service = null, $bucket, array $options = [], $detectContentType = false) {
         return new OctaAwsS3Adapter($service, $bucket, $options, $detectContentType);
     }
 
@@ -185,7 +185,7 @@ trait FileSystem{
      * @author Boris Guéry <guery.b@gmail.com>
      * @author Antoine Hérault <antoine.herault@gmail.com>
      */
-    public function zipAdapter($zipFile = null){
+    public function zipAdapter($zipFile = null) {
         return new OctaZipAdapter($zipFile);
     }
 
@@ -197,7 +197,7 @@ trait FileSystem{
      * @return SFTP class
      * @author Jim Wigginton <terrafrost@php.net>
      */
-    public function phpSeclibConnection($host = 'localhost', $port = 22){
+    public function phpSeclibConnection($host = 'localhost', $port = 22) {
         return new SFTP($host, $port);
     }
 
@@ -210,7 +210,7 @@ trait FileSystem{
      * @return PhpseclibSftp class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function phpSeclibAdapter($sftp = null, $distantDirectory = null, $createDirectoryIfDoesntExist = false){
+    public function phpSeclibAdapter($sftp = null, $distantDirectory = null, $createDirectoryIfDoesntExist = false) {
         return new PhpseclibSftp($sftp, $distantDirectory, $createDirectoryIfDoesntExist);
     }
 
@@ -224,7 +224,7 @@ trait FileSystem{
      * @return OctaGoogleCloudStorage class
      * @author Patrik Karisch <patrik@karisch.guru>
      */
-    public function googleCloudStorageAdapter($service, $bucket, array $options = array(), $detectContentType = false){
+    public function googleCloudStorageAdapter($service, $bucket, array $options = array(), $detectContentType = false) {
         return new OctaGoogleCloudStorage($service, $bucket, $options, $detectContentType);
     }
 
@@ -236,7 +236,7 @@ trait FileSystem{
      * @author Antoine Hérault <antoine.herault@gmail.com>
      * @author Leszek Prabucki <leszek.prabucki@gmail.com>
      */
-    public function fileSystem($data=null){
+    public function fileSystem($data=null) {
         return new OctaFilesystem($data);
     }
 
@@ -247,7 +247,7 @@ trait FileSystem{
      * @return OctaS3Client class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function awsS3Client(array $args){
+    public function awsS3Client(array $args) {
         return new OctaS3Client($args);
     }
 
@@ -257,7 +257,7 @@ trait FileSystem{
      * @return OctaStreamMode class
      * @author Antoine Hérault <antoine.herault@gmail.com>
      */
-    public function streamMode($mode=null){
+    public function streamMode($mode=null) {
         return new OctaStreamMode($mode);
     }
 
@@ -267,7 +267,7 @@ trait FileSystem{
      * @author Antoine Hérault <antoine.herault@gmail.com>
      * @author Leszek Prabucki <leszek.prabucki@gmail.com>
      */
-    public function streamWrapper(){
+    public function streamWrapper() {
         return new OctaStreamWrapper();
     }
 
@@ -276,7 +276,7 @@ trait FileSystem{
      * @return OctaFilesystemMap class
      * @author Antoine Hérault <antoine.herault@gmail.com>
      */
-    public function fileSystemMap(){
+    public function fileSystemMap() {
         return new OctaFilesystemMap();
     }
 
@@ -285,7 +285,7 @@ trait FileSystem{
      * @return OctaBlobProxyFactory class
      * @author Luciano Mammino <lmammino@oryzone.com>
      */
-    public function blobProxyFactory($connectionString){
+    public function blobProxyFactory($connectionString) {
         return new OctaBlobProxyFactory($connectionString);
     }
 
@@ -298,7 +298,7 @@ trait FileSystem{
      * @author Luciano Mammino <lmammino@oryzone.com>
      * @author Pawe? Czy?ewski <pawel.czyzewski@enginewerk.com>
      */
-    public function azureBlobStorage($blobProxyFactory, $containerName = null, $create = false, $detectContentType = true){
+    public function azureBlobStorage($blobProxyFactory, $containerName = null, $create = false, $detectContentType = true) {
         return new OctaAzureBlobStorage($blobProxyFactory, $containerName, $create, $detectContentType);
     }
 
@@ -307,7 +307,7 @@ trait FileSystem{
      * @return OctaCreateContainerOptions class
      * @author Azure Storage PHP SDK <dmsh@microsoft.com>
      */
-    public function createContainerOptions(){
+    public function createContainerOptions() {
         return new OctaCreateContainerOptions();
     }
 }

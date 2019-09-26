@@ -10,7 +10,7 @@ namespace OctaPHP\Traits\Auth;
  */
 use Zend\Authentication\AuthenticationService as OctaAuthenticationService;
 
-trait Authentication{
+trait Authentication {
     /**
      * zend authentication component.
      * @param  $storage
@@ -18,7 +18,7 @@ trait Authentication{
      * @return OctaAuthenticationService class
      * @author Melquecedec Catang-catang <melquecedec.catangcatang@outlook.com>
      */
-    public function auth($storage = null, $adapter = null){
+    public function auth($storage = null, $adapter = null) {
         return new OctaAuthenticationService($storage, $adapter);
     }
 }

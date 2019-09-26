@@ -7,14 +7,14 @@ namespace OctaPHP\Traits\PropertyAccess;
  */
 use Symfony\Component\PropertyAccess\PropertyAccess as OctaPropertyAccess;
 
-trait PropertyAccess{
+trait PropertyAccess {
 
     /**
      * integrating property access of symfony.
      * @return OctaPropertyAccess::createPropertyAccessor class
      * @author Bernhard Schussek <bschussek@gmail.com>
      */
-    public function propertyAccessor(){
+    public function propertyAccessor() {
         return OctaPropertyAccess::createPropertyAccessor();
     }
 
@@ -23,7 +23,7 @@ trait PropertyAccess{
      * @return OctaPropertyAccess::createPropertyAccessorBuilder class
      * @author Bernhard Schussek <bschussek@gmail.com>
      */
-    public function propertyAccessorBuilder(){
+    public function propertyAccessorBuilder() {
         return OctaPropertyAccess::createPropertyAccessorBuilder();
     }
 }
