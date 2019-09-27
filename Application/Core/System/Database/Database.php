@@ -1,6 +1,7 @@
 <?php
 namespace System\Database;
 use \PDO;
+use phpDocumentor\Reflection\DocBlock\Tags\Throws;
 use RedBeanPHP\Facade as R;
 
 class Database {
@@ -23,7 +24,7 @@ class Database {
         $this->host = $this->config->Database->hostname;
         $this->username = $this->config->Database->username;
         $this->password = $this->config->Database->password;
-        $this->database = $this->config->Database->database_name;
+        $this->database = $this->config->Database->database;
         $this->port = $this->config->Database->port;
         $this->sqlite_database = $this->config->Database->sqlite_database_directory;
     }
@@ -77,38 +78,40 @@ class Database {
     }
 
     public function connect() {
-        if ($this->driver == "MariaDB" || $this->driver == "MySQL"){
-            if (!$this->bean->testConnection()) {
-                $this->createDatabase();
-                $this->bean->setup('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
+        if ($this->database !== "" || $this->database !== null) {
+            if ($this->driver == "MariaDB" || $this->driver == "MySQL"){
+                if (!$this->bean->testConnection()) {
+                    $this->createDatabase();
+                    $this->bean->setup('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
+                }
             }
-        }
 
-        if ($this->driver == "PDO") {
-            if (!$this->bean->testConnection()) {
-                $this->createDatabase();
-                $db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
-                $this->bean->setup($db);
+            if ($this->driver == "PDO") {
+                if (!$this->bean->testConnection()) {
+                    $this->createDatabase();
+                    $db = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
+                    $this->bean->setup($db);
+                }
             }
-        }
 
-        if ($this->driver == "PostgreSQL") {
-            if (!$this->bean->testConnection()) {
-                $this->createDatabase();
-                $this->bean->setup('pgsql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
+            if ($this->driver == "PostgreSQL") {
+                if (!$this->bean->testConnection()) {
+                    $this->createDatabase();
+                    $this->bean->setup('pgsql:host=' . $this->host . ';dbname=' . $this->database, $this->username, $this->password);
+                }
             }
-        }
 
-        if ($this->driver == "CUBRID") {
-            if (!$this->bean->testConnection()) {
-                $this->createDatabase();
-                $this->bean->setup('cubrid:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->database, $this->username, $this->password);
+            if ($this->driver == "CUBRID") {
+                if (!$this->bean->testConnection()) {
+                    $this->createDatabase();
+                    $this->bean->setup('cubrid:host=' . $this->host . ';port=' . $this->port . ';dbname=' . $this->database, $this->username, $this->password);
+                }
             }
-        }
 
-        if ($this->driver == "SQLite") {
-            if (!$this->bean->testConnection()) {
-                $this->bean->setup('sqlite:' . $this->sqlite_database);
+            if ($this->driver == "SQLite") {
+                if (!$this->bean->testConnection()) {
+                    $this->bean->setup('sqlite:' . $this->sqlite_database);
+                }
             }
         }
     }

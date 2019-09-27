@@ -5,7 +5,7 @@ $config['Database'] = array(
     'hostname' => 'localhost',
     'username' => 'root',
     'password' => '',
-    'database_name' => 'your_database_name',
+    'database' => 'your_database_name',
 
     /***
      * Note: It is highly recommended to choose your preffered database driver
