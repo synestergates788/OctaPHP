@@ -68,6 +68,11 @@ define('Routes', $routes);
 define('RoutesDir', $RoutesDir);
 
 /**
+ * define global var baseUrl.
+ */
+define('baseUrl', $config['BaseUrl']);
+
+/**
  * define global var error_404.
  */
 $config['Error404'] = ($config['Error404']) ? $config['Error404'] : ROOT.DS.'Application'.DS.'Views'.DS.'ErrorPage'.DS.'Error404.php';
