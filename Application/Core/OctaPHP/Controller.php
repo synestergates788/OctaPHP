@@ -24,8 +24,12 @@ use OctaPHP\Traits\Google\Captcha\Captcha;
 use OctaPHP\Traits\Google\Api\Api;
 use OctaPHP\Traits\Libraries\Libraries;
 use OctaPHP\Traits\Helpers\Helpers;
+use System\Uri\Uri;
 
 class Controller {
+
+    protected $uri;
+
     use Authentication,
         CoreController,
         Crawler,
@@ -55,6 +59,7 @@ class Controller {
 
     public function __construct()
     {
+        $this->uri = new Uri();
         $this->__OctaControllerConstruct();
         $this->__OctaLibrariesConstruct($this->config->Autoload->Libraries);
         $this->__OctaHelpersConstruct($this->config->Autoload->Helpers);

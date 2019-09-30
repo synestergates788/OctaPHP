@@ -11,7 +11,7 @@ if(!function_exists(__NAMESPACE__ . '\baseUrl')) {
             }
         }
 
-        return $base_url._uriString($uri);
+        return $base_url.DS._uriString($uri);
     }
 }
 
@@ -19,5 +19,25 @@ if(!function_exists(__NAMESPACE__ . '\_uriString')) {
     function _uriString($uri){
         is_array($uri) && $uri = implode('/', $uri);
         return ltrim($uri, '/');
+    }
+}
+
+if ( ! function_exists('redirect'))
+{
+    function redirect($uri = '', $method = 'location', $http_response_code = 302)
+    {
+        if ( ! preg_match('#^https?://#i', $uri))
+        {
+            $uri = baseUrl($uri);
+        }
+
+        switch($method)
+        {
+            case 'refresh'	: header("Refresh:0;url=".$uri);
+                break;
+            default			: header("Location: ".$uri, TRUE, $http_response_code);
+                break;
+        }
+        exit;
     }
 }

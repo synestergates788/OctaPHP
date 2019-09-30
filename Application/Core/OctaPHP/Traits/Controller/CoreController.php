@@ -166,6 +166,14 @@ trait CoreController {
             $view->addFunction(new TwigFunction($this->config->Assets->DirectoryName, function ($asset) {
                 return sprintf($this->config->Assets->DirectoryUrl . DS . '%s', ltrim($asset, '/'));
             }));
+
+            $view->addFunction(new TwigFunction('baseUrl', function ($url) {
+                return baseUrl($url);
+            }));
+
+            $view->addFunction(new TwigFunction('uriSegment', function ($segment) {
+                return $this->uri->segment($segment);
+            }));
         }
     }
 
