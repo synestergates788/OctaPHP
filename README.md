@@ -1,8 +1,9 @@
 # OctaPHP
-A lightweight PHP framework designed for complex web algorithm, highly customizable and inspired by codeigniter framework. OctaPHP uses Twig template engine of [symfony-framework](https://twig.symfony.com/) and 
+A lightning fast PHP micro framework designed to rapidly build platforms. Built on top of giant PHP framework component which makes it more extensible, customizable and concise. 
+OctaPHP uses Twig template engine of [symfony-framework](https://twig.symfony.com/) and 
 an active record with Object-Relational-Mapping (ORM) ready of [RedBeanPHP](https://redbeanphp.com/index.php).
 
-> Development is underway, with Phase 5 completed in September-13-2019. It is *not* ready for production use - the current version is considered pre-beta-2.
+> OctaPHP v1.3.8 Development is underway. It is not ready for production use - the current version is considered pre-alpha.
 
 [![Build Status](https://travis-ci.org/synestergates788/OctaPHP.svg?branch=master)](https://travis-ci.org/synestergates788/OctaPHP)
 [![Latest Stable Version](https://poser.pugx.org/octa-php/octa-php/v/stable)](https://packagist.org/packages/octa-php/octa-php)

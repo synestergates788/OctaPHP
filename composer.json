@@ -1,6 +1,6 @@
 {
   "name": "octa-php/octa-php",
-  "description": "a lightweight php framework designed for complex web algorith, hingly customizable andand inspired by condeigniter 3 framework",
+  "description": "A lightning fast PHP micro framework designed to rapidly build platforms. Built on top of giant PHP framework component which makes it more extensible, customizable and concise.",
   "type": "project",
   "license": "MIT",
   "authors": [
