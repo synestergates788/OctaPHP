@@ -11,7 +11,7 @@ if(!function_exists(__NAMESPACE__ . '\baseUrl')) {
             }
         }
 
-        return $base_url.DS._uriString($uri);
+        return ($uri == "" && $uri == null) ? $base_url : $base_url.'/'._uriString($uri);
     }
 }
 

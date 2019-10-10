@@ -8,38 +8,27 @@ class Input {
     }
 
     public function post($Data) {
-
         if (is_array($Data)) {
-
-            foreach ($Data as $key => $row) {
-                if (isset($_POST[$row])) {
-                    return $_POST[$row];
+            if ($Data) {
+                foreach ($Data as $key => $row) {
+                    return (isset($_POST[$row])) ? $_POST[$row] : '';
                 }
             }
-
         } else {
-            if (isset($_POST[$Data])) {
-                return $_POST[$Data];
-            } else {
-                return false;
-            }
+            return (isset($_POST[$Data])) ? $_POST[$Data] : null;
         }
     }
 
     public function get($Data) {
 
         if (is_array($Data)) {
-
-            foreach ($Data as $key => $row) {
-                if (isset($_GET[$row])) {
-                    return $_GET[$row];
+            if ($Data) {
+                foreach ($Data as $key => $row) {
+                    return (isset($_GET[$row])) ? $_GET[$row] : null;
                 }
             }
-
         } else {
-            if (isset($_GET[$Data])) {
-                return $_GET[$Data];
-            }
+            return (isset($_GET[$Data])) ? $_GET[$Data] : null;
         }
     }
 }

@@ -2,6 +2,7 @@
 namespace System\Database;
 use \PDO;
 use phpDocumentor\Reflection\DocBlock\Tags\Throws;
+use PHPUnit\Framework\Exception;
 use RedBeanPHP\Facade as R;
 
 class Database {
@@ -38,7 +39,8 @@ class Database {
     }
 
     protected function createDatabase() {
-        if ($this->database !== "" || $this->database !== null) {
+
+        if ($this->database !== "" && $this->database !== null) {
             if ($this->driver == "MariaDB" || $this->driver == "MySQL") {
 
                 $link = mysqli_connect($this->host, $this->username, $this->password);
@@ -74,11 +76,14 @@ class Database {
                 $pdo->exec("CREATE DATABASE IF NOT EXISTS {$this->database};");
                 $pdo = null;
             }
+
+        } else {
+            throw new Exception("Database is Null: Please setup your Database.php config file under 'Application/Config/' directory");
         }
     }
 
     public function connect() {
-        if ($this->database !== "" || $this->database !== null) {
+        if ($this->database !== "" && $this->database !== null) {
             if ($this->driver == "MariaDB" || $this->driver == "MySQL"){
                 if (!$this->bean->testConnection()) {
                     $this->createDatabase();
@@ -113,6 +118,9 @@ class Database {
                     $this->bean->setup('sqlite:' . $this->sqlite_database);
                 }
             }
+
+        } else {
+            throw new Exception("Database is Null: Please setup your Database.php config file under 'Application/Config/' directory");
         }
     }
 }

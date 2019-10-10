@@ -167,7 +167,7 @@ trait CoreController {
                 return sprintf($this->config->Assets->DirectoryUrl . DS . '%s', ltrim($asset, '/'));
             }));
 
-            $view->addFunction(new TwigFunction('baseUrl', function ($url) {
+            $view->addFunction(new TwigFunction('baseUrl', function ($url=null) {
                 return baseUrl($url);
             }));
 
